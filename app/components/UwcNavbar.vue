@@ -136,7 +136,7 @@ const productsActive = computed(() =>
         </div>
 
         <UButton
-          to="https://github.com"
+          to="https://github.com/Baconana-chan/UWC"
           target="_blank"
           icon="i-lucide-github"
           variant="ghost"
