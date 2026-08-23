@@ -7,7 +7,7 @@
 
 uwc.rsh.pw {
 	# Node-сервер UWC (PM2 / systemd), слушает localhost
-	reverse_proxy localhost:3000
+	reverse_proxy localhost:4000
 
 	# Сжатие ответов (Caddy использует zstd + gzip автоматически)
 	encode zstd gzip

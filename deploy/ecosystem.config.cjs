@@ -16,7 +16,7 @@ module.exports = {
 
       env: {
         NODE_ENV: 'production',
-        PORT: 3000,
+        PORT: 4000,
         NUXT_PUBLIC_SITE_URL: 'https://uwc.rsh.pw',
         // лимиты серверной конвертации (см. nuxt.config.ts runtimeConfig)
         NUXT_MAX_INPUT_MB: 50,
