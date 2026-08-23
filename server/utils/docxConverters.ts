@@ -74,7 +74,7 @@ export async function htmlToDocx(input: string): Promise<Uint8Array> {
 
   let i = 0
   while (i < blocks.length) {
-    let html = blocks[i]!
+    const html = blocks[i]!
     const tag = blocks[i + 1] as string | undefined // закрывающий тег (имя)
 
     i += 2
@@ -88,7 +88,6 @@ export async function htmlToDocx(input: string): Promise<Uint8Array> {
     const text = html.replace(/<[^>]*>/g, '').trim()
     if (!text) continue
 
-    const level = tag && tag.match(/^h([1-6])$/) ? Number(tag[1]) : 'li'
     const heading = tag && tag.match(/^h([1-6])$/)
 
     if (heading) {

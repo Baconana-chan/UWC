@@ -80,13 +80,13 @@ export async function jsonToXlsx(input: string): Promise<Uint8Array> {
 
   if (Array.isArray(parsed)) {
     const ws = wb.addWorksheet('Sheet1')
-    parsed.forEach((row) => ws.addRow(row as any[]))
+    parsed.forEach((row) => ws.addRow(row as ExcelJS.CellValue[]))
   } else if (typeof parsed === 'object' && parsed !== null) {
     const obj = parsed as Record<string, unknown>
     for (const [sheetName, data] of Object.entries(obj)) {
       const ws = wb.addWorksheet(sheetName)
       if (Array.isArray(data)) {
-        data.forEach((row) => ws.addRow(row as any[]))
+        data.forEach((row) => ws.addRow(row as ExcelJS.CellValue[]))
       }
     }
   } else {
@@ -101,8 +101,13 @@ export async function jsonToXlsx(input: string): Promise<Uint8Array> {
 function formatCellValue(v: ExcelJS.CellValue): string {
   if (typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean') return String(v)
   if (v instanceof Date) return v.toISOString()
-  if (v && typeof v === 'object' && 'richText' in v) return (v as any).richText.map((t: any) => t.text).join('')
-  if (v && typeof v === 'object' && 'hyperlink' in v) return (v as any).hyperlink || ''
+  if (v && typeof v === 'object' && 'richText' in v) {
+    const rich = (v as { richText: { text: string }[] }).richText
+    return rich.map(t => t.text).join('')
+  }
+  if (v && typeof v === 'object' && 'hyperlink' in v) {
+    return String((v as { hyperlink: unknown }).hyperlink ?? '')
+  }
   return String(v ?? '')
 }
 

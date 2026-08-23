@@ -23,7 +23,7 @@ const stats = computed(() => [
       </div>
 
       <h1 class="mt-8 font-display text-4xl font-bold leading-[1.15] tracking-tight sm:text-6xl lg:text-7xl">
-        {{ t('hero.title1') }} <span class="text-gradient">{{ t('hero.title2') }}</span><br class="hidden sm:block" />
+        {{ t('hero.title1') }} <span class="text-gradient">{{ t('hero.title2') }}</span><br class="hidden sm:block" >
         {{ t('hero.title3') }}
       </h1>
 

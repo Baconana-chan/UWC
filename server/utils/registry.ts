@@ -11,8 +11,7 @@
 
 import { makeIrPair, type IrFormat } from '../../shared/registry/ir'
 import { IR_FORMATS } from '../../shared/registry/irFormats'
-import { IMAGE_SERVER_SOURCES, IMAGE_SERVER_TARGETS } from '../../shared/registry/formats'
-import { geojsonToCsv } from '../../shared/registry/formats'
+import { IMAGE_SERVER_SOURCES, IMAGE_SERVER_TARGETS, geojsonToCsv  } from '../../shared/registry/formats'
 import { convertImage } from './imageConverters'
 import { docxToHtml, docxToTxt, htmlToDocx, txtToDocx, DOCX_MIME } from './docxConverters'
 import { pdfToText, textToPdf, PDF_MIME } from './pdfConverters'

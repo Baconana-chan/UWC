@@ -17,7 +17,8 @@
 export const SQL_MIME = 'text/plain'
 
 /** Типы SQLite: text, integer, real, blob, numeric. */
-const SQLITE_TYPES = new Set(['TEXT', 'INTEGER', 'REAL', 'BLOB', 'NUMERIC', 'VARCHAR', 'CHAR', 'BOOLEAN'])
+// Зарезервировано: проверка типов колонок при более строгом парсинге типов
+const _SQLITE_TYPES = new Set(['TEXT', 'INTEGER', 'REAL', 'BLOB', 'NUMERIC', 'VARCHAR', 'CHAR', 'BOOLEAN'])
 
 /**
  * SQL dump (string) → JSON (string).
@@ -31,7 +32,7 @@ export function sqlToJson(input: string): string {
 
   // --- CREATE TABLE: захватываем имя таблицы и имена колонок ---
   // CREATE TABLE [имя] (col1 TYPE, col2 TYPE, ...)
-  const createRe = /CREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?(?:`?["\[]?)?(\w+)(?:`?["\]]?)?\s*\(([\s\S]*?)\)\s*(?:;|\\n|$)/gi
+  const createRe = /CREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?(?:`?["[]?)?(\w+)(?:`?["\]]?)?\s*\(([\s\S]*?)\)\s*(?:;|\\n|$)/gi
   let m: RegExpExecArray | null
   while ((m = createRe.exec(input)) !== null) {
     const tableName = m[1]!
@@ -44,7 +45,7 @@ export function sqlToJson(input: string): string {
   // --- INSERT INTO: VALUES (...) ---
   // INSERT INTO table (col1, col2) VALUES (val1, val2), (val3, val4);
   // INSERT INTO table VALUES (val1, val2), (val3, val4);
-  const insertRe = /INSERT\s+INTO\s+(?:`?["\[]?)?(\w+)(?:`?["\]]?)?\s*(?:\(([^)]*)\))?\s*VALUES\s*([\s\S]*?);?(?=\nINSERT|\nCREATE|\nUPDATE|\nDELETE|$)/gi
+  const insertRe = /INSERT\s+INTO\s+(?:`?["[]?)?(\w+)(?:`?["\]]?)?\s*(?:\(([^)]*)\))?\s*VALUES\s*([\s\S]*?);?(?=\nINSERT|\nCREATE|\nUPDATE|\nDELETE|$)/gi
   while ((m = insertRe.exec(input)) !== null) {
     const tableName = m[1]!
     const colsStr = m[2] // может быть undefined → используем схему
@@ -130,14 +131,14 @@ function parseColumns(colsStr: string): string[] {
     if (ch === '(') depth++
     else if (ch === ')') depth--
     if (ch === ',' && depth === 0) {
-      const name = cur.trim().split(/\s+/)[0]?.replace(/[`"\[\]\r\n]/g, '').trim()
+      const name = cur.trim().split(/\s+/)[0]?.replace(/[`"\\]\r\n]/g, '').trim()
       if (name && !name.toUpperCase().startsWith('PRIMARY') && !name.toUpperCase().startsWith('FOREIGN') && !name.toUpperCase().startsWith('UNIQUE') && !name.toUpperCase().startsWith('CHECK')) {
         result.push(name)
       }
       cur = ''
     } else cur += ch
   }
-  const name = cur.trim().split(/\s+/)[0]?.replace(/[`"\[\]\r\n]/g, '').trim()
+  const name = cur.trim().split(/\s+/)[0]?.replace(/[`"\\]\r\n]/g, '').trim()
   if (name && !name.toUpperCase().startsWith('PRIMARY') && !name.toUpperCase().startsWith('FOREIGN') && !name.toUpperCase().startsWith('UNIQUE') && !name.toUpperCase().startsWith('CHECK')) {
     result.push(name)
   }
@@ -146,7 +147,7 @@ function parseColumns(colsStr: string): string[] {
 
 /** Парсим список колонок в INSERT INTO (col1, col2, col3). */
 function parseColumnList(colsStr: string): string[] {
-  return colsStr.split(',').map((c) => c.trim().replace(/[`"\[\]\r\n]/g, '').trim()).filter(Boolean)
+  return colsStr.split(',').map((c) => c.trim().replace(/[`"\\]\r\n]/g, '').trim()).filter(Boolean)
 }
 
 /** Парсим значения внутри (...) → массив typed значений. */

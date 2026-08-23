@@ -60,8 +60,9 @@ export const AUDIO_FORMAT_MIME: Record<string, string> = {
 
 /**
  * Кодеки @audio/encode, которые требуют WebCodecs/нативной поддержки.
+ * Зарезервировано для capability-проб (см. TODO.md, graceful degradation).
  */
-const WEBCODECS_FORMATS = new Set(['aac'])
+const _WEBCODECS_FORMATS = new Set(['aac'])
 
 /**
  * Проверка: поддерживает ли браузер выходной формат.

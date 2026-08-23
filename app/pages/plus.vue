@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { t, locale } = useI18n()
+const { t } = useI18n()
 
 useSiteSeo({
   title: computed(() => t('plus.meta.title')),
