@@ -1,0 +1,18 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a3e635"/>
+      <stop offset="50%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#g)"/>
+  <!-- wand-sparkles, упрощённо для мелкого размера -->
+  <g transform="translate(32 32)">
+    <!-- главная звезда -->
+    <path d="M0,-11 L2.4,-3.4 L10,-1 L2.4,1.4 L0,9 L-2.4,1.4 L-10,-1 L-2.4,-3.4 Z" fill="#18181b"/>
+    <!-- маленькая -->
+    <path d="M8.5,-8.5 L9.5,-5.5 L12.5,-4.5 L9.5,-3.5 L8.5,-0.5 L7.5,-3.5 L4.5,-4.5 L7.5,-5.5 Z" fill="#18181b" opacity="0.85"/>
+    <path d="M-8.5,4 L-7.7,6 L-5.7,6.8 L-7.7,7.6 L-8.5,9.6 L-9.3,7.6 L-11.3,6.8 L-9.3,6 Z" fill="#18181b" opacity="0.85"/>
+  </g>
+</svg>

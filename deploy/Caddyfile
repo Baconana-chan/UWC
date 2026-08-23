@@ -1,0 +1,31 @@
+# UWC — Caddy reverse proxy
+#
+# Установка Caddy: https://caddyserver.com/docs/install
+# Этот файл: /etc/caddy/Caddyfile (или свой путь + caddy start --config)
+#
+# Caddy сам получает и продлевает TLS-сертификат для uwc.rsh.pw.
+
+uwc.rsh.pw {
+	# Node-сервер UWC (PM2 / systemd), слушает localhost
+	reverse_proxy localhost:3000
+
+	# Сжатие ответов (Caddy использует zstd + gzip автоматически)
+	encode zstd gzip
+
+	# Статика кэшируется браузером — хэш в имени файла делает immutable безопасным
+	header /_nuxt/* Cache-Control "public, max-age=31536000, immutable"
+
+	header {
+		# HSTS — только после проверки, что HTTPS стабильно работает
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
+	}
+
+	# Лимит тела запроса (файлы на конвертацию). Должен быть >= NUXT_MAX_INPUT_MB
+	request_body {
+		max_size 60MB
+	}
+}

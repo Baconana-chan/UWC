@@ -1,0 +1,546 @@
+{
+  "meta": {
+    "title": "UWC — конвертируй что угодно, во что угодно",
+    "description": "Бесплатный браузерный конвертер с 70+ преобразованиями: текст, форматы данных, картинки, аудио, QR-коды и архивы. Ничего не загружается на сервер — всё работает локально.",
+    "titleConverter": "UWC — студия конвертации",
+    "descriptionConverter": "Конвертируй текст, изображения и аудио прямо в браузере — сервер не участвует."
+  },
+
+  "converterPage": {
+    "badge": "конвертер",
+    "title1": "Студия",
+    "title2": "конвертации",
+    "subtitle": "Текст, изображения и аудио — всё считается в твоём браузере. Без загрузок на сервер, очередей и ожидания."
+  },
+
+  "nav": {
+    "converter": "Конвертер",
+    "formats": "Форматы",
+    "why": "Почему UWC",
+    "github": "GitHub",
+    "plus": "UWC+",
+    "products": {
+      "label": "Продукты",
+      "soon": "Скоро",
+      "converter": "Конвертер",
+      "converterDesc": "70+ мгновенных конвертеров — текст, данные, картинки, аудио, QR",
+      "wiki": "Вики форматов",
+      "wikiDesc": "Откуда форматы взялись и как устроены внутри",
+      "studio": "Студия",
+      "studioDesc": "Пакетная обработка, пресеты, история — полный набор"
+    },
+    "lightMode": "Включить светлую тему",
+    "darkMode": "Включить тёмную тему"
+  },
+
+  "hero": {
+    "title1": "Конвертируй",
+    "title2": "что угодно",
+    "title3": "во что угодно",
+    "subtitle": "Тексты, картинки, данные, генератор секретов и совсем бесполезные вещи. Лёгкий конвертер на Nuxt 4: текстовые преобразования считаются прямо в браузере, тяжёлые форматы — на Nitro. Без отдельного бэкенда и без лишнего RAM.",
+    "ctaConvert": "Начать конвертацию",
+    "ctaFormats": "Смотреть форматы",
+    "statFormats": "форматов",
+    "statZeroBytes": "0 байт",
+    "statServerless": "на сервере для текста",
+    "statTwoLevels": "2 уровня",
+    "statLevels": "браузер + Nitro"
+  },
+
+  "studio": {
+    "title": "Студия конвертации",
+    "subtitle": "Попробуй прямо сейчас — всё считается в твоём браузере",
+    "clientSide": "клиентский (без сети)",
+    "privacyNotice": "Мы не кэшируем ваши файлы, но если это личные данные и вы скептически относитесь к нашим словам, лучше воспользуйтесь локальными конвертерами или поднимите UWC сами: https://github.com/Baconana-chan/UWC",
+    "tabText": "Текст",
+    "tabImage": "Изображения",
+    "tabAudio": "Аудио",
+    "tabArchive": "Архивы",
+    "tabGenerator": "Генератор",
+    "tabQr": "QR",
+    "selectPlaceholder": "Выбери преобразование…",
+    "swap": "Обратное преобразование",
+    "inputLabel": "Вход",
+    "inputPlaceholder": "Вставь сюда текст…",
+    "outputLabel": "Результат",
+    "outputPlaceholder": "Результат появится здесь…",
+    "copy": "Копировать",
+    "copied": "Скопировано",
+    "downloadTxt": "Скачать .txt",
+    "clear": "Очистить",
+    "convert": "Конвертировать",
+    "kbdHint": "быстрая конвертация",
+    "qr": {
+      "generateTitle": "Текст → QR",
+      "decodeTitle": "QR → Текст",
+      "textLabel": "Текст для QR-кода",
+      "textPlaceholder": "Введи что угодно: ссылку, заметку…",
+      "noText": "Сначала введи текст",
+      "generate": "Сгенерировать",
+      "decode": "Декодировать",
+      "noFile": "Сначала добавь картинку с QR",
+      "decodeFailed": "QR-код в картинке не найден",
+      "downloadPng": "Скачать .png",
+      "resultLabel": "Декодированный текст",
+      "resultPlaceholder": "Декодированный текст появится здесь…",
+      "footer": "Всё происходит в браузере — ничего не загружается на сервер."
+    },
+    "errors": {
+      "noConv": "Сначала выбери преобразование",
+      "noInput": "Вставь текст для конвертации",
+      "convFailed": "Не получилось сконвертировать",
+      "noFile": "Сначала добавь изображение",
+      "noAudio": "Сначала добавь аудиофайл",
+      "sameFormat": "Исходный и целевой форматы совпадают — выбери другой",
+      "unsupportedImage": "Этот формат изображения пока не поддерживается в браузере (AVIF / HEIC / TIFF запланированы на сервере через sharp).",
+      "unsupportedAudio": "Этот аудиоформат пока не поддерживается — попробуй MP3 или WAV."
+    },
+    "file": {
+      "from": "Из",
+      "to": "В",
+      "done": "Готово",
+      "convertedInBrowser": "сконвертировано в браузере",
+      "convertedOnServer": "сконвертировано на сервере",
+      "download": "Скачать",
+      "remove": "Убрать файл",
+      "unknownFormat": "неизвестный формат",
+      "footer": "PNG, JPEG, WebP, GIF, SVG и BMP конвертируются прямо в браузере через canvas. AVIF, HEIC, TIFF и ICO обрабатывает сервер (Nitro + sharp + WASM) — ничего не сохраняется.",
+      "drop": "Перетащи картинку",
+      "dropActive": "Отпускай!",
+      "dropOr": " или нажми, чтобы выбрать",
+      "formatsHint": "PNG · JPEG · WebP · GIF · SVG · BMP · AVIF · HEIC · TIFF · ICO"
+    },
+    "audio": {
+      "drop": "Перетащи аудиофайл",
+      "formatsHint": "MP3 · WAV · OGG · FLAC · AIFF · CAF · Opus · WebM · M4A · QOA",
+      "bitrate": "Битрейт (kbps)",
+      "footer": "Аудио конвертируется в браузере через PCM-хаб: вход декодируется Web Audio (MP3/WAV/OGG/FLAC/AIFF/M4A...), выход кодируется библиотекой audio/encode. Никакого ffmpeg, никакого сервера — всё работает офлайн."
+    },
+    "archive": {
+      "drop": "Перетащите ZIP-архив",
+      "formatsHint": "поддерживает .zip · .tar · .tar.gz / .tgz · .gz · .br",
+      "footer": "Архивы распаковываются в браузере: ZIP и GZIP — через fflate, TAR — собственным парсером, Brotli — нативным DecompressionStream (Chrome 80+, Safari 16.4+). Ничего не загружается на сервер. Нажмите ↓ на любом файле, чтобы скачать его по отдельности.",
+      "entries": "нет файлов | один файл | {count} файла | {count} файлов",
+      "colFile": "Файл",
+      "colSize": "Размер",
+      "download": "Скачать {name}",
+      "emptyHint": "Перетащите ZIP-файл, чтобы увидеть список файлов внутри."
+    }
+  },
+
+  "groups": {
+    "case": { "label": "Регистр" },
+    "encoding": { "label": "Кодировки" },
+    "json": { "label": "JSON" },
+    "string": { "label": "Строки" },
+    "fun": { "label": "Весёлое" },
+    "markup": { "label": "Разметка" },
+    "data": { "label": "Данные" }
+  },
+
+  "conv": {
+    "upper": { "from": "Текст", "to": "UPPERCASE", "description": "Все буквы — заглавные" },
+    "lower": { "from": "Текст", "to": "lowercase", "description": "Все буквы — строчные" },
+    "title": { "from": "Текст", "to": "Title Case", "description": "Каждое слово с заглавной" },
+    "camel": { "from": "Текст", "to": "camelCase", "description": "camelCase" },
+    "snake": { "from": "Текст", "to": "snake_case", "description": "snake_case" },
+    "kebab": { "from": "Текст", "to": "kebab-case", "description": "kebab-case" },
+    "base64-encode": { "from": "Текст", "to": "Base64", "description": "Закодировать в Base64" },
+    "base64-decode": { "from": "Base64", "to": "Текст", "description": "Декодировать из Base64" },
+    "hex-encode": { "from": "Текст", "to": "Hex", "description": "Закодировать в шестнадцатеричный вид" },
+    "hex-decode": { "from": "Hex", "to": "Текст", "description": "Декодировать из hex" },
+    "url-encode": { "from": "URL", "to": "закодированный URL", "description": "URL-encode (для query-параметров)" },
+    "url-decode": { "from": "закодированный URL", "to": "URL", "description": "URL-decode" },
+    "html-escape": { "from": "Текст", "to": "HTML-escape", "description": "Экранировать HTML-спецсимволы" },
+    "json-pretty": { "from": "JSON", "to": "JSON (pretty)", "description": "Отформатировать JSON с отступами" },
+    "json-minify": { "from": "JSON (pretty)", "to": "JSON (min)", "description": "Сжать JSON в одну строку" },
+    "json-sort": { "from": "JSON", "to": "JSON (sorted)", "description": "Отсортировать ключи по алфавиту" },
+    "json-to-jsonp": { "from": "JSON", "to": "JSONP", "description": "Обернуть JSON в колбэк-функцию" },
+    "jsonp-to-json": { "from": "JSONP", "to": "JSON", "description": "Достать JSON из JSONP-обёртки" },
+    "reverse": { "from": "Текст", "to": "Развёрнутый текст", "description": "Текст задом наперёд" },
+    "rot13": { "from": "Текст", "to": "ROT13", "description": "ROT13 — сдвиг букв на 13 (обратное преобразование — то же самое)" },
+    "collapse-space": { "from": "Текст", "to": "Текст без лишних пробелов", "description": "Схлопнуть повторяющиеся пробелы" },
+    "crlf-to-lf": { "from": "CRLF (Windows)", "to": "LF (Unix)", "description": "Переносы строк Windows → Unix" },
+    "lf-to-crlf": { "from": "LF (Unix)", "to": "CRLF (Windows)", "description": "Переносы строк Unix → Windows" },
+    "cr-to-lf": { "from": "CR (старый Mac)", "to": "LF (Unix)", "description": "Переносы старого Mac → Unix" },
+    "lf-to-cr": { "from": "LF (Unix)", "to": "CR (старый Mac)", "description": "Переносы Unix → старый Mac" },
+    "csv-to-tsv": { "from": "CSV", "to": "TSV", "description": "Поменять разделитель: запятая → таб (учитываются кавычки)" },
+    "tsv-to-csv": { "from": "TSV", "to": "CSV", "description": "Поменять разделитель: таб → запятая (учитываются кавычки)" },
+    "text-stats": { "from": "Текст", "to": "Статистика", "description": "Символы, слова и строки" },
+    "translit": { "from": "Кириллица", "to": "Транслит", "description": "Русский текст латиницей" },
+    "layout-to-ru": { "from": "QWERTY", "to": "ЙЦУКЕН", "description": "Починить текст, набранный не той раскладкой: ntrcn → текст" },
+    "layout-to-en": { "from": "ЙЦУКЕН", "to": "QWERTY", "description": "Русская раскладка обратно в QWERTY: текст → ntrcn" },
+    "leet": { "from": "Текст", "to": "1337", "description": "Leet speak" },
+    "sha256": { "from": "Текст", "to": "SHA-256", "description": "Хеш SHA-256 (WebCrypto)" },
+    "sha1": { "from": "Текст", "to": "SHA-1", "description": "Хеш SHA-1 (WebCrypto, легаси)" },
+    "md5": { "from": "Текст", "to": "MD5", "description": "Хеш MD5 (чистый JS, для легаси-проверок)" },
+    "emoji-to-codes": { "from": "Смайлики", "to": "Коды", "description": "😀 → U+1F600 (кодовые точки)" },
+    "codes-to-emoji": { "from": "Коды", "to": "Смайлики", "description": "U+1F600 → 😀 (из кодовых точек)" },
+    "md-to-html": { "from": "Markdown", "to": "HTML", "description": "Отрендерить Markdown в HTML (Tiptap)" },
+    "html-to-md": { "from": "HTML", "to": "Markdown", "description": "Сконвертировать HTML обратно в Markdown" },
+    "ini-to-json": { "from": "INI", "to": "JSON", "description": "INI-конфиг в JSON" },
+    "json-to-ini": { "from": "JSON", "to": "INI", "description": "JSON в INI-конфиг" },
+    "csv-to-json": { "from": "CSV", "to": "JSON", "description": "CSV-таблица в JSON" },
+    "json-to-csv": { "from": "JSON", "to": "CSV", "description": "JSON в CSV-таблицу (у объектов — заголовки)" },
+    "ini-to-yaml": { "from": "INI", "to": "YAML", "description": "INI-конфиг в YAML" },
+    "ini-to-toml": { "from": "INI", "to": "TOML", "description": "INI-конфиг в TOML" },
+    "csv-to-yaml": { "from": "CSV", "to": "YAML", "description": "CSV-таблица в YAML" },
+    "csv-to-toml": { "from": "CSV", "to": "TOML", "description": "CSV-таблица в TOML" },
+    "json-to-yaml": { "from": "JSON", "to": "YAML", "description": "JSON в YAML" },
+    "json-to-toml": { "from": "JSON", "to": "TOML", "description": "JSON в TOML" },
+    "yaml-to-json": { "from": "YAML", "to": "JSON", "description": "YAML в JSON" },
+    "yaml-to-ini": { "from": "YAML", "to": "INI", "description": "YAML в INI-конфиг" },
+    "yaml-to-toml": { "from": "YAML", "to": "TOML", "description": "YAML в TOML" },
+    "yaml-to-csv": { "from": "YAML", "to": "CSV", "description": "YAML-список в CSV" },
+    "toml-to-json": { "from": "TOML", "to": "JSON", "description": "TOML в JSON" },
+    "toml-to-ini": { "from": "TOML", "to": "INI", "description": "TOML-конфиг в INI" },
+    "toml-to-yaml": { "from": "TOML", "to": "YAML", "description": "TOML в YAML" },
+    "toml-to-csv": { "from": "TOML", "to": "CSV", "description": "TOML-данные в CSV" },
+    "xml-to-json": { "from": "XML", "to": "JSON", "description": "XML в JSON" },
+    "json-to-xml": { "from": "JSON", "to": "XML", "description": "JSON в XML" },
+    "vcard-to-json": { "from": "vCard", "to": "JSON", "description": "vCard-контакт в JSON" },
+    "json-to-vcard": { "from": "JSON", "to": "vCard", "description": "JSON в vCard-контакт" },
+    "ical-to-json": { "from": "iCal", "to": "JSON", "description": "iCal-календарь в JSON" },
+    "json-to-ical": { "from": "JSON", "to": "iCal", "description": "JSON в iCal-календарь" },
+    "docx-to-html": { "from": "DOCX", "to": "HTML", "description": "Извлечь HTML из документа Word (mammoth)" },
+    "html-to-docx": { "from": "HTML", "to": "DOCX", "description": "Преобразовать HTML в документ Word" },
+    "docx-to-txt": { "from": "DOCX", "to": "TXT", "description": "Извлечь чистый текст из документа Word" },
+    "txt-to-docx": { "from": "TXT", "to": "DOCX", "description": "Преобразовать текст в документ Word" },
+    "pdf-to-txt": { "from": "PDF", "to": "TXT", "description": "Извлечь текст из PDF (pdfjs-dist)" },
+    "txt-to-pdf": { "from": "TXT", "to": "PDF", "description": "Создать PDF из текста (pdf-lib)" },
+    "xlsx-to-csv": { "from": "XLSX", "to": "CSV", "description": "Извлечь данные листа в CSV (exceljs)" },
+    "csv-to-xlsx": { "from": "CSV", "to": "XLSX", "description": "Создать таблицу из CSV (exceljs)" },
+    "xlsx-to-json": { "from": "XLSX", "to": "JSON", "description": "Извлечь данные листа в JSON (exceljs)" },
+    "json-to-xlsx": { "from": "JSON", "to": "XLSX", "description": "Создать таблицу из JSON (exceljs)" },
+    "sql-to-json": { "from": "SQL", "to": "JSON", "description": "Разобрать SQL dump (CREATE TABLE + INSERT) в JSON" },
+    "json-to-sql": { "from": "JSON", "to": "SQL", "description": "Сгенерировать SQL dump из данных" },
+    "kml-to-geojson": { "from": "KML", "to": "GeoJSON", "description": "KML в GeoJSON" },
+    "gpx-to-geojson": { "from": "GPX", "to": "GeoJSON", "description": "GPX в GeoJSON" },
+    "geojson-to-kml": { "from": "GeoJSON", "to": "KML", "description": "GeoJSON в KML" },
+    "geojson-to-gpx": { "from": "GeoJSON", "to": "GPX", "description": "GeoJSON в GPX" },
+    "geojson-to-csv": { "from": "GeoJSON", "to": "CSV", "description": "Экспорт точек и треков в CSV" },
+    "geojson-to-json": { "from": "GeoJSON", "to": "JSON", "description": "Отформатировать GeoJSON как JSON" },
+    "json-to-geojson": { "from": "JSON", "to": "GeoJSON", "description": "Валидация / импорт GeoJSON из JSON" }
+  },
+
+  "stats": {
+    "chars": "Символов",
+    "words": "Слов",
+    "lines": "Строк"
+  },
+
+  "errors": {
+    "badHex": "Некорректная hex-строка",
+    "badJsonp": "Некорректный JSONP — ожидается callback(data)",
+    "tooLarge": "Файл слишком большой",
+    "noInput": "Укажите from, to и текст или файл",
+    "unknownPair": "Нет такой конвертации",
+    "binaryFile": "Файл выглядит как бинарный формат — текстовая конвертация отклонена",
+    "timeout": "Конвертация не уложилась в лимит времени",
+    "convFailed": "Конвертация не удалась",
+    "badYaml": "Некорректный YAML",
+    "badToml": "Некорректный TOML",
+    "badXml": "Некорректный XML",
+    "badGeoJson": "Некорректный GeoJSON",
+    "badKml": "Некорректный KML",
+    "badGpx": "Некорректный GPX",
+    "badDocx": "Некорректный DOCX-файл",
+    "badPdf": "Некорректный PDF-файл",
+    "badXlsx": "Некорректный XLSX-файл",
+    "badSql": "Некорректный SQL-дамп",
+    "badZip": "Некорректный ZIP-архив",
+    "badTar": "Некорректный TAR-архив",
+    "badGzip": "Некорректный GZIP-файл",
+    "badBrotli": "Некорректный Brotli-файл",
+    "noBrotli": "Ваш браузер не поддерживает распаковку Brotli (Chrome 80+, Safari 16.4+, Firefox 147+)",
+    "badArchive": "Неподдерживаемый формат архива"
+  },
+
+  "cats": {
+    "text": {
+      "title": "Текст и разметка",
+      "description": "JSON, YAML, XML и прочие «скобочки» — и туда, и обратно."
+    },
+    "image": {
+      "title": "Изображения",
+      "description": "Всё в PNG, из PNG — во всё. Скоро добавим AVIF и HEIC через sharp."
+    },
+    "doc": {
+      "title": "Документы",
+      "description": "PDF, Office и EPUB. Серверная часть — pure-JS библиотеки на Nitro."
+    },
+    "audio": {
+      "title": "Аудио",
+      "description": "MP3, WAV, OGG, FLAC, AIFF, CAF, Opus, WebM, M4A, QOA — всё в браузере через Web Audio + библиотека audio/encode."
+    },
+    "data": {
+      "title": "Данные и архивы",
+      "description": "Base64, QR, календари, геоданные и ZIP. Многое — своими руками, без тяжёлых зависимостей."
+    },
+    "useless": {
+      "title": "«Бесполезное»",
+      "description": "Транслит, ROT13, leet, статистика текста. Бесполезно — и именно поэтому полезно."
+    }
+  },
+
+  "formatNames": {
+    "translit": "Транслит",
+    "stats": "Статистика",
+    "toml": "TOML",
+    "geojson": "GeoJSON",
+    "kml": "KML",
+    "gpx": "GPX",
+    "docx": "DOCX",
+    "html": "HTML",
+    "txt": "TXT",
+    "pdf": "PDF",
+    "xlsx": "XLSX",
+    "sql": "SQL"
+  },
+
+  "formatsSection": {
+    "badge": "форматы",
+    "title1": "Чем можно",
+    "title2": "конвертировать",
+    "subtitle": "Не только популярные форматы — UWC задуман как «конвертер всего во что угодно»: от транслита и ROT13 до GeoJSON и vCard."
+  },
+
+  "features": {
+    "badge": "почему UWC",
+    "title1": "Лёгкий,",
+    "title2": "как и задумано",
+    "subtitle": "Никаких тяжёлых рантаймов ради «Hello, World»: каждый конвертер работает на самом дешёвом уровне, где это возможно.",
+    "items": {
+      "serverless": {
+        "title": "0 байт на сервере",
+        "text": "Текстовые конвертеры — чистые функции: считаются в браузере, Nitro даже не просыпается."
+      },
+      "nitro": {
+        "title": "Nitro внутри",
+        "text": "Серверная часть живёт в том же процессе Nuxt: никакого отдельного бэкенда и лишнего HTTP-хопа."
+      },
+      "stream": {
+        "title": "Стриминг, не буферы",
+        "text": "Большие файлы текут потоком (ReadableStream), а не падают в память целиком. RAM остаётся в покое."
+      },
+      "privacy": {
+        "title": "Файлы не хранятся",
+        "text": "Принял → сконвертил → отдал → забыл. Никакого постоянного хранилища: приватно и дёшево."
+      }
+    }
+  },
+
+  "error404": {
+    "title": "404",
+    "subtitle": "Страница не найдена",
+    "text": "Страница, которую вы ищете, не существует или была перенесена.",
+    "cta": "На главную",
+    "badge": "Потерялись при конвертации"
+  },
+  "error500": {
+    "title": "500",
+    "subtitle": "Что-то пошло не так",
+    "text": "Произошла непредвиденная ошибка. Попробуйте снова или вернитесь на главную страницу.",
+    "cta": "На главную",
+    "badge": "Конвертация не удалась"
+  },
+  "error": {
+    "back": "Назад",
+    "retry": "Попробовать снова"
+  },
+
+  "footer": {
+    "tagline": "Конвертируй что угодно, во что угодно.",
+    "converter": "Конвертер",
+    "formats": "Форматы",
+    "why": "Почему UWC",
+    "plus": "UWC+"
+  },
+
+  "counter": {
+    "one": "символ",
+    "few": "символа",
+    "many": "символов",
+    "other": "символов"
+  },
+
+  "gen": {
+    "selectPlaceholder": "Что генерируем…",
+    "generate": "Сгенерировать",
+    "resultLabel": "Результат",
+    "resultPlaceholder": "Нажми «Сгенерировать»…",
+    "copy": "Копировать",
+    "copied": "Скопировано",
+    "downloadTxt": "Скачать .txt",
+    "again": "Ещё раз",
+    "securityNote": "WebCrypto (crypto.getRandomValues) — CSPRNG, сервер не участвует",
+    "entropy": "энтропия ≈ {bits} бит · {quality}",
+    "quality": {
+      "strong": "крепкая",
+      "normal": "норм",
+      "weak": "слабая"
+    },
+    "controls": {
+      "length": "Длина",
+      "bytes": "Байт",
+      "lengthNoPrefix": "Длина (без префикса)",
+      "words": "Слов",
+      "separator": "Разделитель",
+      "prefix": "Префикс",
+      "range": "Диапазон",
+      "namespace": "Namespace",
+      "name": "Имя"
+    },
+    "namespaces": {
+      "dns": "DNS",
+      "url": "URL",
+      "oid": "OID",
+      "x500": "X.500"
+    },
+    "sets": {
+      "lower": "a–z",
+      "upper": "A–Z",
+      "digits": "0–9",
+      "symbols": "!{'@'}#$%",
+      "noAmbiguous": "без похожих (0O1lI)"
+    },
+    "errors": {
+      "noSets": "Выбери хотя бы один набор символов",
+      "emptySets": "После исключения похожих символов наборы пусты",
+      "badRange": "Некорректный диапазон",
+      "nanRange": "Укажи границы диапазона",
+      "rangeTooBig": "Диапазон должен быть от 1 до 4 294 967 296 значений",
+      "noName": "Введи имя для name-based UUID"
+    },
+    "defs": {
+      "password": {
+        "label": "Пароль",
+        "description": "Надёжный пароль из выбранных наборов символов (CSPRNG)"
+      },
+      "passphrase": {
+        "label": "Парольная фраза",
+        "description": "Слова через разделитель — легко запомнить, сложно подобрать"
+      },
+      "hex": {
+        "label": "Hex-ключ",
+        "description": "Случайные байты в шестнадцатеричном виде"
+      },
+      "base64": {
+        "label": "Base64-ключ",
+        "description": "Случайные байты в Base64"
+      },
+      "apikey": {
+        "label": "API-ключ",
+        "description": "Ключ с префиксом: uwc_… / sk-… — формат как у GitHub/OpenAI"
+      },
+      "uuid-v1": {
+        "label": "UUID v1",
+        "description": "RFC 4122 v1 — по времени (таймстамп + clock sequence + node). Внимание: раскрывает время генерации"
+      },
+      "uuid-v3": {
+        "label": "UUID v3",
+        "description": "RFC 4122 v3 — на основе имени: MD5 от namespace + имя"
+      },
+      "uuid-v4": {
+        "label": "UUID v4",
+        "description": "RFC 4122 v4 (случайный)"
+      },
+      "uuid-v5": {
+        "label": "UUID v5",
+        "description": "RFC 4122 v5 — на основе имени: SHA-1 от namespace + имя"
+      },
+      "uuid-v6": {
+        "label": "UUID v6",
+        "description": "RFC 9562 v6 — упорядоченный по времени, как v1, но сортируемый"
+      },
+      "uuid-v7": {
+        "label": "UUID v7",
+        "description": "RFC 9562 v7 (time-ordered, сортируется по времени)"
+      },
+      "uuid-v8": {
+        "label": "UUID v8",
+        "description": "RFC 9562 v8 — кастомный вариант, случайные байты"
+      },
+      "ulid": {
+        "label": "ULID",
+        "description": "Сортируемый 26-символьный ID: 48-битный ms-таймстамп + 80 бит случайности (Crockford base32)"
+      },
+      "number": {
+        "label": "Случайное число",
+        "description": "Криптографически случайное целое из диапазона"
+      }
+    }
+  },
+
+  "plus": {
+    "badge": "Программа сообщества",
+    "title1": "Представляем",
+    "subtitle": "Программа экзотических форматов. UWC покрывает популярные 99% — UWC+ — это путь для оставшегося 1%: вы запрашиваете формат, мы его делаем. Бесплатно, как и всё здесь.",
+    "meta": {
+      "title": "UWC+ — запросить формат",
+      "description": "Не хватает формата? Запросите через GitHub Issues: опишите спеку, приложите пример — получите конвертер. Бесплатно, open-source, без регистрации."
+    },
+
+    "goals": {
+      "title": "Что такое UWC+",
+      "free": {
+        "title": "Бесплатно навсегда",
+        "text": "Никакого пейволла и «премиума». UWC+ — процесс, а не продукт: запрошенные форматы попадают в основной конвертер для всех."
+      },
+      "privacy": {
+        "title": "Приватность прежде всего",
+        "text": "Ваши примеры файлов используются только чтобы построить и протестировать конвертер. Ничего не хранится — та же политика, что и у всего сервиса."
+      },
+      "community": {
+        "title": "Строим по спросу",
+        "text": "Мы не гонимся за форматами, которые никому не нужны. Если вы просите — это реальный спрос, а ваш issue становится спецификацией."
+      }
+    },
+
+    "how": {
+      "title": "Как это работает",
+      "step1": "Вы открываете GitHub Issue с описанием формата и примером файла (шаблон ниже).",
+      "step2": "Мы проверяем спеку: документирован ли формат, есть ли лицензионно-совместимый парсер или можно написать руками.",
+      "step3": "Конвертер строится — на клиенте, если возможно; на сервере для тяжёлых форматов.",
+      "step4": "Issue закрывается с пометкой о релизе. Ваш формат теперь в UWC — для всех."
+    },
+
+    "requirements": {
+      "title": "Как выглядит хороший запрос",
+      "subtitle": "Четыре вещи превращают «добавьте X плз» в конвертер. Первая обязательна — без неё issue закрывается.",
+      "spec": {
+        "title": "Описание формата — обязательно",
+        "text": "Ссылка на спецификацию, RFC, документацию или собственное описание структуры: разделители, экранирование, типы. Без этого запрос невозможно оценить."
+      },
+      "example": {
+        "title": "Пример файла",
+        "text": "Небольшой реальный образец (или синтетический, если данные чувствительные). Он станет round-trip тестом."
+      },
+      "direction": {
+        "title": "Направление конвертации",
+        "text": "X → JSON? JSON → X? В обе стороны? В какой целевой формат — CSV, YAML, текст?"
+      },
+      "why": {
+        "title": "Сценарий использования",
+        "text": "Одно предложение о том, откуда этот формат. Помогает расставить приоритеты и выбрать уровень (браузер или сервер)."
+      },
+      "rejected": "Запросы вида «добавьте .toon в .json плз» закрываются как invalid — без описания формата нечего реализовывать. Ссылка на спеку или собственное описание — входной билет."
+    },
+
+    "examples": {
+      "title": "Примеры issue",
+      "good": "Будет принят",
+      "bad": "Будет закрыт",
+      "copy": "Скопировать пример",
+      "copied": "Скопировано",
+      "badWhy": "Ни спеки, ни примера, ни направления. Даже зная, что такое TOON, пришлось бы угадывать точный диалект, правила экранирования и краевые случаи — так рождаются сломанные конвертеры."
+    },
+
+    "cta": {
+      "title": "Готовы запросить?",
+      "text": "Откройте GitHub Issue по шаблону — скопируйте хороший пример выше и подставьте свой формат. Issue разбираются еженедельно.",
+      "button": "Открыть issue",
+      "note": "Нужен бесплатный аккаунт GitHub. Issues публичны — сначала проверьте существующие, чтобы не дублировать."
+    }
+  }
+}

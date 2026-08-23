@@ -1,0 +1,573 @@
+{
+  "wiki": {
+    "index": {
+      "title": "Format wiki",
+      "badge": "Wiki",
+      "title1": "Every format",
+      "title2": "has a story",
+      "subtitle": "Short, honest articles: where formats came from, how they work inside, and how to convert them — right in your browser.",
+      "description": "Short, honest articles about file and data formats: where they came from, how they work inside, and how to convert them with UWC — right in your browser."
+    },
+    "readMore": "Read the article",
+    "backToIndex": "All formats",
+    "sectionHistory": "Where it came from",
+    "sectionHow": "How it works",
+    "json": {
+      "title": "JSON",
+      "tagline": "The lingua franca of the web: data as plain text.",
+      "meta": {
+        "title": "What is JSON — history, structure, conversions",
+        "description": "JSON explained: origins at Netscape, why it beat XML, syntax rules, common pitfalls — and free browser-based JSON ↔ YAML/TOML/CSV/XML conversion."
+      },
+      "history": "JSON was formalized by Douglas Crockford around 2001, building on JavaScript object literal syntax from the mid-90s. The joke in the name is real: 'JavaScript Object Notation' was never meant to be a standard — Crockford famously said he 'discovered' it rather than invented it.\nThe spec (RFC 8259) fits on a few pages, which is exactly why it won. By 2005–2010 JSON displaced XML in web APIs almost everywhere: it was lighter to parse, easier to read, and every language could map its types natively.\nToday it's the default interchange format for APIs, config files (package.json, tsconfig.json), logs, and databases (PostgreSQL, MongoDB).",
+      "how": "A JSON document has exactly six value types: object («…»), array («[…]»), string, number, boolean, and null. Strings are double-quoted; numbers are decimal (no hex, no NaN); trailing commas are forbidden.\nEverything else you see in 'JSON-like' files — comments, single quotes, unquoted keys — is a dialect (JSON5, HJSON), not JSON itself. That strictness is a feature: a parser can be tiny and fast.\nWhitespace between tokens is insignificant, so pretty-printing and minifying are lossless operations — that's what our JSON pretty / minify / sort-keys converters do.",
+      "cta": {
+        "title": "Convert JSON right here",
+        "text": "UWC parses and serializes JSON entirely in your browser — your data never leaves the machine. Round-trips through YAML, TOML, CSV and XML preserve values and typing.",
+        "pairs": {
+          "json-yaml": "JSON → YAML",
+          "json-toml": "JSON → TOML",
+          "json-csv": "JSON → CSV",
+          "json-xml": "JSON → XML"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "yaml": {
+      "title": "YAML",
+      "tagline": "Config format that looks like prose.",
+      "meta": {
+        "title": "What is YAML — history, indentation, pitfalls",
+        "description": "YAML explained: from 'Yet Another Markup Language' to Kubernetes configs, indentation rules, the Norway problem — and free YAML ↔ JSON conversion in your browser."
+      },
+      "history": "YAML appeared in 2001, created by Clark Evans, Ingy döt Net and Oren Ben-Kiki. The original backronym was 'Yet Another Markup Language'; later the authors re-branded it 'YAML Ain't Markup Language' to emphasize it describes data, not documents.\nIts killer feature was human-friendliness: no braces, minimal quoting, indentation instead of punctuation. That made it the config language of DevOps era — Docker Compose, GitHub Actions, Kubernetes, Ansible all speak YAML.",
+      "how": "Structure comes from indentation: two spaces per level is convention (tabs are forbidden). Key-value pairs are `key: value`; lists use dashes; nested structures just indent further.\nScalars are auto-typed: `true`, `42`, `3.14` become bool/number — this is the source of the famous 'Norway problem', where country code `no` silently becomes boolean false. Quoting a value forces string interpretation.\nUWC implements the practical subset of YAML — mappings, sequences, scalars, quoted strings — which covers virtually all real-world configs.",
+      "cta": {
+        "title": "Convert YAML right here",
+        "text": "Paste YAML, get JSON or TOML instantly — parsing happens locally, nothing is uploaded.",
+        "pairs": {
+          "yaml-json": "YAML → JSON",
+          "yaml-toml": "YAML → TOML"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "toml": {
+      "title": "TOML",
+      "tagline": "Obvious config format for humans and parsers alike.",
+      "meta": {
+        "title": "What is TOML — history, tables, when to use it",
+        "description": "TOML explained: Tom Preston-Werner's answer to YAML, tables and arrays of tables, why Rust and Python adopted it — and free TOML ↔ JSON conversion."
+      },
+      "history": "TOML ('Tom's Obvious, Minimal Language') was created in 2013 by Tom Preston-Werner, co-founder of GitHub, out of frustration with YAML's edge cases and INI's flatness.\nIt found its home in package ecosystems: Cargo (Rust) made it mandatory, Python's pyproject.toml followed, and now it's the de-facto standard for project metadata.",
+      "how": "TOML reads like INI with a type system: `key = value` lines, `[table]` headers for nesting, `[[array-of-tables]]` for lists of records. Values are strictly typed — strings, integers, floats, booleans, dates, arrays, inline tables.\nUnlike YAML there's exactly one way to write each structure, so parsers agree with each other — no Norway problem, no surprise booleans.\nUWC parses the full core spec: tables, dotted keys, inline tables, arrays of tables, dates.",
+      "cta": {
+        "title": "Convert TOML right here",
+        "text": "Turn TOML into JSON for scripts, or into YAML for documentation — all client-side.",
+        "pairs": {
+          "toml-json": "TOML → JSON",
+          "toml-yaml": "TOML → YAML"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "csv": {
+      "title": "CSV",
+      "tagline": "Fifty years old and still everywhere: spreadsheets as text.",
+      "meta": {
+        "title": "What is CSV — history, dialects, escaping rules",
+        "description": "CSV explained: from IBM Fortran programs to Excel, delimiter and quoting dialects, why 'the CSV from hell' exists — and free CSV ↔ JSON/TSV conversion."
+      },
+      "history": "Comma-separated values predate the PC: IBM's Fortran routines used them in 1972, and by the early 80s the format was the de-facto way to move spreadsheet data. Ironically, CSV was only standardized in RFC 4180 (2005) — decades after everyone started using it their own way.\nThat late standardization is why 'CSV dialect hell' exists: semicolons in Europe, tabs in TSV, quoting rules that vary by tool.",
+      "how": "A CSV row is a line, fields are separated by a delimiter (comma, semicolon, tab). If a field contains the delimiter, quotes or newlines, it's wrapped in double quotes; embedded quotes are doubled (`\"\"`).\nThere's no type system — everything is text until you decide otherwise. UWC's parser handles quoted fields, escaped quotes and both LF/CRLF line endings, and its coerceScalar policy mirrors spreadsheet behavior: unquoted scalars become numbers or booleans, quoted stay strings.",
+      "cta": {
+        "title": "Convert CSV right here",
+        "text": "CSV to JSON for code, to TSV for terminals, back and forth — computed in your browser.",
+        "pairs": {
+          "csv-json": "CSV → JSON",
+          "csv-tsv": "CSV → TSV"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "xml": {
+      "title": "XML",
+      "tagline": "The verbose giant that still runs the world's paperwork.",
+      "meta": {
+        "title": "What is XML — history, structure, where it survives",
+        "description": "XML explained: SGML roots, SOAP era, namespaces and attributes, where XML is still required — and free XML ↔ JSON conversion in the browser."
+      },
+      "history": "XML was born in 1996–1998 at the W3C as a simplified subset of SGML, the document format behind HTML. The late 90s bet everything on it: SOAP web services, Office file formats, RSS feeds, Android layouts.\nJSON took the web-API crown in the 2010s, but XML never left: office documents (DOCX/XLSX are zipped XML), SVG, RSS/Atom, Maven, Android UI, and half of enterprise B2B still run on it.",
+      "how": "XML is a tree of tagged elements: 〈item attr=\"value\"〉content〈/item〉. Elements nest; attributes carry metadata; text lives between tags. Namespaces (xmlns) prevent collisions between vocabularies.\nThe eternal conversion question is what to do with attributes vs child elements — UWC maps attributes under a reserved key and keeps the round-trip lossless enough for real-world documents.",
+      "cta": {
+        "title": "Convert XML right here",
+        "text": "XML to JSON and back via fast-xml-parser — running fully in your browser.",
+        "pairs": {
+          "xml-json": "XML → JSON"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "base64": {
+      "title": "Base64",
+      "tagline": "Binary data wearing a text costume.",
+      "meta": {
+        "title": "What is Base64 — history, padding, URL-safe variants",
+        "description": "Base64 explained: email attachments origin, how 6-bit groups work, = padding, URL-safe alphabet — and instant Base64 encode/decode in your browser."
+      },
+      "history": "Base64 comes from PEM (1987) and early email: SMTP could only carry 7-bit ASCII, so binary attachments needed a text costume. MIME standardized it in 1992–1996, and the web reused it for Data URIs, JWT tokens and CSS-embedded images.",
+      "how": "Take 3 bytes (24 bits), split into four 6-bit groups, map each 0–63 value onto the alphabet A–Z a–z 0–9 + /. When the input isn't divisible by 3, `=` padding fills the tail — that's why Base64 strings often end with one or two equals signs.\nSize grows ~33% (4 characters per 3 bytes). The URL-safe variant swaps `+/` for `-_` so tokens survive in URLs without percent-encoding.\nDecoding is pure math — UWC does it instantly, UTF-8 safe, entirely offline.",
+      "cta": {
+        "title": "Encode & decode Base64",
+        "text": "Paste text or a Base64 blob — conversion runs locally, safe for secrets you'd rather not upload anywhere.",
+        "pairs": {
+          "base64-text": "Base64 → Text",
+          "text-base64": "Text → Base64"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "png": {
+      "title": "PNG",
+      "tagline": "Lossless pixels, born out of a licensing dispute.",
+      "meta": {
+        "title": "PNG format — history, compression, transparency",
+        "description": "PNG explained: the 1995 Usenet sprint against Unisys GIF patents, DEFLATE filtering, alpha transparency — and free PNG ↔ WebP/JPEG/AVIF conversion."
+      },
+      "history": "PNG was born in January 1995, after Unisys announced it would charge royalties for LZW compression used in GIF. Within weeks, developers on Usenet drafted a patent-free replacement; version 1.0 shipped in 1996 and became an ISO standard in 2003.\nThe name is an explicit recursive joke: 'PNG's Not GIF'.",
+      "how": "A PNG file is a sequence of chunks: IHDR (dimensions, bit depth), IDAT (compressed pixel data), IEND. Pixels pass through per-row filters (sub/up/average/paeth) that make neighbors predictable, then DEFLATE compresses the result — the same algorithm as ZIP.\nIt supports full 8-bit alpha transparency and lossless storage, which makes it ideal for screenshots, UI and graphics with sharp edges. For photos, JPEG/WebP/AVIF are far smaller.\nUWC converts PNG to modern formats via canvas in your browser, and heavy targets (AVIF, TIFF, ICO) through its server — either way, images aren't stored.",
+      "cta": {
+        "title": "Convert PNG images",
+        "text": "Open the studio, drop a PNG, pick a target format. Screenshots shrink dramatically when they become WebP or AVIF.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "jpeg": {
+      "title": "JPEG",
+      "tagline": "Thirty years of photos in 8×8 blocks.",
+      "meta": {
+        "title": "JPEG format — history, DCT compression, artifacts",
+        "description": "JPEG explained: the Joint Photographic Experts Group, discrete cosine transform, quality settings, why JPEG artifacts appear — and free JPEG ↔ WebP/PNG/AVIF conversion."
+      },
+      "history": "JPEG was published in 1992 by the Joint Photographic Experts Group — an ISO/IEC committee that spent years balancing quality against the storage realities of the early 90s (a CD held ~650 MB). It became the universal photo format and stayed there for three decades.",
+      "how": "The image is cut into 8×8 pixel blocks. Each block goes through the discrete cosine transform (DCT), turning pixels into frequency coefficients; high frequencies (fine detail) get quantized away — that's where the size savings and the familiar 'blocky' artifacts come from.\nChroma subsampling halves color resolution because eyes are worse at color than brightness. Quality setting (roughly 60–85) is the sweet spot for photos.\nJPEG has no alpha channel — transparency requires PNG/WebP/AVIF. UWC flattens transparency to white when producing JPEG, exactly like browsers do.",
+      "cta": {
+        "title": "Convert JPEG images",
+        "text": "Turn JPEG into WebP or AVIF for smaller files, or into PNG when you need lossless editing.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "webp": {
+      "title": "WebP",
+      "tagline": "Google's bet that made the web 30% lighter.",
+      "meta": {
+        "title": "WebP format — history, VP8 internals, browser support",
+        "description": "WebP explained: On2 VP8 heritage, 2010 launch, Safari's late arrival, lossy and lossless modes — and free WebP ↔ PNG/JPEG/AVIF conversion."
+      },
+      "history": "Google announced WebP in 2010, deriving the codec from the VP8 video encoder it had acquired with On2 Technologies. The pitch: same visual quality as JPEG at 25–35% less size.\nAdoption was slow — Firefox waited until 2020, Safari until 2020 (iOS 14). Today it's universally supported and powers a large share of web images.",
+      "how": "WebP has two personalities: lossy mode uses VP8 intra-frame coding (predictive blocks + DCT residuals), while lossless mode uses a completely different transform designed for exact reproduction.\nIt also supports alpha transparency even in lossy mode — something JPEG never managed — plus animation.\nFor screenshots and UI, WebP-lossless usually beats PNG by 20–30%; for photos, WebP-lossy beats JPEG similarly.",
+      "cta": {
+        "title": "Convert WebP images",
+        "text": "Drop a WebP into the studio to turn it into PNG/JPEG for older tools, or convert your PNGs to WebP to save bandwidth.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "gif": {
+      "title": "GIF",
+      "tagline": "1987 called: it wants to keep animating.",
+      "meta": {
+        "title": "GIF format — history, LZW compression, animation",
+        "description": "GIF explained: CompuServe origins, the Unisys patent saga, 256-color palette, frame-based animation — and free GIF ↔ PNG/WebP conversion."
+      },
+      "history": "Steve Wilhite at CompuServe created GIF in 1987 to compress color images over dial-up modems. Version 89a added animation and transparency — features that accidentally made GIF the meme format of the internet.\nThe Unisys LZW patent controversy in 1994–2004 directly spawned PNG. And yes: the author said it's pronounced 'jif', the internet disagreed, the debate continues.",
+      "how": "GIF stores up to 256 colors per frame using LZW compression — great for logos and pixel art, terrible for photos (dithering banding). Animation is just multiple frames with per-frame timing and optional transparency.\nEach frame is typically stored as a delta against the previous one, which is why optimized GIFs are much smaller than naive exports.\nModern alternatives: WebP/AVIF animations are 10–50× smaller at similar quality. UWC converts static GIF frames to PNG/WebP in the browser.",
+      "cta": {
+        "title": "Convert GIF images",
+        "text": "Extract or convert GIF frames to PNG/WebP — canvas handles it locally.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "svg": {
+      "title": "SVG",
+      "tagline": "Images as math: resolution-independent forever.",
+      "meta": {
+        "title": "SVG format — history, vector graphics, security notes",
+        "description": "SVG explained: W3C XML vector format, shapes and paths, why it scales infinitely, sanitization concerns — and free SVG ↔ PNG conversion."
+      },
+      "history": "The W3C released SVG 1.0 in 2001 after years of competing vector proposals. It languished for a decade — IE didn't support it until 2011 — then exploded once responsive design made resolution independence essential. Today it's the default for icons, logos and charts.",
+      "how": "SVG is XML describing geometry: 〈circle〉, 〈rect〉, 〈path d=\"M…\"〉 commands, filled and stroked with colors/gradients. Because shapes are formulas, not pixels, they render crisp at any zoom level and weigh kilobytes.\nSecurity note: SVG can embed scripts, which is why UWC renders it through 〈img〉/canvas rather than injecting raw markup into the page — and why server-side rasterization happens in an isolated pipeline.",
+      "cta": {
+        "title": "Convert SVG",
+        "text": "Rasterize SVG to PNG at any size in your browser — perfect for generating icon sets.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "heic": {
+      "title": "HEIC",
+      "tagline": "Apple's efficient photo format your computer loves to hate.",
+      "meta": {
+        "title": "HEIC format — history, HEVC container, converting iPhone photos",
+        "description": "HEIC explained: High Efficiency Image Container, HEVC/H.265 internals, why iPhones default to it, compatibility pain — and free HEIC → PNG/JPEG/WebP conversion."
+      },
+      "history": "HEIC is the still-image sibling of HEVC (H.265) video, standardized in 2015 by MPEG. Apple made it the default iPhone camera format in iOS 11 (2017) — halving photo sizes overnight and creating a decade-long support headache for everyone else.",
+      "how": "A HEIC file is an ISOBMFF container (same family as MP4) holding HEVC-coded image data, possibly multiple images (Live Photos, bursts) and depth maps.\nCompression is dramatically better than JPEG — similar quality at roughly half the size — but decoding requires HEVC patents, which is why OS support lagged: Windows needs extensions, older software simply fails.\nUWC decodes HEIC via libheif WASM and hands pixels to sharp — your iPhone photos become PNG/JPEG/WebP without installing anything.",
+      "cta": {
+        "title": "Convert HEIC photos",
+        "text": "Drop iPhone photos into the studio — HEIC decoding runs server-side, nothing is stored.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "ico": {
+      "title": "ICO",
+      "tagline": "The little file that lives in your browser tab.",
+      "meta": {
+        "title": "ICO format — history, multi-resolution containers, favicon",
+        "description": "ICO explained: Windows 1.0 heritage, multi-size containers, BMP and PNG frames, favicon usage — and free ICO ↔ PNG conversion."
+      },
+      "history": "ICO dates back to Windows 1.0 (1985) as the format for interface icons. Its defining trick — packing several resolutions in one file — appeared early, because the same icon had to look right at 16×16 in a title bar and 32×32 on a desktop.\nOn the web it survives as favicon.ico, the one file every site still ships by convention.",
+      "how": "An ICO is a tiny container: a header, a directory of image entries, then the images themselves — historically BMP-with-alpha (DIB), nowadays often embedded PNG for larger sizes.\nThat's why ICO handling is really container handling: pick the best frame, decode it, done. UWC's parser selects the largest/most colorful frame and writes Vista+ PNG-format icons back.",
+      "cta": {
+        "title": "Convert ICO",
+        "text": "Extract any frame from an .ico as PNG, or build a fresh favicon from your logo — handled by hand-written parsers, no external tools.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "mp3": {
+      "title": "MP3",
+      "tagline": "The format that put a thousand songs in your pocket.",
+      "meta": {
+        "title": "MP3 format — history, psychoacoustics, MP3 vs AAC/Opus",
+        "description": "MP3 explained: Fraunhofer research, perceptual audio coding, the patent expiry of 2017, why it survived — and free MP3 ↔ WAV/FLAC/OGG conversion in the browser."
+      },
+      "history": "MP3 grew out of Fraunhofer's EUREKA research in the late 80s and was finalized as MPEG-1 Audio Layer III in 1993. It rode Napster and portable players to total cultural dominance in 1999–2005.\nAll patents expired in April 2017 — the format is now completely free, which is why it refuses to die despite technically superior successors.",
+      "how": "MP3 is lossy: it chops audio into frequency bands and discards what psychoacoustic models say you can't hear — quiet sounds next to loud ones, frequencies above ~16 kHz at typical bitrates. At 128–192 kbps VBR most listeners can't tell it from CD audio.\nDecoding is lossless in the sense that every player produces identical PCM; encoding always loses information. Converting MP3 → FLAC doesn't restore quality, it just stops further loss.\nUWC decodes MP3 with the browser's own Web Audio engine and re-encodes to WAV/FLAC/OGG/Opus locally — no ffmpeg, no uploads.",
+      "cta": {
+        "title": "Convert MP3 audio",
+        "text": "MP3 to WAV for editing, to Opus/OGG for streaming — all in your browser via Web Audio.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "wav": {
+      "title": "WAV",
+      "tagline": "Raw sound, zero surprises.",
+      "meta": {
+        "title": "WAV format — history, RIFF container, PCM audio",
+        "description": "WAV explained: IBM/Microsoft RIFF container from 1991, PCM samples, bit depth and sample rate, why editors love it — and free WAV ↔ MP3/FLAC/Opus conversion."
+      },
+      "history": "WAV arrived in 1991 as part of RIFF, the IBM/Microsoft resource-interchange framework for Windows 3.1 multimedia. Thirty-plus years later it remains the lingua franca of audio editing precisely because it does almost nothing.",
+      "how": "A WAV is a RIFF container wrapping a `fmt ` chunk (sample rate, bit depth, channel count) and a `data` chunk of raw PCM samples — amplitude measurements taken tens of thousands of times per second.\nCD quality is 44.1 kHz, 16-bit, stereo ≈ 10 MB per minute. No compression means no artifacts, no decode latency, and trivial seeking — hence its role as the 'working' format in studios and pipelines.\nUWC treats WAV as the hub of its audio pipeline: decoded PCM goes in, any target format comes out.",
+      "cta": {
+        "title": "Convert WAV audio",
+        "text": "WAV to MP3/Opus/FLAC for sharing — encoded locally by {'@'}audio/encode, nothing uploaded.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "flac": {
+      "title": "FLAC",
+      "tagline": "Lossless compression for people who check spectrograms.",
+      "meta": {
+        "title": "FLAC format — history, linear prediction, lossless proof",
+        "description": "FLAC explained: Josh Coalson's 2001 codec, Xiph.Org stewardship, linear prediction + Rice coding, bit-perfect guarantee — and free FLAC ↔ WAV/MP3 conversion."
+      },
+      "history": "Josh Coalson started FLAC in 2000; Xiph.Org adopted it in 2003. While MP3/Ogg Vorbis chased smallness, FLAC answered a different question: can we compress audio without losing a single bit? The answer, at ~50–60% of original size, made it the archive format for musicians, archivists and audiophiles.",
+      "how": "FLAC exploits redundancy: neighboring samples correlate, so a linear predictor estimates the next sample and only the (small) residual gets entropy-coded with Rice coding. Decoding reproduces the original PCM bit-for-bit — verifiable via embedded MD5.\nBeing lossless and patent-free, it's the natural 'master copy' format: convert FLAC to anything, keep the original forever.\nUWC decodes FLAC through Web Audio and encodes it back via {'@'}audio/encode — entirely in your browser.",
+      "cta": {
+        "title": "Convert FLAC audio",
+        "text": "FLAC to MP3/Opus for devices, FLAC to WAV for editors — local conversion, bit-exact sources respected.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "ogg": {
+      "title": "OGG",
+      "tagline": "The open-source answer to proprietary audio.",
+      "meta": {
+        "title": "Ogg Vorbis format — history, open-source codec, quality",
+        "description": "Ogg Vorbis explained: Xiph.Org's patent-free codec, better quality than MP3 at same bitrate, container vs codec confusion — and free OGG ↔ MP3/WAV conversion."
+      },
+      "history": "Xiph.Org began Vorbis in 1998 explicitly as a patent-free alternative after it became clear MP3 wasn't free. Version 1.0 shipped in 2002. The name honors Terry Pratchett's Discworld character; 'Ogg' is technically the container, Vorbis the codec — but everyone says 'OGG'.\nIt became the darling of game developers (cheap licensing) and streaming services, and YouTube quietly serves Opus/Vorbis to capable clients.",
+      "how": "Vorbis is a transform codec like MP3 but with a more modern psychoacoustic model — at 128 kbps it generally matches MP3 at 160–192. The Ogg container pages packets with granule positions enabling precise seeking.\nCommon confusion: .ogg might contain Vorbis audio or Opus or even video (Theora) — sniffing the codec inside matters, which is exactly what magic-byte detection does.\nUWC decodes OGG/Vorbis via Web Audio and re-encodes wherever you need.",
+      "cta": {
+        "title": "Convert OGG audio",
+        "text": "OGG to MP3 for maximum compatibility, to WAV for editing — decoded and re-encoded in your browser.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "zip": {
+      "title": "ZIP",
+      "tagline": "The archive that ate the world, one PK header at a time.",
+      "meta": {
+        "title": "ZIP format — history, DEFLATE, central directory",
+        "description": "ZIP explained: Phil Katz's 1989 format, PKWARE vs SEA lawsuit, central directory structure, zip bombs — and free ZIP extraction right in your browser."
+      },
+      "history": "Phil Katz created ZIP in 1989 after a lawsuit with SEA (makers of ARC) — he wrote PKZIP from scratch in jail-released time, and the format's header magic `PK` are his initials. Katz's story ended tragically, but his format became the universal archive: DOS, Windows, Java JAR, Office DOCX, Android APK — all ZIP containers underneath.",
+      "how": "A ZIP is a list of local file entries (name + compressed bytes) followed by a central directory at the end — that's why tools can list contents without reading the whole file, and why a truncated ZIP can sometimes be repaired.\nMost entries use DEFLATE (the same algorithm as gzip). Entries are independent, so extraction can be lazy and parallel.\nDanger notes: zip bombs (tiny archive, petabytes unpacked) and path traversal (`../../etc/passwd` names) are real attack vectors — any extractor must cap totals and sanitize paths. UWC unpacks in your browser with fflate, nothing touches a server.",
+      "cta": {
+        "title": "Unpack ZIP archives",
+        "text": "Drop a ZIP, browse the file list, download individual files — all client-side, no upload.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "tar": {
+      "title": "TAR",
+      "tagline": "Tape archive from 1979 that Linux can't live without.",
+      "meta": {
+        "title": "TAR format — history, 512-byte blocks, ustar headers",
+        "description": "TAR explained: Unix tape archives, ustar headers and 512-byte blocks, why tar.gz exists, path traversal risks — and TAR extraction in your browser."
+      },
+      "history": "TAR ('tape archive') appeared in Version 7 Unix (1979) for sequential backup to magnetic tape — hence fixed 512-byte blocks, which tape drives loved. POSIX standardized the ustar variant in 1988.\nUnix philosophy kept TAR dumb: it concatenates files and metadata but doesn't compress. Compression came from outside — compress, later gzip, bzip2, xz — giving the world .tar.gz.",
+      "how": "Each entry is a 512-byte header (name, mode, size in octal ASCII, checksum) followed by data padded to 512-byte multiples; two zero blocks end the archive. The ustar extension adds a prefix field for long paths.\nNo compression, no central directory — just a stream. That simplicity is why a correct parser is ~70 lines and why tar is the wrapper of choice for package formats (deb, RPM payloads).\nPath traversal (`../` in names) is the classic TAR vulnerability — extractors must normalize paths. UWC parses TAR in your browser and shows entries before you download anything.",
+      "cta": {
+        "title": "Unpack TAR archives",
+        "text": "List and extract .tar files locally — including the ones inside .tar.gz bundles.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "gzip": {
+      "title": "GZIP",
+      "tagline": "DEFLATE with a header — the web's favorite compression.",
+      "meta": {
+        "title": "GZIP format — history, DEFLATE algorithm, HTTP compression",
+        "description": "GZIP explained: Jean-loup Gailly and Mark Adler, RFC 1952, DEFLATE internals, Content-Encoding on the web — and GZIP decompression in your browser."
+      },
+      "history": "Gzip was written in 1992 by Jean-loup Gailly and Mark Adler as a free replacement for the patented compress utility. Its payload algorithm, DEFLATE (RFC 1951), combined LZ77 matching with Huffman coding — and became arguably the most deployed compression algorithm in history: HTTP responses, PNG images, ZIP entries, git objects.",
+      "how": "The container is simple: a 10-byte header (magic `1f 8b`, flags, mtime), optionally a filename, then a raw DEFLATE stream, then CRC32 + length checks.\nDEFLATE finds repeated byte sequences (LZ77 back-references) and Huffman-codes the result — repeated data costs almost nothing, random data barely shrinks.\nOn the web, `Content-Encoding: gzip` compresses HTML/CSS/JS by 70–80%. A .gz file holds exactly one stream — that's why tar.gz bundles exist: tar provides the many-files structure, gzip squeezes it.",
+      "cta": {
+        "title": "Unpack GZIP files",
+        "text": "Decompress .gz and .tar.gz locally — fflate does the DEFLATE, your browser does the rest.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "qr": {
+      "title": "QR codes",
+      "tagline": "Denso Wave's masterpiece that survived its own patents.",
+      "meta": {
+        "title": "QR codes — history, error correction, versions",
+        "description": "QR codes explained: Denso Wave 1994, Reed-Solomon error correction, mask patterns, versions 1–40 — and free QR generation and scanning in your browser."
+      },
+      "history": "Masahiro Hara at Denso Wave invented the QR code in 1994 to track car parts on Toyota assembly lines — the 2D layout let workers scan codes at speed from any angle. Denso declined to exercise its patents, which is why QR conquered the planet instead of dying in a factory.\nThe pandemic turned it into everyday infrastructure: menus, tickets, payments.",
+      "how": "A QR code is a grid of modules (21×21 for version 1 up to 177×177 for version 40) containing data encoded in bits, plus fixed function patterns: finder squares in corners, timing strips, format info.\nThe magic ingredient is Reed-Solomon error correction — up to 30% of the code can be damaged or covered (that's why logos-in-QR work) and it still scans. Mask patterns are applied to avoid pathological arrangements that confuse readers.\nUWC generates QR codes with the qrcode library and scans them from images with jsQR — both run entirely in your browser, so sensitive payloads (WiFi passwords, TOTP seeds) never leave the device.",
+      "cta": {
+        "title": "Generate & scan QR codes",
+        "text": "Two-way QR studio: text → QR and QR → text, offline, private.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "uuid": {
+      "title": "UUID",
+      "tagline": "Unique identifiers without a coordinator.",
+      "meta": {
+        "title": "UUID/GUID — history, versions v1–v8, collisions",
+        "description": "UUID explained: Apollo Network Computing System roots, RFC 9562 versions v1–v8, collision probability, ULID/UUIDv7 sorting — and a UUID generator in your browser."
+      },
+      "history": "UUIDs trace to the Apollo Network Computing System (1980s) and were standardized for DCE/RPC in the 90s; Microsoft popularized them as GUIDs in COM. After 30 years of ad-hoc versions, RFC 9562 (2024) finally documented the whole family — including the modern time-ordered v6/v7/v8.",
+      "how": "A UUID is 128 bits with version semantics:\nv1/v6 — timestamp + MAC address (privacy concern: leaks the MAC);\nv3/v5 — hash of a name in a namespace (MD5/SHA-1), deterministic;\nv4 — 122 random bits, the default everywhere;\nv7 — millisecond timestamp + randomness, sortable and database-friendly;\nv8 — vendor-custom.\nCollision odds for v4 are famously negligible: you'd need to generate a billion UUIDs per second for a century to reach ~50% probability.\nUWC generates every version with CSPRNG and verified RFC test vectors — offline, in your browser.",
+      "cta": {
+        "title": "Generate UUIDs",
+        "text": "All versions v1–v8, bulk generation, one-click copy — CSPRNG-powered, no network.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "vcard": {
+      "title": "vCard",
+      "tagline": "The contact card that predates smartphones.",
+      "meta": {
+        "title": "vCard format — history, VCF structure, QR contacts",
+        "description": "vCard explained: Versit consortium 1995, VCF properties and parameters, encoding rules — and free vCard ↔ JSON conversion in your browser."
+      },
+      "history": "vCard was created in 1995 by the Versit consortium (Apple, AT&T, IBM, Siemens) as electronic business cards for PDAs. Version 3.0 (1998) stabilized the property model everyone uses; 4.0 (2011) refined it.\nIts second life came via QR codes — WiFi passwords aside, 'scan my contact' cards are vCards in disguise.",
+      "how": "A VCF file is a list of properties: `BEGIN:VCARD`, then `FN:Name`, `TEL;TYPE=CELL:+1234567890`, `EMAIL:...`, ending with `END:VCARD`. Parameters after semicolons qualify properties; long lines fold at 75 chars with continuation spaces; special characters escape with backslashes.\nRepeated properties (multiple phones, addresses) naturally map to JSON arrays — which is exactly what UWC's converter preserves, along with TYPE parameters.",
+      "cta": {
+        "title": "Convert vCard",
+        "text": "VCF to JSON for scripts and imports — parsed locally, contact data stays yours.",
+        "pairs": {
+          "vcard-json": "vCard → JSON"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "ical": {
+      "title": "iCal",
+      "tagline": "Calendar invites as plain text since 1998.",
+      "meta": {
+        "title": "iCalendar format — history, ICS structure, RRULE",
+        "description": "iCalendar (ICS) explained: vCalendar heritage, RFC 5545, events and recurrence rules, timezone gotchas — and free iCal ↔ JSON conversion."
+      },
+      "history": "iCalendar grew out of vCalendar (1996, again the Versit crowd) and was standardized as RFC 2445 in 1998, updated by RFC 5545 in 2009. Every calendar invite you've ever accepted — Outlook, Google, Apple — traveled as an .ics attachment.",
+      "how": "Same property model as vCard: `BEGIN:VEVENT ... END:VEVENT` blocks with DTSTART/DTEND, SUMMARY, UID. The powerful part is recurrence: `RRULE:FREQ=WEEKLY;BYDAY=MO,WE` describes infinite schedules compactly.\nTimezones are the eternal trap: floating times vs UTC vs TZID references cause most calendar bugs ever filed.\nUWC parses the practical RFC subset — events, dates, folding, escaping — and maps repeating properties to JSON arrays.",
+      "cta": {
+        "title": "Convert iCal",
+        "text": "ICS to JSON for integrations and analysis — parsed in your browser.",
+        "pairs": {
+          "ical-json": "iCal → JSON"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "geojson": {
+      "title": "GeoJSON",
+      "tagline": "Maps as JSON: points, lines, polygons.",
+      "meta": {
+        "title": "GeoJSON format — history, geometry types, KML/GPX conversion",
+        "description": "GeoJSON explained: 2008 spec, RFC 7946, Point/LineString/Polygon geometries, coordinate order — and free GeoJSON ↔ KML/GPX/CSV conversion."
+      },
+      "history": "GeoJSON crystallized in 2008 from a grassroots mailing-list effort to standardize geographic JSON; RFC 7946 (2016) finalized it. It dethroned heavier XML formats (KML, GML) across the mapping world — Leaflet, Mapbox, OpenStreetMap tooling all breathe GeoJSON.",
+      "how": "A FeatureCollection wraps Features; each has `geometry` (Point, LineString, Polygon, Multi* variants) and arbitrary `properties`. Coordinates are [longitude, latitude] — order matters and trips everyone up at least once.\nPolygons close their rings (first point = last point) and follow winding-order conventions for holes.\nUWC converts GeoJSON to KML (Google Earth), GPX (GPS devices) and CSV (spreadsheets) — all transformations run locally.",
+      "cta": {
+        "title": "Convert GeoJSON",
+        "text": "GeoJSON to KML for Earth, GPX for your GPS watch, CSV for reports — client-side.",
+        "pairs": {
+          "geojson-kml": "GeoJSON → KML",
+          "geojson-gpx": "GeoJSON → GPX",
+          "geojson-csv": "GeoJSON → CSV"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "pdf": {
+      "title": "PDF",
+      "tagline": "Paper, but virtual: documents that look the same everywhere.",
+      "meta": {
+        "title": "PDF format — history, internals, text extraction",
+        "description": "PDF explained: Adobe 1993, the Camelot project, page description language, why text extraction is hard — and free PDF → text conversion."
+      },
+      "history": "PDF grew out of Adobe's Camelot project (1991) by John Warnock: a universal format that would preserve document layout on any machine — 'paper transported over wires'. Version 1.0 shipped in 1993; Adobe kept it proprietary until 2008, when it was released to ISO as an open standard.\nThe gamble paid off beyond expectations: today PDF is how contracts, articles, books and receipts travel.",
+      "how": "A PDF is not a stream of text — it's a page *description* language. Pages contain positioned glyphs (often with custom embedded fonts and encodings), vector graphics and raster images. Text is drawn, not written: 'place glyph #42 at (100, 200)'.\nThat's why extracting text is genuinely hard: the extractor must reverse glyph mappings back into Unicode, deal with ligatures, hyphenation and reading order. UWC uses pdfjs-dist (the engine behind Firefox's viewer) to walk pages and reconstruct readable text.",
+      "cta": {
+        "title": "Convert PDF",
+        "text": "Extract text from PDF documents — processed server-side, nothing stored.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "docx": {
+      "title": "DOCX",
+      "tagline": "Word documents unzipped: XML all the way down.",
+      "meta": {
+        "title": "DOCX format — history, OOXML structure, HTML/TXT conversion",
+        "description": "DOCX explained: Office Open XML since 2007, document.xml structure, runs and paragraphs, converting DOCX to HTML or plain text without Word."
+      },
+      "history": "DOCX replaced the binary .doc in Office 2007 as part of Office Open XML (ECMA-376). The move was partly forced: governments and competitors demanded open formats, and a zip of XML was Microsoft's answer — proprietary in spirit but at least parseable by anyone.\nIt became the default business-document format worldwide, for better and worse.",
+      "how": "A DOCX is a ZIP whose heart is word/document.xml: paragraphs (〈w:p〉) contain runs (〈w:r〉), runs contain text (〈w:t〉) with formatting properties. Styles, numbering, headers and images live in sibling parts linked by relationships.\nBecause the content model maps cleanly to HTML (paragraph → 〈p〉, run → 〈span〉, bold → 〈strong〉), DOCX→HTML conversion is nearly mechanical — that's what UWC does via mammoth, plus a plain-text mode that strips everything but words.",
+      "cta": {
+        "title": "Convert DOCX",
+        "text": "DOCX to clean HTML or plain text — parsed server-side, your documents aren't stored.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "xlsx": {
+      "title": "XLSX",
+      "tagline": "Spreadsheets as a zip of XML.",
+      "meta": {
+        "title": "XLSX format — history, OOXML structure, CSV/JSON conversion",
+        "description": "XLSX explained: Office Open XML, why it's a zip of tables and styles, compatibility — and free XLSX ↔ CSV/JSON conversion."
+      },
+      "history": "XLSX arrived with Office 2007 as part of Office Open XML — Microsoft moved binary formats (.xls, .doc, .ppt) to 'a zip with XML inside', partially opening the specs under competitive and government pressure. Since 2008 it's standardized as ISO/IEC ECMA-376.\nToday it's understood not only by Excel but by LibreOffice, Google Sheets, Numbers and half the BI tooling.",
+      "how": "Physically an .xlsx is a ZIP archive: workbook.xml describes sheets, sheet1.xml stores cells (referencing shared strings in sharedStrings.xml), styles.xml holds formatting. That's why a corrupted xlsx can sometimes be 'repaired' by unzipping it.\nCells are typed: numbers, strings (via shared-string indices), dates (numbers with a format), formulas stored alongside their last computed value.\nUWC reads XLSX via exceljs (MIT) on the server and outputs CSV or JSON — files are processed in memory and never stored.",
+      "cta": {
+        "title": "Convert XLSX",
+        "text": "Excel sheets to CSV for scripts or JSON for code — without installing Office.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "pptx": {
+      "title": "PPTX",
+      "tagline": "PowerPoint presentations are also zip with XML inside.",
+      "meta": {
+        "title": "PPTX format — history, OOXML structure, content extraction",
+        "description": "PPTX explained: Office Open XML for presentations, slides as XML parts, extracting text and images — working with PPTX without PowerPoint."
+      },
+      "history": "PPTX replaced binary .ppt along with the rest of Office 2007's move to Office Open XML (ECMA-376). Like DOCX/XLSX, it made presentation content accessible to third-party tools — previously that required PowerPoint itself.",
+      "how": "Inside: a ZIP where each slide is its own XML file (slide1.xml, slide2.xml…) under ppt/slides, text lives in 〈a:t〉 runs, images are media files linked through relationship files. Themes and slide masters describe appearance.\nSo extracting all text and images from a PPTX is just walking the archive — exactly what UWC does: slides are parsed server-side, content is returned without installing Office.",
+      "cta": {
+        "title": "Work with PPTX",
+        "text": "Extract presentation content — parsing happens on the server, files aren't stored.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "epub": {
+      "title": "EPUB",
+      "tagline": "An e-book as a website in an archive.",
+      "meta": {
+        "title": "EPUB format — history, structure, book conversion",
+        "description": "EPUB explained: IDPF/W3C e-book standard, XHTML chapters in a ZIP container, reflowable layout — converting EPUB without Calibre."
+      },
+      "history": "EPUB emerged in 2007 from the Open eBook Publication Structure effort by IDPF; since 2017 the standard is maintained by W3C (after merging with IDPF). Version 3 dropped legacy XML in favor of plain HTML5.\nIt's the most widespread e-book format — everything understands it except Kindle (Amazon keeps pushing its own formats).",
+      "how": "An EPUB is a ZIP with mandatory META-INF/container.xml pointing to the OPF manifest: chapter list (XHTML), metadata, reading order, CSS. Readers render chapters as web pages with reflowable layout — changing font size re-flows text instead of zooming.\nConsequence: converting EPUB is essentially working with HTML. UWC uses exactly that — chapters are unpacked and converted like ordinary HTML.",
+      "cta": {
+        "title": "Work with EPUB",
+        "text": "Extract book text or convert chapters — processed locally.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "rtf": {
+      "title": "RTF",
+      "tagline": "Rich Text Format: a document you can read as source.",
+      "meta": {
+        "title": "RTF format — history, control words, where it survives",
+        "description": "RTF explained: Microsoft's 1987 text format, groups and control words, why it still lives in clipboards — and RTF conversion."
+      },
+      "history": "RTF was created by Microsoft in 1987 to exchange documents across platforms and Word versions. Paradox: proprietary in spirit yet fully textual — an RTF file opens in Notepad and reads almost like TeX.\nIts niche today is the clipboard (formatted copy-paste between apps often goes through RTF) and embedded editors that don't want a full DOCX parser.",
+      "how": "RTF mixes text with backslash control words: «\\b» starts bold, «\\par» ends a paragraph, groups wrap in braces. Encodings are handled with escapes («\\'e9», «\\u1055?»).\nThe format is verbose (documents balloon versus DOCX) but trivially streamable: a parser is a finite-state machine — no zip, no XML.\nUWC strips formatting and extracts clean text from RTF right in your browser.",
+      "cta": {
+        "title": "Convert RTF",
+        "text": "RTF → clean text with no formatting residue — local and instant.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "rot13": {
+      "title": "ROT13",
+      "tagline": "The cipher that has hidden spoilers for forty years.",
+      "meta": {
+        "title": "ROT13 — cipher history, Usenet culture, self-inverse property",
+        "description": "ROT13 explained: Caesar shift by 13, Usenet spoiler culture, why encoding and decoding are the same operation — and an instant ROT13 converter."
+      },
+      "history": "ROT13 is a Caesar cipher with shift 13, popularized on 80s Usenet: movie spoilers and puzzle answers were hidden behind it — 'don't read below, it's ROT13'. Nobody took it seriously as encryption; it was a cultural contract meaning 'you were warned'.\nChoosing exactly 13 was laziness at its finest: Latin has 26 letters, so applying ROT13 twice returns the original text — encode and decode are the same operation.",
+      "how": "Each letter shifts 13 positions through the alphabet: A→N, B→O, … N→A. Case is preserved; digits and punctuation untouched.\nThe math: shifting by 13 twice = shifting by 26 ≡ 0 mod 26. Hence self-inversion — one function does both directions.\nUWC applies ROT13 to Latin letters in your browser; for Cyrillic there's keyboard-layout conversion and translit in neighboring converters.",
+      "cta": {
+        "title": "Apply ROT13",
+        "text": "Paste text — get ROT13 (or decode it: same action either way).",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "sql-dump": {
+      "title": "SQL dumps",
+      "tagline": "Databases exported as INSERT statements.",
+      "meta": {
+        "title": "SQL dumps — structure, INSERT parsing, JSON conversion",
+        "description": "SQL dump files explained: CREATE TABLE and INSERT statements, mysqldump/pg_dump output, parsing without a database — and SQL dump ↔ JSON conversion."
+      },
+      "history": "As long as relational databases existed, people needed to move data out of them. Dump utilities (mysqldump, pg_dump, sqlite .dump) emit plain-text SQL — a de-facto interchange format nobody formally standardized but everyone depends on.",
+      "how": "A dump contains DDL (`CREATE TABLE users (id INT, name TEXT)` — column names live here) and DML (`INSERT INTO users VALUES (1, 'Ann'), (2, NULL)` — the rows).\nParsing it properly means handling quoted strings with escaped quotes (`''`), NULL literals, numeric and boolean literals — no actual database required.\nUWC regex-parses the dump structure in pure JS (no GPL SQLite bindings), reconstructing typed rows as JSON or CSV.",
+      "cta": {
+        "title": "Convert SQL dumps",
+        "text": "Dump → JSON/CSV for analysis — parsed locally, your schema never leaves the machine.",
+        "pairs": {
+          "sql-json": "SQL → JSON"
+        },
+        "openStudio": "Open in studio"
+      }
+    }
+  }
+}
