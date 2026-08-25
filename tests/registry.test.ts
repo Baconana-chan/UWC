@@ -21,10 +21,11 @@ describe('server registry (фаза 0)', () => {
 
   it('фаза 3: полная матрица изображений (тир c, бинарный вход)', () => {
     const img = SERVER_CONVERTERS.filter((c) => c.inputKind === 'binary')
-    // 10 источников × 6 целей − 6 identity = 54
-    expect(img.length).toBe(59) // 54 image + 5 docx/pdf/xlsx (docx-to-html, docx-to-txt, pdf-to-txt) (docx-to-html, docx-to-txt)
-    expect(img.filter((c) => c.tier === 'c').length).toBe(54)
-    expect(img.filter((c) => c.mime.startsWith('image/')).length).toBe(54)
+    // 15 источников × 6 целей − 15 identity = 75 картинко-пар + 5 doc (docx-to-html, docx-to-txt, pdf-to-txt)
+    // + geojson/doc пар уже учтены в text; здесь только бинарные картинки + doc-бинарные
+    expect(img.length).toBe(95) // 90 image + 5 docx/pdf (docx-to-html, docx-to-txt, pdf-to-txt, ...)
+    expect(img.filter((c) => c.tier === 'c').length).toBe(90)
+    expect(img.filter((c) => c.mime.startsWith('image/')).length).toBe(90)
     expect(img.some((c) => c.id === 'docx-to-html')).toBe(true)
     expect(img.some((c) => c.id === 'docx-to-txt')).toBe(true)
     expect(img.some((c) => c.id === 'pdf-to-txt')).toBe(true)

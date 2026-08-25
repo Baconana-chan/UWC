@@ -29,7 +29,7 @@ const jsonLd = computed(() => ({
     'Image conversion incl. HEIC and AVIF',
     'Audio conversion without ffmpeg',
     'QR code generation and scanning',
-    'Archive extraction: ZIP, TAR, TAR.GZ, GZIP, Brotli'
+    'Archive extraction: ZIP, TAR, TAR.GZ, GZIP, Brotli, LZMA, BZIP2, Zstandard, XZ, CAB, CPIO, AR/DEB, ISO, XAR, Unix compress'
   ]
 }))
 

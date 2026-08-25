@@ -11,10 +11,10 @@
  */
 
 import { gunzipSync, unzipSync } from 'fflate'
-import { lzmaDecompress } from '../../shared/lzmaDecoder'
-import { bzip2Decompress } from '../../shared/bzip2Decoder'
-import { zstdDecompress } from '../../shared/zstdDecoder'
-import { xzDecompress } from '../../shared/xzDecoder'
+import { lzmaDecompress } from '#shared/lzmaDecoder'
+import { bzip2Decompress } from '#shared/bzip2Decoder'
+import { zstdDecompress } from '#shared/zstdDecoder'
+import { xzDecompress } from '#shared/xzDecoder'
 import { extractCabEntry, listCab } from './cabUtils'
 import { extractCpioEntry, listCpio } from './cpioUtils'
 import { extractArEntry, listAr } from './arUtils'

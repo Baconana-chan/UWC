@@ -1703,8 +1703,8 @@ export const TEXT_CONVERTER_GROUPS: ConverterGroup[] = [
       { id: 'caesar-decode', icon: 'i-lucide-key-round', reverseId: 'caesar-encode', run: (s) => caesar(s, -3) },
       { id: 'xor-encode', icon: 'i-lucide-key-round', reverseId: 'xor-decode', run: (s) => xorWithKey(s, false) },
       { id: 'xor-decode', icon: 'i-lucide-key-round', reverseId: 'xor-encode', run: (s) => xorWithKey(s, true) },
-      { id: 'a1z26-encode', icon: 'i-lucide-list-1', reverseId: 'a1z26-decode', run: a1z26Encode },
-      { id: 'a1z26-decode', icon: 'i-lucide-list-1', reverseId: 'a1z26-encode', run: a1z26Decode },
+      { id: 'a1z26-encode', icon: 'i-lucide-list-ordered', reverseId: 'a1z26-decode', run: a1z26Encode },
+      { id: 'a1z26-decode', icon: 'i-lucide-list-ordered', reverseId: 'a1z26-encode', run: a1z26Decode },
       { id: 'bacon-encode', icon: 'i-lucide-egg', reverseId: 'bacon-decode', run: baconEncode },
       { id: 'bacon-decode', icon: 'i-lucide-egg', reverseId: 'bacon-encode', run: baconDecode },
       { id: 'tap-code-encode', icon: 'i-lucide-grid-2x2', reverseId: 'tap-code-decode', run: tapEncode },
@@ -1731,7 +1731,7 @@ export const TEXT_CONVERTER_GROUPS: ConverterGroup[] = [
       { id: 'sort-lines', icon: 'i-lucide-arrow-down-a-z', run: sortLines },
       { id: 'dedupe-lines', icon: 'i-lucide-list-x', run: dedupeLines },
       { id: 'shuffle-lines', icon: 'i-lucide-shuffle', run: shuffleLines },
-      { id: 'number-lines', icon: 'i-lucide-list-1', run: numberLines },
+      { id: 'number-lines', icon: 'i-lucide-list-ordered', run: numberLines },
       { id: 'wrap-text', icon: 'i-lucide-wrap-text', run: wrapText },
       { id: 'number-base-convert', icon: 'i-lucide-calculator', run: convertNumberBase },
       { id: 'iso-duration-to-seconds', icon: 'i-lucide-timer', reverseId: 'seconds-to-iso-duration', run: isoDurationToSeconds },
@@ -1924,7 +1924,10 @@ export const FORMAT_CATEGORIES: FormatCategory[] = [
       { name: 'Markdown', icon: 'vscode-icons:file-type-markdown' },
       { name: 'HTML', icon: 'vscode-icons:file-type-html' },
       { name: 'TXT', icon: 'i-lucide-file-text' },
-      { name: 'INI', icon: 'i-lucide-file-code' }
+      { name: 'INI', icon: 'i-lucide-file-code' },
+      { name: 'Properties', icon: 'i-lucide-file-cog' },
+      { name: 'ENV', icon: 'i-lucide-file-cog' },
+      { name: 'JSONP', icon: 'i-lucide-braces' }
     ]
   },
   {
@@ -1940,7 +1943,12 @@ export const FORMAT_CATEGORIES: FormatCategory[] = [
       { name: 'TIFF', icon: 'i-lucide-file-image' },
       { name: 'HEIC', icon: 'i-lucide-file-image' },
       { name: 'ICO', icon: 'i-lucide-file-image' },
-      { name: 'BMP', icon: 'i-lucide-file-image' }
+      { name: 'BMP', icon: 'i-lucide-file-image' },
+      { name: 'CUR', icon: 'i-lucide-file-image' },
+      { name: 'PPM', icon: 'i-lucide-file-image' },
+      { name: 'TGA', icon: 'i-lucide-file-image' },
+      { name: 'PCX', icon: 'i-lucide-file-image' },
+      { name: 'XBM', icon: 'i-lucide-file-image' }
     ]
   },
   {
@@ -1994,7 +2002,21 @@ export const FORMAT_CATEGORIES: FormatCategory[] = [
       { name: 'GPX', icon: 'i-lucide-map' },
       { name: 'SQL', icon: 'vscode-icons:file-type-sql' },
       { name: 'ZIP', icon: 'vscode-icons:file-type-zip' },
+      { name: 'TAR', icon: 'vscode-icons:file-type-zip' },
       { name: 'GZIP', icon: 'i-lucide-archive' },
+      { name: 'Brotli', icon: 'i-lucide-archive' },
+      { name: 'BZIP2', icon: 'i-lucide-archive' },
+      { name: 'Zstandard', icon: 'i-lucide-archive' },
+      { name: 'XZ', icon: 'i-lucide-archive' },
+      { name: 'LZMA', icon: 'i-lucide-archive' },
+      { name: 'CAB', icon: 'i-lucide-archive' },
+      { name: 'CPIO', icon: 'i-lucide-archive' },
+      { name: 'AR / DEB', icon: 'i-lucide-archive' },
+      { name: 'ISO', icon: 'i-lucide-disc-3' },
+      { name: 'XAR', icon: 'i-lucide-archive' },
+      { name: 'compress (.Z)', icon: 'i-lucide-archive' },
+      { name: 'MD5', icon: 'i-lucide-shield-check' },
+      { name: 'CRC32', icon: 'i-lucide-hash' },
       { name: 'UUID', icon: 'i-lucide-key-round' }
     ]
   },
@@ -2005,8 +2027,9 @@ export const FORMAT_CATEGORIES: FormatCategory[] = [
       { name: 'ROT13', icon: 'i-lucide-rotate-ccw' },
       { name: 'Morse', icon: 'i-lucide-radio' },
       { name: 'ROT47', icon: 'i-lucide-rotate-ccw' },
+      { name: 'Caesar cipher', icon: 'i-lucide-key-round' },
       { name: 'Atbash', icon: 'i-lucide-shuffle' },
-      { name: 'A1Z26', icon: 'i-lucide-list-1' },
+      { name: 'A1Z26', icon: 'i-lucide-list-ordered' },
       { name: 'Bacon', icon: 'i-lucide-egg' },
       { name: 'Tap code', icon: 'i-lucide-grid-2x2' },
       { name: 'Zero-width steganography', icon: 'i-lucide-eye-off' },

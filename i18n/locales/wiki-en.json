@@ -235,7 +235,10 @@
       "cta": {
         "title": "Convert ICO",
         "text": "Extract any frame from an .ico as PNG, or build a fresh favicon from your logo — handled by hand-written parsers, no external tools.",
-        "pairs": {},
+        "pairs": {
+          "ico-png": "ICO → PNG",
+          "ico-jpeg": "ICO → JPEG"
+        },
         "openStudio": "Open in studio"
       }
     },
@@ -566,6 +569,912 @@
         "pairs": {
           "sql-json": "SQL → JSON"
         },
+        "openStudio": "Open in studio"
+      }
+    },
+    "tsv": {
+      "title": "TSV",
+      "tagline": "CSV with a tab instead of a comma — built for shells.",
+      "meta": {
+        "title": "TSV — history, why tabs, conversion to CSV/Markdown",
+        "description": "TSV explained: tab-separated values, why terminals and awk love them, the quoting problem they avoid — and TSV ↔ CSV/Markdown conversion in your browser."
+      },
+      "history": "Tab-separated values are CSV's quieter sibling. When Unix tools like awk, cut and sort needed a column format, the tab was the natural delimiter: it never appears inside text, so there is nothing to escape.\nThat single property made TSV the lingua franca of data plumbing — paste, join, and every shell pipeline speak it natively. Spreadsheets import it too; Excel just calls it \"Text (tab-delimited)\".",
+      "how": "Mechanically TSV is CSV with delimiter \"\\t\". The killer advantage: a tab almost never shows up in real data, so you drop the entire quoting machinery — no doubled quotes, no escaping rules.\nThe downside is human eyes: tabs are invisible, so misaligned columns are maddening to debug by hand. UWC converts TSV ↔ CSV (re-introducing quotes) and TSV → Markdown tables losslessly, entirely client-side.",
+      "cta": {
+        "title": "Convert TSV",
+        "text": "TSV to CSV for spreadsheets, or straight into a Markdown table — computed locally.",
+        "pairs": {
+          "tsv-csv": "TSV → CSV",
+          "tsv-markdown": "TSV → Markdown"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "ini": {
+      "title": "INI",
+      "tagline": "The config format that refused to die.",
+      "meta": {
+        "title": "INI files — history, sections, where they still hide",
+        "description": "INI explained: the Windows 3.x config format, [sections] and key=value, why it survived in git config and Python — and INI ↔ JSON/YAML/TOML conversion."
+      },
+      "history": "INI traces back to MS-DOS and Windows 3.x, where \"initialization\" files stored program settings in plain text. There was never a formal spec — every app bent the rules a little, and that casualness is exactly why INI spread everywhere.\nIt outlived its era: git uses it (.git/config), Python still ships configparser, and PHP php.ini is INI to this day. Simplicity beat standardization.",
+      "how": "Structure is flat sections in brackets — [database] — followed by key=value lines. Comments start with ; or #. Values are usually strings; typeless by default.\nThe lack of nesting is INI's ceiling: you fake hierarchies with section names like [server.cache]. UWC maps sections to objects and round-trips INI through JSON, YAML and TOML without losing the tree.",
+      "cta": {
+        "title": "Convert INI",
+        "text": "INI → JSON/YAML/TOML for scripts and docs — parsed in your browser, nothing uploaded.",
+        "pairs": {
+          "ini-json": "INI → JSON",
+          "ini-yaml": "INI → YAML",
+          "ini-toml": "INI → TOML"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "hjson": {
+      "title": "HJSON",
+      "tagline": "JSON that finally allows comments.",
+      "meta": {
+        "title": "HJSON — history, comments in JSON, readable configs",
+        "description": "HJSON explained: the \"Human JSON\" superset, why comments and unquoted keys matter, how it compiles to strict JSON — and HJSON ↔ JSON conversion."
+      },
+      "history": "HJSON (\"Human JSON\") grew out of the same frustration that spawned JSON5 and HJSON's siblings: real config files want comments and relaxed quoting, but strict JSON forbids both. HJSON picked the pragmatic middle ground.\nIt never tried to replace JSON — it compiles down to it. Editors and config loaders decode HJSON, then hand standard JSON to the rest of the stack.",
+      "how": "HJSON relaxes the rules: comments with # or //, unquoted keys, unquoted string values, and multi-line strings. Whitespace is significant like in YAML, but there are no indentation traps.\nThe conversion is a straight parse → re-serialize to JSON. UWC does HJSON ↔ JSON both ways in the browser, so you can author comfortably and ship strict JSON.",
+      "cta": {
+        "title": "Convert HJSON",
+        "text": "Write forgiving HJSON, get strict JSON — or the other way around, locally.",
+        "pairs": {
+          "hjson-json": "HJSON → JSON",
+          "json-hjson": "JSON → HJSON"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "properties": {
+      "title": "Properties",
+      "tagline": "Java's key=value answer to INI.",
+      "meta": {
+        "title": "Java .properties — history, escaping, UTF-8",
+        "description": "Properties files explained: the Java config format, ISO-8859-1 escaping, dotted keys, why Spring still uses them — and Properties ↔ JSON conversion."
+      },
+      "history": "Java introduced .properties in the mid-90s as its built-in configuration store, shipped with the JDK's java.util.Properties. It became the default for localization bundles (messages_en.properties) and app config across the ecosystem.\nFrameworks from Spring to Maven still read it. Despite newer formats, properties files remain the lowest-common-denominator config in the JVM world.",
+      "how": "Syntax is key=value (or key:value, whitespace allowed). Lines starting with # or ! are comments. Keys are often dotted namespaces: db.url, db.user.\nThe historical gotcha: the classic format escaped non-ASCII as \\uXXXX (ISO-8859-1), so raw UTF-8 broke. UWC parses the structure and maps dotted keys into a nested JSON object, in your browser.",
+      "cta": {
+        "title": "Convert Properties",
+        "text": "Properties → nested JSON, or flatten JSON back — parsed locally with no upload.",
+        "pairs": {
+          "properties-json": "Properties → JSON",
+          "json-properties": "JSON → Properties"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "env": {
+      "title": "ENV",
+      "tagline": "Environment variables as a file.",
+      "meta": {
+        "title": ".env files — history, twelve-factor config, secrets",
+        "description": "ENV files explained: the dotenv format, twelve-factor app config, why secrets live in the environment — and ENV ↔ JSON conversion."
+      },
+      "history": "ENV files come from the dotenv pattern, popularized by Heroku's twelve-factor app methodology around 2010: config belongs in the environment, not in code. A .env file is just a local dump of those variables.\nTools like Docker Compose and countless CLIs read .env on startup. It is the simplest possible secret-passing mechanism — and the easiest to leak if committed to git.",
+      "how": "Each line is KEY=VALUE. Values may be quoted; # starts a comment. No sections, no nesting — it is a flat key→string map by design.\nUWC parses .env into a JSON object (quotes stripped, comments dropped) and can serialize JSON back into a .env, all client-side. Nothing leaves the browser.",
+      "cta": {
+        "title": "Convert ENV",
+        "text": "Turn a .env into editable JSON and back — locally, so secrets never upload.",
+        "pairs": {
+          "env-json": "ENV → JSON",
+          "json-env": "JSON → ENV"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "jsonp": {
+      "title": "JSONP",
+      "tagline": "JSON wearing a JavaScript costume.",
+      "meta": {
+        "title": "JSONP — history, the padding trick, why it died",
+        "description": "JSONP explained: the pre-CORS callback hack, how 〈script〉 tags bypassed same-origin, why it is obsolete — and JSONP ↔ JSON conversion."
+      },
+      "history": "JSONP (\"JSON with Padding\") was the workaround for the browser same-origin policy before CORS existed. A 〈script〉 tag can load anything cross-domain, so APIs wrapped JSON in a function call: callback(﹛\"a\":1﹜).\nIt powered early AJAX against third-party APIs (Twitter, Flickr). Once CORS arrived, JSONP became a security liability and faded — but legacy endpoints still serve it.",
+      "how": "A JSONP response is not JSON: it is JavaScript of the form fn(〈json〉). The \"padding\" is the callback name. To use it you inject a 〈script〉 and define fn to catch the data.\nConverting means stripping the wrapper to recover pure JSON, or re-wrapping JSON with a callback. UWC does both in the browser — handy when a stubborn old API only speaks JSONP.",
+      "cta": {
+        "title": "Convert JSONP",
+        "text": "Unwrap JSONP into clean JSON (or wrap it back) — instantly, on your machine.",
+        "pairs": {
+          "jsonp-json": "JSONP → JSON",
+          "json-jsonp": "JSON → JSONP"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "markdown": {
+      "title": "Markdown",
+      "tagline": "Formatting you can read as plain text.",
+      "meta": {
+        "title": "Markdown — history, CommonMark, where it won",
+        "description": "Markdown explained: John Gruber's 2004 plain-text formatting, the # and ** conventions, CommonMark standardization — and Markdown ↔ HTML conversion."
+      },
+      "history": "Markdown was created in 2004 by John Gruber with Aaron Swartz, to let people \"write using an easy-to-read, easy-to-write plain text format\" that converts to HTML. The pitch was radical: source should be readable as-is.\nIt conquered the web sideways — GitHub, Reddit, Stack Overflow, and every docs site (including this one) render Markdown. What began as a blog tool became the documentation lingua franca.",
+      "how": "Conventions are intuitive: # heading, **bold**, *italic*, - list, > quote, [text](url) link, `code`. The formatting is a thin layer over plain text you can still read raw.\nThe catch is ambiguity — dozens of dialects (GitHub Flavored, CommonMark). UWC converts Markdown ↔ HTML both ways client-side, handling the common subset without a server.",
+      "cta": {
+        "title": "Convert Markdown",
+        "text": "Markdown to HTML for the web, or HTML back to Markdown — rendered locally.",
+        "pairs": {
+          "md-html": "Markdown → HTML",
+          "csv-markdown": "CSV → Markdown"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "html": {
+      "title": "HTML",
+      "tagline": "The markup that built the web.",
+      "meta": {
+        "title": "HTML — history, tags, the living standard",
+        "description": "HTML explained: from Tim Berners-Lee's 1991 proposal to the living standard, tags and the DOM, why it is everywhere — and HTML ↔ Markdown conversion."
+      },
+      "history": "HTML was proposed by Tim Berners-Lee in 1991 as the publishing language of the World Wide Web, derived from CERN's SGML. Version 2 (1995) and the browser wars of the late 90s shaped it; HTML5 (2014) made it a \"living standard\" that never freezes.\nIt is the only format every browser speaks — which is why almost everything else (email, ebooks, help files) is either HTML or a wrapper around it.",
+      "how": "HTML is a tree of tags: 〈p〉paragraph〈/p〉, 〈a href〉link〈/a〉, 〈h1〉heading〈/h1〉. Browsers parse it into the DOM, a live object model, tolerating errors gracefully (a missing 〈/p〉 just closes itself).\nGoing HTML → Markdown is a lossy simplification: structure and links survive, but styling and scripts are dropped. UWC does the round-trip in your browser for clean, readable Markdown.",
+      "cta": {
+        "title": "Convert HTML",
+        "text": "Strip HTML down to Markdown for docs — or rebuild HTML — all client-side.",
+        "pairs": {
+          "html-md": "HTML → Markdown"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "txt": {
+      "title": "TXT",
+      "tagline": "The only format every computer understands.",
+      "meta": {
+        "title": "Plain text (.txt) — history, encoding, the universal format",
+        "description": "TXT explained: the humblest file of all, encodings from ASCII to UTF-8, why plain text outlives everything — and TXT ↔ DOCX/PDF conversion."
+      },
+      "history": "Plain text is not really a \"format\" — it is the absence of one. A .txt file is just bytes interpreted as characters, readable by every operating system since the 1960s. Its superpower is longevity: no app, no version, no license required.\nEverything else is a bet that some software will still exist to read it. TXT is the fallback that always wins.",
+      "how": "The only real question is encoding: ASCII (7-bit), Latin-1, Windows-1251, or UTF-8 (the modern default that handles every script). A .txt with the wrong encoding shows mojibake.\nUWC converts plain text to DOCX and PDF (and back from DOCX/PDF to text) on the server, preserving your words while you stay in the browser.",
+      "cta": {
+        "title": "Convert TXT",
+        "text": "TXT → DOCX/PDF for sharing, or extract text from DOCX/PDF — server-side, your file stays private.",
+        "pairs": {
+          "txt-docx": "TXT → DOCX",
+          "pdf-txt": "PDF → TXT"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "base32": {
+      "title": "Base32",
+      "tagline": "Base64 without the confusing letters.",
+      "meta": {
+        "title": "Base32 — history, Crockford vs RFC 4648, human-safe encoding",
+        "description": "Base32 explained: why it drops ambiguous characters, RFC 4648 vs Crockford alphabets, where it is used (TOTP, Tor) — and instant Base32 encode/decode."
+      },
+      "history": "Base32 was standardized in RFC 4648 (2006) to fix Base64's weakness for humans: Base64 uses 0/O, 1/l/I which get confused when read aloud or copied. Base32 restricts itself to A–Z and 2–7, avoiding those glyphs entirely.\nThat made it the choice for things typed or spoken: TOTP authenticator secrets, Bitcoin/Tor onion addresses, and DNS labels that must survive case-insensitive systems.",
+      "how": "Like Base64, it groups bits — here 5 bits per character, 8 characters per 40-bit block. Output is ~20% bigger than Base64 but safe to read.\nA padding character \"=\" fills the tail. Crockford's variant drops padding and ambiguous chars (I,L,O,U) entirely. UWC encodes/decodes Base32 in your browser, UTF-8 safe.",
+      "cta": {
+        "title": "Use Base32",
+        "text": "Encode or decode Base32 — instant and offline, no data leaves the page.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "base36": {
+      "title": "Base36",
+      "tagline": "Digits and letters, the URL-friendly base.",
+      "meta": {
+        "title": "Base36 — history, case-insensitive IDs, short links",
+        "description": "Base36 explained: the 0-9A-Z alphabet, why it shortens IDs, comparison with Base62/Base64 — and instant Base36 encode/decode."
+      },
+      "history": "Base36 uses the ten digits and twenty-six letters — exactly the characters in the English alphanumeric set. Because it is case-insensitive, it is safe in places that mangle case: URLs, file names, and human-shared IDs.\nYou have seen it in YouTube video IDs and URL shorteners, where a number like 12345678 becomes the shorter, friendlier \"7CLZI\".",
+      "how": "It is positional like any base: each digit carries 36^n. Converting a byte string to Base36 is straightforward grouping of bits into 5.17-bit chunks — implementations just map values 0–35 to 0-9 then A-Z.\nUWC turns raw bytes into Base36 and back entirely client-side. For case-sensitive, higher-density IDs, Base62 (adds lowercase) is the sibling.",
+      "cta": {
+        "title": "Use Base36",
+        "text": "Encode or decode Base36 — instant, browser-only, nothing uploaded.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "base62": {
+      "title": "Base62",
+      "tagline": "The densest safe alphabet: 0-9A-Za-z.",
+      "meta": {
+        "title": "Base62 — history, URL-safe IDs, vs Base64",
+        "description": "Base62 explained: the 0-9A-Za-z alphabet, why it beats Base64 for IDs, use in shorteners — and instant Base62 encode/decode."
+      },
+      "history": "Base62 takes Base36 and adds lowercase letters, using the full 62-character alphanumeric set. It is the sweet spot for unique IDs: denser than Base36, yet still free of +, / and = that make Base64 hostile to URLs.\nURL shorteners (bit.ly), YouTube (mixed case IDs), and Snowflake-style primary keys all lean on Base62 to pack big integers into short, copy-paste-safe strings.",
+      "how": "Each character encodes log2(62) ≈ 5.95 bits. Conversion is repeated division by 62, mapping remainders to 0-9A-Za-z. No padding needed, no reserved characters.\nUWC encodes bytes to Base62 and decodes them back in your browser. It is the go-to when you need compactness without URL-escaping headaches.",
+      "cta": {
+        "title": "Use Base62",
+        "text": "Encode or decode Base62 — instant and local, no server involved.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "ascii85": {
+      "title": "Ascii85",
+      "tagline": "Four bytes become five characters.",
+      "meta": {
+        "title": "Ascii85 — history, Adobe/PostScript, btoa vs RFC 1924",
+        "description": "Ascii85 explained: the 85-character encoding from PostScript, how it beats Base64 density, where it hides (PDF) — and instant Ascii85 encode/decode."
+      },
+      "history": "Ascii85 (a.k.a. Base85) was invented by Paul Riddle for the btoa utility and adopted by Adobe in PostScript and PDF. The idea: 85 printable characters is enough to represent 32 bits (4 bytes) in just 5 characters.\nYou meet it inside every PDF stream — encoded image and font data is wrapped in 〈~ ... ~〉 Ascii85 delimiters before being decompressed.",
+      "how": "Take 4 bytes (32 bits) and express them in base 85, emitting 5 characters. That is ~25% overhead versus Base64's 33% — denser, but the alphabet includes trickier punctuation.\nVariants differ: Adobe uses ! to ~, RFC 1924 (IPv6) uses a different alphabet, and \"Z\" often stands for four zero bytes. UWC handles the common encodings entirely offline.",
+      "cta": {
+        "title": "Use Ascii85",
+        "text": "Encode or decode Ascii85 — handy for PDF streams, fully in your browser.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "hex": {
+      "title": "Hex",
+      "tagline": "Binary you can actually read.",
+      "meta": {
+        "title": "Hexadecimal — history, bytes as 0-9A-F, where it lives",
+        "description": "Hex explained: base-16 since the 1950s, why it maps perfectly to bytes, use in colors and crypto — and Hex encode/decode plus Hex ↔ RGB."
+      },
+      "history": "Hexadecimal (base 16) became standard in computing because one byte is exactly two hex digits: 8 bits = 2^8 = 256 = 16^2. That 1:1 mapping between nibbles and characters made it the natural way to \"see\" memory.\nFrom debuggers dumping RAM to MAC addresses, hash outputs and color codes (#ff0000), hex is how machines show their innards to humans.",
+      "how": "Digits 0–9 then A–F stand for 10–15. A byte like 255 is FF. Converting is grouping bits into 4-bit nibbles. Whitespace or \"0x\" prefixes are usually tolerated.\nUWC encodes text to hex and decodes it back, and bridges hex with RGB so you can flip between #ff0000 and rgb(255,0,0) in the browser.",
+      "cta": {
+        "title": "Use Hex",
+        "text": "Encode/decode hex, or jump to RGB — instant and local.",
+        "pairs": {
+          "hex-rgb": "Hex → RGB"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "quoted-printable": {
+      "title": "Quoted-Printable",
+      "tagline": "Email's way of keeping 7-bit safe.",
+      "meta": {
+        "title": "Quoted-Printable — history, MIME email, soft line breaks",
+        "description": "Quoted-Printable explained: the MIME encoding for mostly-ASCII email, = and soft breaks, why it stays readable — and instant QP encode/decode."
+      },
+      "history": "Quoted-Printable (QP) was defined in RFC 2045 as part of MIME, the standard that taught email to carry attachments and non-ASCII text. The design goal was clever: leave ordinary ASCII mostly readable while escaping the rest.\nThat is why a QP email is still legible in a raw \"View Source\" — unlike Base64, where everything turns to gibberish.",
+      "how": "Printable ASCII passes through unchanged; anything else is encoded as =XX (two hex digits, e.g. =E2=82=AC for €). An \"=\" at line end is a \"soft break\" continuing the line.\nLines are capped at 76 characters with a soft break. UWC encodes and decodes QP entirely in your browser — useful when inspecting raw email.",
+      "cta": {
+        "title": "Use Quoted-Printable",
+        "text": "Encode or decode QP — read raw email safely, all client-side.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "uuencode": {
+      "title": "Uuencode",
+      "tagline": "The 1980s way to mail a binary.",
+      "meta": {
+        "title": "Uuencode — history, Usenet binaries, begin/end blocks",
+        "description": "Uuencode explained: the pre-MIME binary-in-email trick, begin 644 headers, why Base64 replaced it — and instant uuencode/uudecode."
+      },
+      "history": "Uuencode (\"Unix-to-Unix encode\") appeared in the early 1980s to send binaries over UUCP and Usenet, where only text could travel. It wrapped files in begin 644 / end blocks with permission bits.\nIt predates MIME and Base64 by years. Once email standardized on Base64, uuencode became a historical curiosity — but old archives and Unix folklore still hold it.",
+      "how": "It encodes 3 bytes into 4 characters by adding 32 (space becomes the smallest value). The begin line carries the file mode (e.g. 644) and name; end closes it.\nThe format is famously fragile: a single corrupted line breaks the rest. UWC still uuencodes and uudecodes it for completeness, entirely offline.",
+      "cta": {
+        "title": "Use Uuencode",
+        "text": "Uuencode or uudecode legacy blobs — niche, but fully local.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "idn": {
+      "title": "Punycode / IDN",
+      "tagline": "How domains speak Arabic and Cyrillic.",
+      "meta": {
+        "title": "Punycode & IDN — history, internationalized domains, xn--",
+        "description": "Punycode explained: encoding Unicode domains into ASCII, the xn-- prefix, why it prevents homograph attacks — and IDN encode/decode."
+      },
+      "history": "The Domain Name System only speaks ASCII, but the world does not. IDN (Internationalized Domain Names) solved this in the early 2000s with Punycode (RFC 3492), translating Unicode labels into ASCII that DNS accepts.\nSo \"россия.рф\" becomes \"xn--h1alffa9f.xn--p1ai\". The \"xn--\" prefix marks a Punycode label — and it is also why lookalike \"homograph\" phishing (cyrillic а vs latin a) is a real threat.",
+      "how": "Punycode isolates the non-ASCII part and encodes it as a base-36-ish sequence after a \"-\" delimiter, with the ASCII prefix kept verbatim. Decoding reverses it.\nUWC converts between human-readable IDN and its ASCII Punycode form in your browser — handy for verifying what a suspicious domain actually is.",
+      "cta": {
+        "title": "Use IDN / Punycode",
+        "text": "Decode xn-- domains to see the real characters — or encode them, locally.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "jwt": {
+      "title": "JWT",
+      "tagline": "A signed claim you can read (before verifying).",
+      "meta": {
+        "title": "JWT — history, the three Base64 segments, JOSE",
+        "description": "JWT explained: JSON Web Tokens, header.payload.signature, why the middle is just Base64, security caveats — and instant JWT decode."
+      },
+      "history": "JSON Web Token (JWT, RFC 7519) emerged from the JOSE working group around 2014 as a compact, URL-safe way to carry claims between parties. It became the default auth token for SPAs and APIs overnight.\nIts appeal: self-contained — a server signs a payload and the client just presents it. No session lookup needed. Its danger: a misconfigured \"none\" algorithm or weak secret leaks everything.",
+      "how": "A JWT is three Base64url segments joined by dots: header.algorithm.payload.claims.signature. Only the signature is opaque; the header and payload are plain Base64url you can decode and read.\nUWC decodes the header and payload client-side so you can inspect claims (sub, exp, iat) — it never verifies or forges signatures, keeping your secrets local.",
+      "cta": {
+        "title": "Decode JWT",
+        "text": "Peek inside a JWT's claims — decode only, nothing leaves your browser.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "sha256": {
+      "title": "SHA-256",
+      "tagline": "The fingerprint behind half the internet.",
+      "meta": {
+        "title": "SHA-256 — history, the SHA-2 family, where it secures",
+        "description": "SHA-256 explained: NIST's 2001 hash, the SHA-2 family, why it secures Bitcoin and TLS — and instant SHA-256 hashing."
+      },
+      "history": "SHA-256 is part of SHA-2, published by NIST in 2001 after SHA-1 started showing weaknesses. It produces a 256-bit (32-byte) digest. When SHA-1 was finally broken in 2017, SHA-256 was already everywhere.\nIt underpins TLS certificates, Git commit hashes (via SHA-1's successor plans), Bitcoin proof-of-work, and integrity checks for every download you verify.",
+      "how": "SHA-256 is a one-way function: any input — a password, a file — maps to a fixed 32-byte fingerprint. Change one bit and the hash completely changes (the avalanche effect).\nYou cannot reverse it, but you can verify: hash your file and compare. UWC computes SHA-256 in your browser using the Web Crypto API — no upload, no server.",
+      "cta": {
+        "title": "Hash with SHA-256",
+        "text": "Fingerprint any text locally with SHA-256 — Web Crypto, nothing leaves the page.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "md5": {
+      "title": "MD5",
+      "tagline": "The fast hash that should not secure anything.",
+      "meta": {
+        "title": "MD5 — history, the 1996 break, why it still appears",
+        "description": "MD5 explained: Rivest's 1991 hash, how it was shattered by collisions, why it lingers for checksums — and instant MD5 hashing."
+      },
+      "history": "MD5 (Message Digest 5) was designed by Ron Rivest in 1991 as a fast 128-bit hash. For years it was the default for passwords and integrity. Then in 2004 researchers published practical collisions — two different files with the same MD5.\nThat killed its security use. Yet it survives for non-adversarial checksums (file dedup, etag hints) precisely because it is fast and short.",
+      "how": "Like SHA, MD5 is one-way: text in, 16-byte digest out, rendered as 32 hex chars. But collisions are cheap to manufacture, so an attacker can forge a matching hash.\nUWC computes MD5 in the browser for quick integrity checks — never trust it for passwords or signatures. For that, use SHA-256.",
+      "cta": {
+        "title": "Hash with MD5",
+        "text": "Quick MD5 checksum in your browser — fast, local, for non-security checks.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "crc32": {
+      "title": "CRC32",
+      "tagline": "The checksum that catches cable noise.",
+      "meta": {
+        "title": "CRC32 — history, cyclic redundancy, ZIP and PNG",
+        "description": "CRC32 explained: cyclic redundancy checks, why they catch transmission errors, where they live (ZIP, PNG, Ethernet) — and instant CRC32."
+      },
+      "history": "CRC (Cyclic Redundancy Check) was formalized by W. Wesley Peterson in 1961 for reliable data transmission. CRC32 — a 32-bit variant — became ubiquitous in networking and storage: Ethernet frames, ZIP, PNG, and gzip all embed one.\nIt was never meant to stop attackers, only to catch accidental corruption: a flipped bit on a cable, a bad sector on disk.",
+      "how": "CRC treats the message as a polynomial and divides it by a fixed generator, keeping the remainder as the checksum. A tiny change in input flips many bits of the CRC — great at spotting errors.\nCrucially, CRC is not cryptographic: it is trivial to craft a collision. UWC computes CRC32 in your browser for integrity checks, never for security.",
+      "cta": {
+        "title": "Compute CRC32",
+        "text": "Get a CRC32 checksum locally — for corruption checks, not security.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "iban": {
+      "title": "IBAN",
+      "tagline": "Bank accounts with a built-in checksum.",
+      "meta": {
+        "title": "IBAN — history, the ISO 13616 standard, MOD-97 check",
+        "description": "IBAN explained: International Bank Account Numbers, the 34-char format, the MOD-97 checksum that catches typos — and IBAN validate/format."
+      },
+      "history": "IBAN (International Bank Account Number) was created by the European Committee for Banking Standards in the 1990s and standardized as ISO 13616, to make cross-border payments reliable. Before it, every country had its own account format and transfers failed constantly.\nToday over 80 countries use IBAN, from Germany's DE to Russia's RU and Saudi Arabia's SA. The US still mostly does not.",
+      "how": "An IBAN is up to 34 characters: a two-letter country code, two check digits, then the national account. The magic is MOD-97: rearrange and treat it as a number, divide by 97, and the remainder must be 1 — that catches almost all typos.\nUWC validates and reformats IBANs (grouping into fours) in your browser, checking the checksum without sending anything.",
+      "cta": {
+        "title": "Check IBAN",
+        "text": "Validate or reformat an IBAN and verify its checksum — locally.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "roman": {
+      "title": "Roman numerals",
+      "tagline": "I, II, III, IV — counting like the Romans.",
+      "meta": {
+        "title": "Roman numerals — history, subtractive notation, modern use",
+        "description": "Roman numerals explained: the ancient additive/subtractive system, why 4 is IV not IIII, where they survive (clocks, movies) — and Roman ↔ Arabic conversion."
+      },
+      "history": "Romans used a base-10 system with letters: I, V, X, L, C, D, M. It served an empire for centuries without zero or place value. The modern \"subtractive\" shortcuts (IV for 4, IX for 9) were formalized in the Middle Ages.\nThey refuse to die: movie copyright years (MMXXIV), clock faces, book volume numbers, and Super Bowl titles all use them as a stylistic choice.",
+      "how": "Values add left to right, but a smaller numeral before a larger subtracts (IX = 10−1). There are rules: never repeat V, L, D; subtract only I, X, C and only from the next two ranks.\nValid range is 1–3999 (no symbol for 5000+). UWC converts Roman ↔ Arabic both ways in your browser, rejecting malformed strings.",
+      "cta": {
+        "title": "Convert Roman numerals",
+        "text": "Turn MCMLXXXIV into 1984 (or back) — instantly, on your machine.",
+        "pairs": {
+          "roman-arabic": "Roman → Arabic"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "mac": {
+      "title": "MAC address",
+      "tagline": "The serial number burned into your NIC.",
+      "meta": {
+        "title": "MAC address — history, the 48-bit identifier, OUI",
+        "description": "MAC addresses explained: the hardware address of network cards, the 48-bit structure, OUI vendors, the colon/dash/cisco formats — and MAC formatting."
+      },
+      "history": "The MAC (Media Access Control) address was defined by the IEEE 802 standards in the 1980s as the hardware identity of a network interface. It is burned into the card at manufacture — your device's permanent name on the local network.\nXerox, later the IEEE, handed out the first 24 bits (the OUI) to vendors: look up \"00:1A:2B\" and you know it is, say, a specific manufacturer.",
+      "how": "A MAC is 48 bits, written as six groups of two hex digits: 00:1A:2B:3C:4D:5E. The format varies — colons (Unix), dashes (Windows), or dotted cisco (001a.2b3c.4d5e).\nThe 7th bit (locally administered) flips when software spoofs an address. UWC reformats MACs between styles in your browser without sending data.",
+      "cta": {
+        "title": "Format MAC",
+        "text": "Switch a MAC between colon, dash and cisco formats — locally.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "color": {
+      "title": "HEX / RGB / HSL",
+      "tagline": "Three ways to name the same color.",
+      "meta": {
+        "title": "Color models — history, HEX vs RGB vs HSL, CSS",
+        "description": "Color formats explained: hexadecimal and RGB triplets, HSL's human-friendly hue, why designers prefer HSL — and HEX ↔ RGB ↔ HSL conversion."
+      },
+      "history": "Screens mix red, green and blue light, so RGB is the native model: three 0–255 intensities. Hex is just RGB written in base-16 for compactness in code. HSL (Hue, Saturation, Lightness) came later as the designer-friendly view.\nCSS supports all three; pick Hex for copy-paste, RGB for clarity, HSL when you want \"a lighter shade of this hue\" without math.",
+      "how": "RGB(r,g,b) names the three channels directly. HEX collapses them to #rrggbb. HSL describes a color by hue angle (0–360), saturation and lightness — intuitive to tweak.\nConversion is fixed math: HSL→RGB→HEX are pure functions. UWC converts any of the three to the others in your browser, ideal for quick theming.",
+      "cta": {
+        "title": "Convert colors",
+        "text": "Flip between HEX, RGB and HSL — instant, on your machine.",
+        "pairs": {
+          "hex-rgb": "Hex → RGB",
+          "rgb-hsl": "RGB → HSL"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "avif": {
+      "title": "AVIF",
+      "tagline": "The modern image format that crushes JPEG.",
+      "meta": {
+        "title": "AVIF — history, AV1 video codec, why it is small",
+        "description": "AVIF explained: the AV1-based image format from Netflix/AOMedia, royalty-free compression, HDR support — and AVIF → PNG/JPEG conversion."
+      },
+      "history": "AVIF (AV1 Image File Format) was released in 2019 by the Alliance for Open Media (Google, Netflix, Amazon, Microsoft) as the still-image cousin of the AV1 video codec. The mission: royalty-free compression that beats JPEG and even HEIC.\nBacked by every major browser by 2022, AVIF is now the go-to for web images that must be tiny without looking bad.",
+      "how": "Technically AVIF reuses AV1 intra-frame coding — the same tech that shrinks 4K video — applied to a single picture. It supports HDR, wide color gamut, transparency, and lossless modes.\nThe catch is CPU: encoding is slow, decoding needs modern hardware. UWC converts AVIF → PNG/JPEG on the server (sharp + libavif), so your browser never does the heavy lifting.",
+      "cta": {
+        "title": "Convert AVIF",
+        "text": "Turn AVIF into universally readable PNG/JPEG — processed server-side, file stays private.",
+        "pairs": {
+          "avif-png": "AVIF → PNG",
+          "avif-jpeg": "AVIF → JPEG"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "tiff": {
+      "title": "TIFF",
+      "tagline": "The archival format that refuses to compress away.",
+      "meta": {
+        "title": "TIFF — history, Aldus/Adobe, lossless archiving",
+        "description": "TIFF explained: the Tagged Image File Format, layers and metadata, why scanners and publishers love it — and TIFF → PNG/JPEG conversion."
+      },
+      "history": "TIFF (Tagged Image File Format) was created in 1986 by Aldus (later absorbed by Adobe) for desktop publishing and scanners. Its tag-based design let it grow features without breaking old readers.\nIt remains the format of choice for print prepress, medical imaging (DICOM wraps it), and archival scans where quality is non-negotiable.",
+      "how": "TIFF stores image data in \"directories\" of tagged fields — resolution, compression, color profile, layers. It can be uncompressed (lossless) or use LZW/Zip, and supports 16-bit and multi-page documents.\nIts flexibility makes files heavy and support uneven on the web. UWC converts TIFF → PNG/JPEG server-side, keeping your machine light.",
+      "cta": {
+        "title": "Convert TIFF",
+        "text": "Flatten TIFF into web-ready PNG/JPEG — done on the server, privately.",
+        "pairs": {
+          "tiff-png": "TIFF → PNG",
+          "tiff-jpeg": "TIFF → JPEG"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "bmp": {
+      "title": "BMP",
+      "tagline": "The uncompressed classic of Windows.",
+      "meta": {
+        "title": "BMP — history, device-independent bitmap, why files are huge",
+        "description": "BMP explained: the Windows bitmap format, raw pixels with no compression, where it survives — and BMP → PNG/JPEG conversion."
+      },
+      "history": "BMP (Bitmap) shipped with Windows 3.0 in 1990 as the Device-Independent Bitmap, letting apps draw without knowing the screen hardware. It was simple: a header, then raw pixels bottom-to-top.\nIts lack of compression made it the reliable interchange format of early Windows — but also meant a modest photo ballooned to megabytes. PNG and JPEG quickly took its crown.",
+      "how": "A BMP is essentially a header (width, height, bit depth) followed by uncompressed pixel data. No entropy coding, so decoding is trivial and instant.\nThat simplicity is why BMPs still appear in legacy systems and icons. UWC converts BMP → PNG/JPEG server-side, shrinking the file without loss of visible quality.",
+      "cta": {
+        "title": "Convert BMP",
+        "text": "Shrink a BMP into PNG/JPEG — server-side, your data stays with you.",
+        "pairs": {
+          "bmp-png": "BMP → PNG",
+          "bmp-jpeg": "BMP → JPEG"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "cur": {
+      "title": "CUR",
+      "tagline": "ICO's cursor-shaped cousin.",
+      "meta": {
+        "title": "CUR — history, Windows cursor format, hot spot",
+        "description": "CUR explained: the Windows cursor format, how it differs from ICO (hot spot), where it lives — and CUR → PNG/JPEG conversion."
+      },
+      "history": "CUR is the cursor sibling of ICO, also from early Windows. It stores the same multi-resolution bitmaps but adds one field ICO lacks: the \"hot spot\" — the exact pixel that counts as the click point.\nYou meet CUR in .cur files used for custom mouse pointers on the web and in Windows themes. Functionally it is ICO with a pointer.",
+      "how": "Like ICO, CUR is a container of small images; the extra hot-spot coordinates (x,y) tell the OS where the arrow \"tip\" is. Without it, every cursor would click from its top-left corner.\nUWC converts CUR → PNG/JPEG server-side, flattening the frames into a usable raster.",
+      "cta": {
+        "title": "Convert CUR",
+        "text": "Extract a PNG/JPEG from a CUR cursor — server-side, private.",
+        "pairs": {
+          "cur-png": "CUR → PNG",
+          "cur-jpeg": "CUR → JPEG"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "ppm": {
+      "title": "PPM",
+      "tagline": "The easiest image format to parse by hand.",
+      "meta": {
+        "title": "PPM — history, the Netpbm portable format, raw pixels",
+        "description": "PPM explained: the Portable Pixmap from Netpbm, dead-simple ASCII/binary pixels, why it is loved in teaching — and PPM → PNG/JPEG conversion."
+      },
+      "history": "PPM (Portable Pixmap) is part of the Netpbm toolkit's \"portable anymap\" family from the late 1980s — PBM (1-bit), PGM (gray), PPM (color). The goal was interchange between Unix image tools, not compression.\nIts charm is pedagogical: you can read and write a PPM with a few lines of C. It is the \"hello world\" of image formats.",
+      "how": "A PPM is a magic number (P3 for ASCII, P6 for binary), then width, height, max-value, then raw pixel triples. No compression, no metadata — just numbers.\nThat verbosity is why it never hit the web, but it is perfect for pipelines and learning. UWC converts PPM → PNG/JPEG server-side.",
+      "cta": {
+        "title": "Convert PPM",
+        "text": "Turn a raw PPM into PNG/JPEG — server-side, your file stays private.",
+        "pairs": {
+          "ppm-png": "PPM → PNG",
+          "ppm-jpeg": "PPM → JPEG"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "tga": {
+      "title": "TGA",
+      "tagline": "The Targa format games grew up on.",
+      "meta": {
+        "title": "TGA — history, Truevision Targa, game textures",
+        "description": "TGA explained: the Truevision Targa format, alpha channels, its game-era popularity — and TGA → PNG/JPEG conversion."
+      },
+      "history": "TGA (Targa) was created by Truevision in 1984 for their TARGA graphics cards, aimed at professional video. It became a staple of MS-DOS and early Windows games because it handled alpha transparency when almost nothing else did.\nQuake, Doom and countless 3D engines shipped textures as TGA. Today it lingers in 3D tools and legacy game assets.",
+      "how": "TGA supports uncompressed and RLE-compressed pixels, indexed or true-color, with an optional alpha channel. Its header is tiny and the format is easy to stream.\nUWC converts TGA → PNG/JPEG on the server, since browsers do not decode it natively.",
+      "cta": {
+        "title": "Convert TGA",
+        "text": "Convert a game-era TGA into PNG/JPEG — server-side, privately.",
+        "pairs": {
+          "tga-png": "TGA → PNG",
+          "tga-jpeg": "TGA → JPEG"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "pcx": {
+      "title": "PCX",
+      "tagline": "The DOS paint format that time forgot.",
+      "meta": {
+        "title": "PCX — history, ZSoft, RLE compression, DOS era",
+        "description": "PCX explained: ZSoft's 1980s Paintbrush format, early RLE compression, where it survives — and PCX → PNG/JPEG conversion."
+      },
+      "history": "PCX was created by ZSoft in 1985 for PC Paintbrush, one of the first popular DOS painting programs. It rode the early PC graphics wave and was everywhere in the late-80s shareware scene.\nAs Windows and true-color formats arrived, PCX faded. You mainly find it in old archives and retro software now.",
+      "how": "PCX uses simple run-length encoding (RLE): repeat-byte counts compress solid areas without complex math. It supports 1–32 bit color and a palette.\nThe format is obsolete but trivial to decode. UWC converts PCX → PNG/JPEG server-side for those occasional legacy files.",
+      "cta": {
+        "title": "Convert PCX",
+        "text": "Rescue an old PCX into PNG/JPEG — server-side, private.",
+        "pairs": {
+          "pcx-png": "PCX → PNG",
+          "pcx-jpeg": "PCX → JPEG"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "xbm": {
+      "title": "XBM",
+      "tagline": "An image format written in C.",
+      "meta": {
+        "title": "XBM — history, X Bitmaps, C source images",
+        "description": "XBM explained: the X Window System bitmap, images as C source code, why it is obsolete — and XBM → PNG/JPEG conversion."
+      },
+      "history": "XBM (X BitMap) came from the X Window System in the late 1980s. Its bizarre feature: an XBM image is valid C source — an array of bytes you #include, and the compiler \"draws\" it.\nThat made icons trivially embeddable in X11 programs. Browsers dropped XBM support years ago, but the format lives in retro and security-curiosity circles.",
+      "how": "An XBM is plain text: #define width 16, #define height 16, then static unsigned char bits[] = ﹛ 0x00, 0xFF, ... ﹜. Each bit is one pixel (1 = black).\nReading it is reading C. UWC converts XBM → PNG/JPEG on the server, since no browser will touch it anymore.",
+      "cta": {
+        "title": "Convert XBM",
+        "text": "Turn a C-source XBM into PNG/JPEG — server-side, privately.",
+        "pairs": {
+          "xbm-png": "XBM → PNG",
+          "xbm-jpeg": "XBM → JPEG"
+        },
+        "openStudio": "Open in studio"
+      }
+    },
+    "aiff": {
+      "title": "AIFF",
+      "tagline": "Apple's uncompressed studio audio.",
+      "meta": {
+        "title": "AIFF — history, Apple's audio format, PCM",
+        "description": "AIFF explained: Apple's Audio Interchange File Format, uncompressed PCM, why studios love it — and AIFF conversion in the studio."
+      },
+      "history": "AIFF (Audio Interchange File Format) was developed by Apple in 1988, based on the IFF container from Electronic Arts. It was Apple's answer to the sampling workstations of the era.\nBecause it stores raw PCM with no compression, AIFF became a favorite in pro audio and mastering, where every lost bit matters. Think of it as WAV's Apple cousin.",
+      "how": "AIFF wraps uncompressed PCM samples in IFF \"chunks\": COMM holds format info, SSND holds the raw audio. No quality loss, but large files — a 3-minute track is ~30 MB.\nUWC converts AIFF ↔ WAV/MP3 and more in the audio studio, entirely in your browser via Web Audio.",
+      "cta": {
+        "title": "Convert AIFF",
+        "text": "Swap AIFF with WAV, MP3 and friends — right in the browser audio studio.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "caf": {
+      "title": "CAF",
+      "tagline": "Apple's modern, container-smart audio.",
+      "meta": {
+        "title": "CAF — history, Core Audio Format, 64-bit chunks",
+        "description": "CAF explained: Apple's Core Audio Format, why it replaced AIFF, 64-bit safe — and CAF conversion in the studio."
+      },
+      "history": "CAF (Core Audio Format) was introduced by Apple in 2005 with Mac OS X 10.4 to fix AIFF's limits: AIFF capped files at 4 GB (32-bit sizes) and choked on metadata.\nCAF uses 64-bit chunk sizes and a flexible tag system, so it handles huge recordings and rich annotations. It is the native format of Logic Pro.",
+      "how": "Like AIFF, CAF is a chunk container, but every field is 64-bit and chunks can nest. It can hold PCM, AAC, or any codec Apple supports, plus markers and regions.\nUWC converts CAF alongside other audio formats in the browser studio — no file size ceiling to worry about.",
+      "cta": {
+        "title": "Convert CAF",
+        "text": "Work with CAF alongside WAV, MP3 and more — in the browser audio studio.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "opus": {
+      "title": "Opus",
+      "tagline": "The codec that beats them all at low bitrate.",
+      "meta": {
+        "title": "Opus — history, IETF RFC 6716, hybrid codec",
+        "description": "Opus explained: the IETF's royalty-free codec, SILK + CELT, why it wins for voice and music — and Opus conversion in the studio."
+      },
+      "history": "Opus was standardized by the IETF as RFC 6716 in 2012, merging Skype's SILK (speech) and Xiph's CELT (music) codecs. The result is a single codec that excels at both conversation and concert.\nIt is the default for Discord, WhatsApp, and WebRTC — anywhere real-time voice matters. At 32 kbps it sounds better than MP3 at 128.",
+      "how": "Opus switches internally between a speech model (good below 20 ms frames) and a music model, even within one stream. It scales from 6 kbps to 510 kbps with very low latency.\nUWC converts Opus ↔ WAV/MP3 and more in the browser audio studio, using native decoding where available.",
+      "cta": {
+        "title": "Convert Opus",
+        "text": "Move Opus between WAV, MP3 and friends — in the browser audio studio.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "m4a": {
+      "title": "M4A",
+      "tagline": "MP3's successor in an MP4 box.",
+      "meta": {
+        "title": "M4A — history, AAC in an MP4 container, iTunes",
+        "description": "M4A explained: AAC audio in the MP4 container, why Apple pushed it over MP3, where it lives — and M4A conversion in the studio."
+      },
+      "history": "M4A is not a codec but a container: the MP4 box holding AAC (or ALAC) audio, popularized by Apple's iTunes in the mid-2000s. The \".m4a\" extension was Apple's way to mark \"audio only, no video.\"\nAAC inside delivers better quality than MP3 at the same bitrate, which is why M4A became the default for purchased and ripped music on Apple devices.",
+      "how": "Structurally M4A is an ISO Base Media file (like MP4) whose tracks are audio atoms (moov, mdat). The codec is usually AAC, sometimes ALAC for lossless.\nUWC converts M4A ↔ WAV/MP3 and more in the browser studio, decoding the AAC stream natively when the browser allows.",
+      "cta": {
+        "title": "Convert M4A",
+        "text": "Swap M4A with WAV, MP3 and friends — right in the browser audio studio.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "webm-audio": {
+      "title": "WebM Audio",
+      "tagline": "Open, royalty-free sound for the web.",
+      "meta": {
+        "title": "WebM audio — history, the open web codec, Vorbis/Opus",
+        "description": "WebM audio explained: Google's open container, Vorbis and Opus inside, why it competes with MP4 — and WebM conversion in the studio."
+      },
+      "history": "WebM was launched by Google in 2010 as a royalty-free alternative to patent-encumbered web formats, built on Matroska. Its audio track carries Vorbis or Opus — both open codecs.\nIt was Google's answer to \"the web should not pay licensing fees for video and audio.\" YouTube's HTML5 player leans on it heavily.",
+      "how": "A WebM file is a Matroska-flavored container; the audio element can be Vorbis (older) or Opus (modern, better). It streams well and needs no plugins.\nUWC converts WebM audio ↔ WAV/MP3 and more in the browser studio, using the browser's native decoders.",
+      "cta": {
+        "title": "Convert WebM audio",
+        "text": "Work with WebM audio alongside WAV, MP3 and more — in the browser studio.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "qoa": {
+      "title": "QOA",
+      "tagline": "The tiny lossy codec you can read in an afternoon.",
+      "meta": {
+        "title": "QOA — history, the Quite OK Audio format, minimal decoder",
+        "description": "QOA explained: the Quite OK Audio format, a deliberately tiny lossy codec, ~200-line decoder — and QOA conversion in the studio."
+      },
+      "history": "QOA (Quite OK Audio) was published in 2023 by Dominic Szablewski as a reaction to codec bloat: a lossy format whose entire decoder fits in ~200 lines of C. No patents, no committees.\nIt targets \"good enough\" quality for games and tools where a 20 KB dependency beats a 2 MB one. A throwback to the era of human-readable formats.",
+      "how": "QOA stores 16-bit PCM as small fixed-size frames of 256 samples, using a simple LMS predictor per channel. The math is modest; the whole spec fits on one page.\nUWC converts QOA ↔ WAV/MP3 and more in the browser audio studio, keeping the conversion fully client-side.",
+      "cta": {
+        "title": "Convert QOA",
+        "text": "Swap QOA with WAV, MP3 and friends — in the browser audio studio.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "rot47": {
+      "title": "ROT47",
+      "tagline": "ROT13 for the punctuation crowd.",
+      "meta": {
+        "title": "ROT47 — history, the 94-character shift, ASCII obfuscation",
+        "description": "ROT47 explained: the ROT13 variant that also scrambles digits and symbols, the 33–126 range — and an instant ROT47 converter."
+      },
+      "history": "ROT47 is a twist on ROT13 from the Usenet/IRC era: instead of shifting only the 26 letters, it shifts all 94 printable ASCII characters (codes 33–126). The joke is the same — obfuscation, not security.\nIt became a quick \"make this unreadable at a glance\" trick for source snippets and chat, since numbers and punctuation get scrambled too.",
+      "how": "Each character in the 33–126 range moves 47 positions forward, wrapping around that 94-character window. So letters, digits and symbols all rotate together.\nLike ROT13 it is self-inverse: apply it twice and you are back. UWC applies ROT47 to any printable ASCII in your browser, instantly.",
+      "cta": {
+        "title": "Apply ROT47",
+        "text": "Paste text — get ROT47 (or decode it: same key either way).",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "caesar": {
+      "title": "Caesar cipher",
+      "tagline": "The cipher that started them all.",
+      "meta": {
+        "title": "Caesar cipher — history, Julius Caesar, shift by three",
+        "description": "Caesar cipher explained: the oldest known encryption, shift by 3, why it is trivial to break — and an instant Caesar converter."
+      },
+      "history": "The Caesar cipher is attributed to Julius Caesar, who (per Suetonius) shifted letters by three to keep military messages private. It is arguably the first documented encryption in the West.\nIt survived two millennia as a teaching example of substitution ciphers — and as a children's puzzle. Nobody has considered it secure since roughly the fall of Rome.",
+      "how": "Each letter moves a fixed number of places down the alphabet: with shift 3, A→D, B→E. Non-letters pass through. UWC lets you pick any shift, not just 3.\nIt is broken by trying all 25 shifts (brute force is instant) or by frequency analysis. Fun, historical, and cryptographically useless — exactly as intended here.",
+      "cta": {
+        "title": "Apply Caesar cipher",
+        "text": "Shift text by any amount — encode or decode, right in your browser.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "atbash": {
+      "title": "Atbash",
+      "tagline": "The cipher that flips the alphabet.",
+      "meta": {
+        "title": "Atbash — history, Hebrew origins, the alphabet reversed",
+        "description": "Atbash explained: the ancient Hebrew substitution cipher, alphabet reversed, where it appears in the Bible — and an instant Atbash converter."
+      },
+      "history": "Atbash is one of the oldest ciphers, used with the Hebrew alphabet in the Book of Jeremiah and the Dead Sea Scrolls. \"Atbash\" comes from the first and last Hebrew letters, aleph and tav.\nIt later appeared in medieval European mysticism and puzzles. Like Caesar, it is a monoalphabetic substitution — elegant, ancient, and trivially breakable.",
+      "how": "You reverse the alphabet: A↔Z, B↔Y, C↔X. The first letter maps to the last, the second to the second-last. It works for Latin and Cyrillic alike.\nBecause the rule is fixed and self-inverse, Atbash offers zero secrecy — but it is a neat historical curiosity. UWC applies it to Latin and Cyrillic in your browser.",
+      "cta": {
+        "title": "Apply Atbash",
+        "text": "Flip the alphabet with Atbash — instantly, on your machine.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "morse": {
+      "title": "Morse code",
+      "tagline": "Dots and dashes that crossed oceans.",
+      "meta": {
+        "title": "Morse code — history, Samuel Morse, telegraph alphabet",
+        "description": "Morse code explained: the telegraph alphabet, Samuel Morse and Vail, SOS, why it endures — and instant Morse encode/decode."
+      },
+      "history": "Morse code was developed in the 1830s–40s by Samuel Morse and Alfred Vail for the electric telegraph. Letters became dots and dashes whose lengths matched frequency — E is just \".\", Q is \"−−•−\".\nIt carried the first long-distance messages and saved lives (SOS, •••———•••). Though no longer official for maritime use, radio hams and aviators still learn it.",
+      "how": "Each character maps to a pattern of short (dot) and long (dash) signals, separated by gaps. A slash separates words. Both Latin and Cyrillic have standard tables.\nUWC encodes text to Morse and decodes it back in your browser — a fun bridge between the telegraph age and today.",
+      "cta": {
+        "title": "Use Morse code",
+        "text": "Encode or decode Morse — dots and dashes, instantly, locally.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "a1z26": {
+      "title": "A1Z26",
+      "tagline": "A is 1, B is 2, Z is 26.",
+      "meta": {
+        "title": "A1Z26 — history, the alphabet-number cipher, puzzle use",
+        "description": "A1Z26 explained: the simple letter-to-number substitution, why it appears in puzzles and ARGs — and an instant A1Z26 converter."
+      },
+      "history": "A1Z26 is the most naive cipher imaginable: replace each letter with its position in the alphabet. Its origins are unclear because it is \"obvious,\" but it thrives in puzzles, escape rooms and alternate-reality games.\nIt is never used for secrecy — a space separated by slashes is the only convention. Its charm is being solvable by a glance.",
+      "how": "A→1, B→2, … Z→26; a slash or space separates words. That is the entire system. Because there is no key, it offers no security at all.\nUWC encodes and decodes A1Z26 in your browser — handy when a puzzle hands you \"8 5 12 12 15\" and you want \"HELLO\".",
+      "cta": {
+        "title": "Use A1Z26",
+        "text": "Turn letters into numbers and back — instantly, on your machine.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "bacon": {
+      "title": "Bacon cipher",
+      "tagline": "Hiding words in a’s and b’s.",
+      "meta": {
+        "title": "Bacon cipher — history, Francis Bacon, binary steganography",
+        "description": "Bacon cipher explained: Francis Bacon's 1605 binary cipher, 5-bit letters, steganography — and an instant Bacon converter."
+      },
+      "history": "The Bacon cipher was described by Sir Francis Bacon in 1605 — centuries before binary computing. He encoded letters as 5-bit sequences of two symbols (then \"a\"/\"b\", now 0/1), and suggested hiding them in innocent text via font styles.\nIt is the conceptual ancestor of steganography and binary encoding: meaning rides on a difference the eye is trained to ignore.",
+      "how": "Each letter becomes five symbols from a two-symbol alphabet (e.g. A=aaaaa, B=aaaab). You can then disguise the string inside another message — say, by varying letter case or typeface.\nUWC encodes text to Bacon and decodes it back in your browser, working with the classic a/b mapping.",
+      "cta": {
+        "title": "Use Bacon cipher",
+        "text": "Encode or decode Bacon's binary cipher — locally, in your browser.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "tap": {
+      "title": "Tap code",
+      "tagline": "Knock-knock, spelled in a 5×5 grid.",
+      "meta": {
+        "title": "Tap code — history, POW communication, Polybius square",
+        "description": "Tap code explained: the grid knock cipher, Vietnam POWs, the 5×5 Polybius square — and an instant Tap code converter."
+      },
+      "history": "Tap code is a knock-based cipher built on the Polybius square: a 5×5 grid of letters addressed by row and column. It became famous among American POWs in Vietnam, who tapped messages through prison walls.\nBecause you only need to count taps, it works without sight or sound equipment — a lifeline of communication under isolation.",
+      "how": "Each letter is two numbers (row, column) in a 5×5 grid (I and J share a cell). You tap the row count, pause, then the column count. \"E\" (row1,col1) is one tap, a pause, one tap.\nUWC encodes and decodes Tap code in your browser — a quiet nod to one of history's most human ciphers.",
+      "cta": {
+        "title": "Use Tap code",
+        "text": "Knock out Tap code from text and back — instantly, locally.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "baudot": {
+      "title": "Baudot / ITA2",
+      "tagline": "The 5-bit code that wired the telegraph.",
+      "meta": {
+        "title": "Baudot code — history, Émile Baudot, the 5-bit telegraph alphabet",
+        "description": "Baudot explained: the 1870s 5-bit telegraph code, ITA2, shift characters, why \"baud\" is named for it — and an instant Baudot converter."
+      },
+      "history": "Baudot code was invented by Émile Baudot in 1870 for multiplexed telegraphy — sending several messages at once. It was the first practical character code and the namesake of \"baud\" (symbols per second).\nStandardized as ITA2, it ran teletypes (TTYs) well into the 20th century. Its 5 bits meant only 32 codes — so it needed shift characters for letters vs figures.",
+      "how": "Each character is 5 bits, but 32 combinations are too few for letters + digits + punctuation. ITA2 solves this with Figures (006) and Letters (007) shift codes that flip the meaning of later symbols.\nUWC encodes and decodes Baudot/ITA2 in your browser — a working relic of the telegraph age.",
+      "cta": {
+        "title": "Use Baudot",
+        "text": "Encode or decode Baudot/ITA2 — locally, in your browser.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "ebcdic": {
+      "title": "EBCDIC",
+      "tagline": "IBM's rival to ASCII.",
+      "meta": {
+        "title": "EBCDIC — history, IBM's 1960s mainframe encoding, 8-bit",
+        "description": "EBCDIC explained: IBM's 8-bit character set, why it differs from ASCII, its mainframe legacy — and an instant EBCDIC converter."
+      },
+      "history": "EBCDIC (Extended Binary Coded Decimal Interchange Code) was designed by IBM in 1963 for its System/360 mainframes. It evolved from punched-card codes and predates ASCII's final form.\nIBM bet on it; the rest of the world bet on ASCII. Decades later, EBCDIC still runs on mainframes in banks and insurers — a legacy that refuses to die.",
+      "how": "Like ASCII it is 8-bit, but the code points are arranged completely differently: 'A' is 0xC1 in EBCDIC but 0x41 in ASCII. Control characters sit in odd places.\nMoving text between a mainframe and the web means translating the two. UWC converts EBCDIC ↔ ASCII in your browser for those legacy integrations.",
+      "cta": {
+        "title": "Use EBCDIC",
+        "text": "Translate EBCDIC to ASCII and back — instantly, locally.",
+        "pairs": {},
+        "openStudio": "Open in studio"
+      }
+    },
+    "fullwidth": {
+      "title": "Full-width / Half-width",
+      "tagline": "When Latin letters go square.",
+      "meta": {
+        "title": "Full-width forms — history, CJK typography, Unicode compatibility",
+        "description": "Full-width/half-width explained: why CJK text needs square Latin chars, Unicode compatibility ranges — and an instant full↔half converter."
+      },
+      "history": "In Chinese, Japanese and Korean (CJK) typography, every character occupies a square \"full-width\" cell. Mixing in Latin text looked ragged, so Unicode added full-width versions of A–Z, 0–9 and punctuation — each as wide as a CJK glyph.\nThere are also half-width katakana for the reverse direction. These ranges exist mainly for compatibility with legacy encodings like Shift-JIS.",
+      "how": "Full-width A (U+FF21) is the visual twin of ASCII A (U+0041) but twice as wide. Converting is a fixed code-point offset within the compatibility blocks.\nUWC switches text between full-width and half-width forms in your browser — useful for normalizing CJK documents or fixing copy-paste artifacts.",
+      "cta": {
+        "title": "Convert width forms",
+        "text": "Switch full-width ↔ half-width — instantly, on your machine.",
+        "pairs": [],
+        "openStudio": "Open in studio"
+      }
+    },
+    "zalgo": {
+      "title": "Zalgo",
+      "tagline": "The text that appears to glitch.",
+      "meta": {
+        "title": "Zalgo text — history, combining marks, creepypasta",
+        "description": "Zalgo explained: stacking Unicode combining marks, the \"corrupted\" look, its creepypasta origin — and an instant Zalgo encoder/remover."
+      },
+      "history": "Zalgo text is the Internet's \"corrupted\" aesthetic: characters draped in cascading diacritics, as if possessed. The name comes from \"Zalgo,\" a creepypasta meme of an eldritch force that breaks reality.\nTechnically it is just Unicode combining marks piled on a base letter. The effect is pure styling — no data is actually lost.",
+      "how": "Unicode lets you attach many combining marks (U+0300–U+036F) to one character; stacking dozens makes glyphs smear upward and downward. Rendering depends on the font.\nUWC adds Zalgo for fun and strips it back to clean text — the marks are just zero-width decorations. All in your browser.",
+      "cta": {
+        "title": "Make / clean Zalgo",
+        "text": "Glitch your text or sanitize it back — locally, no upload.",
+        "pairs": [],
+        "openStudio": "Open in studio"
+      }
+    },
+    "leet": {
+      "title": "Leet speak",
+      "tagline": "Hackerspeak where E is 3.",
+      "meta": {
+        "title": "Leet speak — history, 1980s hacker slang, letter substitution",
+        "description": "Leet explained: \"1337\" subculture, substituting letters with numbers/symbols, its BBS origins — and an instant leet converter."
+      },
+      "history": "Leet (from \"elite\") emerged in 1980s bulletin-board systems (BBS) as insider slang. Users swapped letters for look-alike digits and symbols: E→3, A→4, T→7, S→5. It signaled belonging to the \"leet\" crowd.\nIt later leaked into gaming tags, memes, and \"pr0n\"-style spelling. Pure subculture — a cipher only in the loosest sense.",
+      "how": "There is no single rule; common swaps are A→4, E→3, I→1, O→0, S→5, T→7, and stylized variants like \"0wn3d\". Intensity ranges from mild to unreadable.\nUWC applies a standard leet mapping to your text in the browser — flip it on for flavor, flip it off to recover the words.",
+      "cta": {
+        "title": "Make leet",
+        "text": "Turn text into 1337 — or back to normal, instantly, locally.",
+        "pairs": [],
+        "openStudio": "Open in studio"
+      }
+    },
+    "slugify": {
+      "title": "Slugify",
+      "tagline": "Turn any title into a URL.",
+      "meta": {
+        "title": "Slugify — history, URL slugs, SEO-friendly links",
+        "description": "Slugify explained: converting titles to URL-safe strings, lowercasing, dashes, transliteration — and an instant slugify tool."
+      },
+      "history": "A \"slug\" is the human-readable part of a URL: /blog/what-is-a-slug. The term came from newsprint (\"slug\" = a short headline). Web platforms generate slugs so links are readable, indexable, and shareable.\nEvery CMS — WordPress, Django, Ghost — slugifies post titles automatically. It is invisible plumbing that makes the web friendlier.",
+      "how": "Slugifying lowercases text, replaces spaces with hyphens, strips punctuation, and often transliterates accents (café → cafe). The result is safe in a URL with no encoding.\nUWC slugifies your text in the browser — paste a headline, get a clean permalink fragment instantly.",
+      "cta": {
+        "title": "Slugify",
+        "text": "Make a URL-safe slug from any text — instantly, locally.",
+        "pairs": [],
+        "openStudio": "Open in studio"
+      }
+    },
+    "translit": {
+      "title": "Translit",
+      "tagline": "Writing Cyrillic with Latin keys.",
+      "meta": {
+        "title": "Translit — history, Russian Latin transliteration, GOST vs ISO",
+        "description": "Translit explained: mapping Cyrillic to Latin, the GOST/ISO systems, why Russians type \"privet\" — and an instant translit converter."
+      },
+      "history": "Translit maps Cyrillic letters to Latin ones, born from necessity: early Russian keyboards and SMS only had Latin keys, so people spelled Russian with Latin letters (привет → privet).\nFormal systems exist too — GOST and ISO transliteration — for passports and library catalogs. The casual version is just what feels right to a typist.",
+      "how": "There is no single table: \"ч\" might be \"ch\" or \"4\", \"ш\" might be \"sh\" or \"6\". UWC uses a common Russian↔Latin mapping so you can convert both ways in the browser.\nHandy for recovering text typed in translit, or generating a Latin spelling from Cyrillic without a dictionary.",
+      "cta": {
+        "title": "Transliterate",
+        "text": "Convert Cyrillic ↔ Latin translit — instantly, on your machine.",
+        "pairs": [],
         "openStudio": "Open in studio"
       }
     }

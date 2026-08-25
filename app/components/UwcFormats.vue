@@ -14,6 +14,37 @@ function wikiLink(name: string): string | undefined {
   const slug = name.toLowerCase()
   return WIKI_SLUGS.has(slug) ? `/formats/${slug}` : undefined
 }
+
+/**
+ * Скорость лент в px/s: длительность считается из реальной ширины контента,
+ * поэтому при добавлении форматов лента не ускоряется.
+ */
+const MARQUEE_SPEED_PX_S = 160
+const ribbon1 = ref<HTMLElement | null>(null)
+const ribbon2 = ref<HTMLElement | null>(null)
+const duration1 = ref(90)
+const duration2 = ref(95)
+
+function measure(el: HTMLElement | null, set: (v: number) => void) {
+  if (!el)
+    return
+  // половина ширины = один полный набор чипов (лента дублируется дважды)
+  set(Math.max(10, el.scrollWidth / 2 / MARQUEE_SPEED_PX_S))
+}
+
+function measureAll() {
+  measure(ribbon1.value, v => duration1.value = v)
+  measure(ribbon2.value, v => duration2.value = v)
+}
+
+onMounted(() => {
+  // ждём рендер чипов (в т.ч. локализованных) и шрифты
+  nextTick(measureAll)
+  document.fonts?.ready.then(measureAll).catch(() => {})
+})
+
+// пересчёт при смене языка (длина названий меняется)
+watch(marqueeList, () => nextTick(measureAll))
 </script>
 
 <template>
@@ -35,7 +66,7 @@ function wikiLink(name: string): string | undefined {
 
     <!-- marquee ribbons -->
     <div class="fade-x marquee-hover-pause relative mt-12 space-y-3 overflow-hidden">
-      <div class="animate-marquee flex w-max gap-2.5" style="--marquee-duration: 45s">
+      <div ref="ribbon1" class="animate-marquee flex w-max gap-2.5" :style="{ '--marquee-duration': `${duration1}s` }">
         <template v-for="n in 2" :key="n">
           <span
             v-for="f in marqueeList"
@@ -47,7 +78,7 @@ function wikiLink(name: string): string | undefined {
           </span>
         </template>
       </div>
-      <div class="animate-marquee marquee-reverse flex w-max gap-2.5" style="--marquee-duration: 55s">
+      <div ref="ribbon2" class="animate-marquee marquee-reverse flex w-max gap-2.5" :style="{ '--marquee-duration': `${duration2}s` }">
         <template v-for="n in 2" :key="n">
           <span
             v-for="f in marqueeList2"

@@ -54,13 +54,13 @@ const productsActive = computed(() =>
 <template>
   <header class="sticky top-0 z-50 border-b border-[var(--ui-border)]/70 bg-[var(--ui-bg)]/70 backdrop-blur-xl">
     <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-      <a href="#" class="flex items-center gap-2.5">
+      <NuxtLink to="/" class="flex items-center gap-2.5">
         <div class="flex size-9 items-center justify-center rounded-xl bg-gradient-to-br from-lime-400 via-emerald-400 to-cyan-400 text-zinc-950 shadow-lg shadow-lime-500/25">
           <UIcon name="i-lucide-wand-sparkles" class="size-5" />
         </div>
         <span class="font-display text-lg font-bold tracking-tight">UWC</span>
         <UBadge color="primary" variant="soft" size="sm" label="beta" class="hidden sm:inline-flex" />
-      </a>
+      </NuxtLink>
 
       <nav class="hidden items-center gap-1 md:flex">
         <!-- Products: кастомный дропдаун -->

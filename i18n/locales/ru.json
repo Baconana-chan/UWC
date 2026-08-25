@@ -5,14 +5,12 @@
     "titleConverter": "UWC — студия конвертации",
     "descriptionConverter": "Конвертируй текст, изображения и аудио прямо в браузере — сервер не участвует."
   },
-
   "converterPage": {
     "badge": "конвертер",
     "title1": "Студия",
     "title2": "конвертации",
     "subtitle": "Текст, изображения и аудио — всё считается в твоём браузере. Без загрузок на сервер, очередей и ожидания."
   },
-
   "nav": {
     "converter": "Конвертер",
     "formats": "Форматы",
@@ -32,7 +30,6 @@
     "lightMode": "Включить светлую тему",
     "darkMode": "Включить тёмную тему"
   },
-
   "hero": {
     "title1": "Конвертируй",
     "title2": "что угодно",
@@ -46,7 +43,6 @@
     "statTwoLevels": "2 уровня",
     "statLevels": "браузер + Nitro"
   },
-
   "studio": {
     "title": "Студия конвертации",
     "subtitle": "Попробуй прямо сейчас — всё считается в твоём браузере",
@@ -134,200 +130,911 @@
       "emptyHint": "Перетащите ZIP-файл, чтобы увидеть список файлов внутри."
     }
   },
-
   "groups": {
-    "case": { "label": "Регистр" },
-    "encoding": { "label": "Кодировки" },
-    "json": { "label": "JSON" },
-    "string": { "label": "Строки" },
-    "fun": { "label": "Весёлое" },
-    "markup": { "label": "Разметка" },
-    "data": { "label": "Данные" }
+    "case": {
+      "label": "Регистр"
+    },
+    "encoding": {
+      "label": "Кодировки"
+    },
+    "json": {
+      "label": "JSON"
+    },
+    "string": {
+      "label": "Строки"
+    },
+    "fun": {
+      "label": "Весёлое"
+    },
+    "markup": {
+      "label": "Разметка"
+    },
+    "data": {
+      "label": "Данные"
+    }
   },
-
   "conv": {
-    "upper": { "from": "Текст", "to": "UPPERCASE", "description": "Все буквы — заглавные" },
-    "lower": { "from": "Текст", "to": "lowercase", "description": "Все буквы — строчные" },
-    "title": { "from": "Текст", "to": "Title Case", "description": "Каждое слово с заглавной" },
-    "camel": { "from": "Текст", "to": "camelCase", "description": "camelCase" },
-    "snake": { "from": "Текст", "to": "snake_case", "description": "snake_case" },
-    "kebab": { "from": "Текст", "to": "kebab-case", "description": "kebab-case" },
-    "base64-encode": { "from": "Текст", "to": "Base64", "description": "Закодировать в Base64" },
-    "base64-decode": { "from": "Base64", "to": "Текст", "description": "Декодировать из Base64" },    "base32-encode": { "from": "Текст", "to": "Base32", "description": "Закодировать в Base32 RFC 4648" },
-    "base32-decode": { "from": "Base32", "to": "Текст", "description": "Декодировать из Base32" },
-    "base36-encode": { "from": "Текст", "to": "Base36", "description": "Закодировать UTF-8-байты в Base36" },
-    "base36-decode": { "from": "Base36", "to": "Текст", "description": "Декодировать из Base36" },
-    "base62-encode": { "from": "Текст", "to": "Base62", "description": "Закодировать UTF-8-байты в Base62" },
-    "base62-decode": { "from": "Base62", "to": "Текст", "description": "Декодировать из Base62" },
-    "ascii85-encode": { "from": "Текст", "to": "Ascii85", "description": "Закодировать в Ascii85" },
-    "ascii85-decode": { "from": "Ascii85", "to": "Текст", "description": "Декодировать из Ascii85" },
-    "hex-encode": { "from": "Текст", "to": "Hex", "description": "Закодировать в шестнадцатеричный вид" },
-    "hex-decode": { "from": "Hex", "to": "Текст", "description": "Декодировать из hex" },
-    "ihex-decode": { "from": "Intel HEX", "to": "байты Base64", "description": "Декодировать Intel HEX с проверкой checksum" },
-    "ihex-encode": { "from": "байты Base64", "to": "Intel HEX", "description": "Закодировать байты в записи Intel HEX" },
-    "url-encode": { "from": "URL", "to": "закодированный URL", "description": "URL-encode (для query-параметров)" },
-    "url-decode": { "from": "закодированный URL", "to": "URL", "description": "URL-decode" },
-    "idn-encode": { "from": "Unicode-домен", "to": "Punycode / IDN", "description": "Преобразовать интернациональный домен в Punycode" },
-    "idn-decode": { "from": "Punycode / IDN", "to": "Unicode-домен", "description": "Преобразовать Punycode в читаемый домен" },
-    "quoted-printable-encode": { "from": "Текст", "to": "Quoted-Printable", "description": "Закодировать MIME Quoted-Printable" },
-    "quoted-printable-decode": { "from": "Quoted-Printable", "to": "Текст", "description": "Декодировать MIME Quoted-Printable" },
-    "uuencode": { "from": "Текст", "to": "Uuencode", "description": "Закодировать классическим uuencode" },
-    "uudecode": { "from": "Uuencode", "to": "Текст", "description": "Декодировать классический uuencode" },
-    "morse-encode": { "from": "Текст", "to": "Морзе", "description": "Закодировать текст азбукой Морзе" },
-    "morse-decode": { "from": "Морзе", "to": "Текст", "description": "Декодировать азбуку Морзе" },
-    "rot47": { "from": "Текст", "to": "ROT47", "description": "Сдвинуть печатный ASCII на 47" },
-    "atbash": { "from": "Текст", "to": "Атбаш", "description": "Отразить латинский и кириллический алфавиты" },
-    "caesar-encode": { "from": "Текст", "to": "Цезарь +3", "description": "Сдвинуть латинские буквы на три" },
-    "caesar-decode": { "from": "Цезарь +3", "to": "Текст", "description": "Отменить сдвиг Цезаря на три буквы" },
-    "xor-encode": { "from": "Ключ + текст", "to": "XOR hex", "description": "XOR UTF-8-текста с ключом; ввод: ключ, новая строка, текст" },
-    "xor-decode": { "from": "Ключ + XOR hex", "to": "Текст", "description": "Декодировать XOR hex; ввод: ключ, новая строка, hex" },
-    "a1z26-encode": { "from": "Текст", "to": "A1Z26", "description": "Преобразовать A–Z в числа 1–26" },
-    "a1z26-decode": { "from": "A1Z26", "to": "Текст", "description": "Преобразовать числа 1–26 обратно в буквы" },
-    "bacon-encode": { "from": "Текст", "to": "Шифр Бэкона", "description": "Закодировать буквы группами a и b" },
-    "bacon-decode": { "from": "Шифр Бэкона", "to": "Текст", "description": "Декодировать группы a и b" },
-    "tap-code-encode": { "from": "Текст", "to": "Тап-код", "description": "Закодировать буквы парами строка-столбец" },
-    "tap-code-decode": { "from": "Тап-код", "to": "Текст", "description": "Декодировать пары тап-кода" },
-    "strip-diacritics": { "from": "Текст", "to": "Текст без диакритики", "description": "Удалить комбинируемые диакритические знаки" },
-    "unfuck-paste": { "from": "Грязная вставка", "to": "Чистый текст", "description": "Удалить невидимые символы и нормализовать типографику" },
-    "unix-to-iso": { "from": "Unix timestamp", "to": "ISO 8601", "description": "Используй s:/ms: и необязательный local:; по умолчанию UTC" },
-    "iso-to-unix": { "from": "ISO 8601", "to": "Unix timestamp", "description": "Используй s:/ms: и необязательный local:; по умолчанию секунды" },
-    "mac-to-colon": { "from": "MAC-адрес", "to": "aa:bb:cc:dd:ee:ff", "description": "Оформить MAC-адрес через двоеточия" },
-    "mac-to-dash": { "from": "MAC-адрес", "to": "aa-bb-cc-dd-ee-ff", "description": "Оформить MAC-адрес через дефисы" },
-    "mac-to-cisco": { "from": "MAC-адрес", "to": "aabb.ccdd.eeff", "description": "Оформить MAC-адрес в формате Cisco" },
-    "mac-to-plain": { "from": "MAC-адрес", "to": "aabbccddeeff", "description": "Убрать разделители MAC-адреса" },
-    "hjson-to-json": { "from": "HJSON", "to": "JSON", "description": "Разобрать человекочитаемый JSON с комментариями и ключами без кавычек" },
-    "json-to-hjson": { "from": "JSON", "to": "HJSON", "description": "Отформатировать JSON как человекочитаемый конфиг" },
-    "bbcode-to-html": { "from": "BBCode", "to": "HTML", "description": "Преобразовать форумный BBCode в безопасный HTML" },
-    "csv-to-markdown": { "from": "CSV", "to": "Markdown-таблица", "description": "Преобразовать строки CSV в Markdown-таблицу" },
-    "tsv-to-markdown": { "from": "TSV", "to": "Markdown-таблица", "description": "Преобразовать строки TSV в Markdown-таблицу" },
-    "properties-to-json": { "from": "Java properties", "to": "JSON", "description": "Разобрать Java properties с комментариями и escape-последовательностями" },
-    "json-to-properties": { "from": "JSON", "to": "Java properties", "description": "Записать JSON в Java properties" },
-    "env-to-json": { "from": ".env", "to": "JSON", "description": "Преобразовать переменные окружения в JSON" },
-    "json-to-env": { "from": "JSON", "to": ".env", "description": "Записать JSON в env-файл" },
-    "stego-encode": { "from": "Носитель + секрет", "to": "Текст с zero-width", "description": "Спрятать UTF-8-текст в невидимых символах; ввод: носитель, новая строка, ---, секрет" },
-    "stego-decode": { "from": "Текст с zero-width", "to": "Секрет", "description": "Извлечь строгий UWC-payload из невидимых символов" },
-    "sort-lines": { "from": "Строки", "to": "Отсортированные строки", "description": "Отсортировать строки по алфавиту" },
-    "dedupe-lines": { "from": "Строки", "to": "Уникальные строки", "description": "Удалить повторы, сохранив порядок" },
-    "shuffle-lines": { "from": "Строки", "to": "Перемешанные строки", "description": "Перемешать строки криптографической случайностью" },
-    "number-lines": { "from": "Строки", "to": "Нумерованные строки", "description": "Добавить номера строк с единицы" },
-    "wrap-text": { "from": "Ширина + текст", "to": "Переносы", "description": "Перенести слова; ввод: ширина, новая строка, текст" },
-    "number-base-convert": { "from": "Система + число", "to": "Число", "description": "Перевести системы 2–36; ввод: fromBase:toBase, новая строка, число" },
-    "iso-duration-to-seconds": { "from": "ISO 8601 duration", "to": "Секунды", "description": "Преобразовать длительность PT1H30M в секунды" },
-    "seconds-to-iso-duration": { "from": "Секунды", "to": "ISO 8601 duration", "description": "Преобразовать секунды в длительность PT..." },
-    "hex-to-rgb": { "from": "HEX", "to": "RGB", "description": "Преобразовать hex-цвет в CSS rgb()" },
-    "rgb-to-hex": { "from": "RGB", "to": "HEX", "description": "Преобразовать CSS rgb() в hex-цвет" },
-    "rgb-to-hsl": { "from": "RGB", "to": "HSL", "description": "Преобразовать RGB в CSS hsl()" },
-    "hsl-to-rgb": { "from": "HSL", "to": "RGB", "description": "Преобразовать CSS hsl() в RGB" },
-    "hex-to-hsl": { "from": "HEX", "to": "HSL", "description": "Преобразовать hex-цвет в CSS hsl()" },
-    "hsl-to-hex": { "from": "HSL", "to": "HEX", "description": "Преобразовать CSS hsl() в hex-цвет" },
-    "roman-to-arabic": { "from": "Римские числа", "to": "Арабское число", "description": "Преобразовать канонические римские числа от I до MMMCMXCIX" },
-    "arabic-to-roman": { "from": "Арабское число", "to": "Римские числа", "description": "Преобразовать целые числа от 1 до 3999 в римские" },
-    "jwt-decode": { "from": "JWT", "to": "JSON", "description": "Декодировать header и payload JWT без проверки подписи" },
-    "glob-to-regex": { "from": "Glob", "to": "Регулярное выражение", "description": "Преобразовать glob *, ?, ** в regex" },
-    "regex-to-glob": { "from": "Регулярное выражение", "to": "Glob", "description": "Преобразовать базовый regex с якорями в glob" },
-    "c-escape-encode": { "from": "Текст", "to": "C escapes", "description": "Экранировать текст для C-строки" },
-    "c-escape-decode": { "from": "C escapes", "to": "Текст", "description": "Декодировать C-style escape-последовательности" },
-    "shell-quote": { "from": "Аргументы", "to": "Shell-команда", "description": "Ввод: shell, новая строка, по одному аргументу в строке" },
-    "argv-split": { "from": "Shell-команда", "to": "Аргументы", "description": "Разбить командную строку на аргументы" },
-    "windows-to-posix": { "from": "Windows-путь", "to": "POSIX-путь", "description": "Преобразовать C:\\-пути в /c/-пути" },
-    "posix-to-windows": { "from": "POSIX-путь", "to": "Windows-путь", "description": "Преобразовать /c/-пути в C:\\-пути" },
-    "json-to-typescript": { "from": "JSON", "to": "TypeScript-интерфейсы", "description": "Сгенерировать рекурсивные TypeScript-интерфейсы из JSON" },
-    "zalgo-add": { "from": "Текст", "to": "Zalgo", "description": "Наложить combining-марки на каждый непробельный символ" },
-    "zalgo-remove": { "from": "Zalgo", "to": "Чистый текст", "description": "Удалить все Unicode combining-марки" },
-    "slugify": { "from": "Текст", "to": "Slug", "description": "Транслитерировать, привести к lowercase и соединить дефисами" },
-    "luhn-check": { "from": "Номер карты", "to": "Результат Luhn", "description": "Проверить число алгоритмом Луна" },
-    "inn-check": { "from": "ИНН РФ", "to": "Результат ИНН", "description": "Проверить 10- или 12-значный российский ИНН" },
-    "isbn-check": { "from": "ISBN", "to": "Результат ISBN", "description": "Проверить ISBN-10 или ISBN-13" },
-    "ean-upc-check": { "from": "EAN / UPC", "to": "Результат штрихкода", "description": "Проверить EAN-13 или UPC-A" },
-    "crc32": { "from": "Текст", "to": "CRC32", "description": "Посчитать контрольную сумму CRC-32" },
-    "iban-format": { "from": "IBAN", "to": "IBAN с пробелами", "description": "Нормализовать IBAN и разбить на группы по четыре символа" },
-    "iban-validate": { "from": "IBAN", "to": "Результат IBAN", "description": "Проверить длину страны и контрольную сумму MOD-97" },
-    "chmod-to-symbolic": { "from": "Цифры chmod", "to": "rwx-права", "description": "Преобразовать права 755 в rwxr-xr-x" },
-    "symbolic-to-chmod": { "from": "rwx-права", "to": "Цифры chmod", "description": "Преобразовать rwxr-xr-x в права 755" },
-    "ebcdic-encode": { "from": "ASCII-текст", "to": "EBCDIC hex", "description": "Закодировать байтами IBM CP037 EBCDIC" },
-    "ebcdic-decode": { "from": "EBCDIC hex", "to": "ASCII-текст", "description": "Декодировать байты IBM CP037 EBCDIC" },
-    "baudot-encode": { "from": "Текст", "to": "Baudot / ITA2", "description": "Закодировать 5-битными кодами RTTY Baudot" },
-    "baudot-decode": { "from": "Baudot / ITA2", "to": "Текст", "description": "Декодировать 5-битные коды RTTY Baudot" },
-    "fullwidth-to-halfwidth": { "from": "Full-width", "to": "Half-width", "description": "Преобразовать японские полноширинные символы в полуширинные" },
-    "halfwidth-to-fullwidth": { "from": "Half-width", "to": "Full-width", "description": "Преобразовать японские полуширинные символы в полноширинные" },
-    "html-escape": { "from": "Текст", "to": "HTML-escape", "description": "Экранировать HTML-спецсимволы" },
-    "json-pretty": { "from": "JSON", "to": "JSON (pretty)", "description": "Отформатировать JSON с отступами" },
-    "json-minify": { "from": "JSON (pretty)", "to": "JSON (min)", "description": "Сжать JSON в одну строку" },
-    "json-sort": { "from": "JSON", "to": "JSON (sorted)", "description": "Отсортировать ключи по алфавиту" },
-    "json-to-jsonp": { "from": "JSON", "to": "JSONP", "description": "Обернуть JSON в колбэк-функцию" },
-    "jsonp-to-json": { "from": "JSONP", "to": "JSON", "description": "Достать JSON из JSONP-обёртки" },
-    "reverse": { "from": "Текст", "to": "Развёрнутый текст", "description": "Текст задом наперёд" },
-    "rot13": { "from": "Текст", "to": "ROT13", "description": "ROT13 — сдвиг букв на 13 (обратное преобразование — то же самое)" },
-    "collapse-space": { "from": "Текст", "to": "Текст без лишних пробелов", "description": "Схлопнуть повторяющиеся пробелы" },
-    "crlf-to-lf": { "from": "CRLF (Windows)", "to": "LF (Unix)", "description": "Переносы строк Windows → Unix" },
-    "lf-to-crlf": { "from": "LF (Unix)", "to": "CRLF (Windows)", "description": "Переносы строк Unix → Windows" },
-    "cr-to-lf": { "from": "CR (старый Mac)", "to": "LF (Unix)", "description": "Переносы старого Mac → Unix" },
-    "lf-to-cr": { "from": "LF (Unix)", "to": "CR (старый Mac)", "description": "Переносы Unix → старый Mac" },
-    "csv-to-tsv": { "from": "CSV", "to": "TSV", "description": "Поменять разделитель: запятая → таб (учитываются кавычки)" },
-    "tsv-to-csv": { "from": "TSV", "to": "CSV", "description": "Поменять разделитель: таб → запятая (учитываются кавычки)" },
-    "text-stats": { "from": "Текст", "to": "Статистика", "description": "Символы, слова и строки" },
-    "translit": { "from": "Кириллица", "to": "Транслит", "description": "Русский текст латиницей" },
-    "layout-to-ru": { "from": "QWERTY", "to": "ЙЦУКЕН", "description": "Починить текст, набранный не той раскладкой: ntrcn → текст" },
-    "layout-to-en": { "from": "ЙЦУКЕН", "to": "QWERTY", "description": "Русская раскладка обратно в QWERTY: текст → ntrcn" },
-    "leet": { "from": "Текст", "to": "1337", "description": "Leet speak" },
-    "sha256": { "from": "Текст", "to": "SHA-256", "description": "Хеш SHA-256 (WebCrypto)" },
-    "sha1": { "from": "Текст", "to": "SHA-1", "description": "Хеш SHA-1 (WebCrypto, легаси)" },
-    "md5": { "from": "Текст", "to": "MD5", "description": "Хеш MD5 (чистый JS, для легаси-проверок)" },
-    "emoji-to-codes": { "from": "Смайлики", "to": "Коды", "description": "😀 → U+1F600 (кодовые точки)" },
-    "codes-to-emoji": { "from": "Коды", "to": "Смайлики", "description": "U+1F600 → 😀 (из кодовых точек)" },
-    "md-to-html": { "from": "Markdown", "to": "HTML", "description": "Отрендерить Markdown в HTML (Tiptap)" },
-    "html-to-md": { "from": "HTML", "to": "Markdown", "description": "Сконвертировать HTML обратно в Markdown" },
-    "ini-to-json": { "from": "INI", "to": "JSON", "description": "INI-конфиг в JSON" },
-    "json-to-ini": { "from": "JSON", "to": "INI", "description": "JSON в INI-конфиг" },
-    "csv-to-json": { "from": "CSV", "to": "JSON", "description": "CSV-таблица в JSON" },
-    "json-to-csv": { "from": "JSON", "to": "CSV", "description": "JSON в CSV-таблицу (у объектов — заголовки)" },
-    "ini-to-yaml": { "from": "INI", "to": "YAML", "description": "INI-конфиг в YAML" },
-    "ini-to-toml": { "from": "INI", "to": "TOML", "description": "INI-конфиг в TOML" },
-    "csv-to-yaml": { "from": "CSV", "to": "YAML", "description": "CSV-таблица в YAML" },
-    "csv-to-toml": { "from": "CSV", "to": "TOML", "description": "CSV-таблица в TOML" },
-    "json-to-yaml": { "from": "JSON", "to": "YAML", "description": "JSON в YAML" },
-    "json-to-toml": { "from": "JSON", "to": "TOML", "description": "JSON в TOML" },
-    "yaml-to-json": { "from": "YAML", "to": "JSON", "description": "YAML в JSON" },
-    "yaml-to-ini": { "from": "YAML", "to": "INI", "description": "YAML в INI-конфиг" },
-    "yaml-to-toml": { "from": "YAML", "to": "TOML", "description": "YAML в TOML" },
-    "yaml-to-csv": { "from": "YAML", "to": "CSV", "description": "YAML-список в CSV" },
-    "toml-to-json": { "from": "TOML", "to": "JSON", "description": "TOML в JSON" },
-    "toml-to-ini": { "from": "TOML", "to": "INI", "description": "TOML-конфиг в INI" },
-    "toml-to-yaml": { "from": "TOML", "to": "YAML", "description": "TOML в YAML" },
-    "toml-to-csv": { "from": "TOML", "to": "CSV", "description": "TOML-данные в CSV" },
-    "xml-to-json": { "from": "XML", "to": "JSON", "description": "XML в JSON" },
-    "json-to-xml": { "from": "JSON", "to": "XML", "description": "JSON в XML" },
-    "vcard-to-json": { "from": "vCard", "to": "JSON", "description": "vCard-контакт в JSON" },
-    "json-to-vcard": { "from": "JSON", "to": "vCard", "description": "JSON в vCard-контакт" },
-    "ical-to-json": { "from": "iCal", "to": "JSON", "description": "iCal-календарь в JSON" },
-    "json-to-ical": { "from": "JSON", "to": "iCal", "description": "JSON в iCal-календарь" },
-    "docx-to-html": { "from": "DOCX", "to": "HTML", "description": "Извлечь HTML из документа Word (mammoth)" },
-    "html-to-docx": { "from": "HTML", "to": "DOCX", "description": "Преобразовать HTML в документ Word" },
-    "docx-to-txt": { "from": "DOCX", "to": "TXT", "description": "Извлечь чистый текст из документа Word" },
-    "txt-to-docx": { "from": "TXT", "to": "DOCX", "description": "Преобразовать текст в документ Word" },
-    "pdf-to-txt": { "from": "PDF", "to": "TXT", "description": "Извлечь текст из PDF (pdfjs-dist)" },
-    "txt-to-pdf": { "from": "TXT", "to": "PDF", "description": "Создать PDF из текста (pdf-lib)" },
-    "xlsx-to-csv": { "from": "XLSX", "to": "CSV", "description": "Извлечь данные листа в CSV (exceljs)" },
-    "csv-to-xlsx": { "from": "CSV", "to": "XLSX", "description": "Создать таблицу из CSV (exceljs)" },
-    "xlsx-to-json": { "from": "XLSX", "to": "JSON", "description": "Извлечь данные листа в JSON (exceljs)" },
-    "json-to-xlsx": { "from": "JSON", "to": "XLSX", "description": "Создать таблицу из JSON (exceljs)" },
-    "sql-to-json": { "from": "SQL", "to": "JSON", "description": "Разобрать SQL dump (CREATE TABLE + INSERT) в JSON" },
-    "json-to-sql": { "from": "JSON", "to": "SQL", "description": "Сгенерировать SQL dump из данных" },
-    "kml-to-geojson": { "from": "KML", "to": "GeoJSON", "description": "KML в GeoJSON" },
-    "gpx-to-geojson": { "from": "GPX", "to": "GeoJSON", "description": "GPX в GeoJSON" },
-    "geojson-to-kml": { "from": "GeoJSON", "to": "KML", "description": "GeoJSON в KML" },
-    "geojson-to-gpx": { "from": "GeoJSON", "to": "GPX", "description": "GeoJSON в GPX" },
-    "geojson-to-csv": { "from": "GeoJSON", "to": "CSV", "description": "Экспорт точек и треков в CSV" },
-    "geojson-to-json": { "from": "GeoJSON", "to": "JSON", "description": "Отформатировать GeoJSON как JSON" },
-    "json-to-geojson": { "from": "JSON", "to": "GeoJSON", "description": "Валидация / импорт GeoJSON из JSON" }
+    "upper": {
+      "from": "Текст",
+      "to": "UPPERCASE",
+      "description": "Все буквы — заглавные"
+    },
+    "lower": {
+      "from": "Текст",
+      "to": "lowercase",
+      "description": "Все буквы — строчные"
+    },
+    "title": {
+      "from": "Текст",
+      "to": "Title Case",
+      "description": "Каждое слово с заглавной"
+    },
+    "camel": {
+      "from": "Текст",
+      "to": "camelCase",
+      "description": "camelCase"
+    },
+    "snake": {
+      "from": "Текст",
+      "to": "snake_case",
+      "description": "snake_case"
+    },
+    "kebab": {
+      "from": "Текст",
+      "to": "kebab-case",
+      "description": "kebab-case"
+    },
+    "base64-encode": {
+      "from": "Текст",
+      "to": "Base64",
+      "description": "Закодировать в Base64"
+    },
+    "base64-decode": {
+      "from": "Base64",
+      "to": "Текст",
+      "description": "Декодировать из Base64"
+    },
+    "base32-encode": {
+      "from": "Текст",
+      "to": "Base32",
+      "description": "Закодировать в Base32 RFC 4648"
+    },
+    "base32-decode": {
+      "from": "Base32",
+      "to": "Текст",
+      "description": "Декодировать из Base32"
+    },
+    "base36-encode": {
+      "from": "Текст",
+      "to": "Base36",
+      "description": "Закодировать UTF-8-байты в Base36"
+    },
+    "base36-decode": {
+      "from": "Base36",
+      "to": "Текст",
+      "description": "Декодировать из Base36"
+    },
+    "base62-encode": {
+      "from": "Текст",
+      "to": "Base62",
+      "description": "Закодировать UTF-8-байты в Base62"
+    },
+    "base62-decode": {
+      "from": "Base62",
+      "to": "Текст",
+      "description": "Декодировать из Base62"
+    },
+    "ascii85-encode": {
+      "from": "Текст",
+      "to": "Ascii85",
+      "description": "Закодировать в Ascii85"
+    },
+    "ascii85-decode": {
+      "from": "Ascii85",
+      "to": "Текст",
+      "description": "Декодировать из Ascii85"
+    },
+    "hex-encode": {
+      "from": "Текст",
+      "to": "Hex",
+      "description": "Закодировать в шестнадцатеричный вид"
+    },
+    "hex-decode": {
+      "from": "Hex",
+      "to": "Текст",
+      "description": "Декодировать из hex"
+    },
+    "ihex-decode": {
+      "from": "Intel HEX",
+      "to": "байты Base64",
+      "description": "Декодировать Intel HEX с проверкой checksum"
+    },
+    "ihex-encode": {
+      "from": "байты Base64",
+      "to": "Intel HEX",
+      "description": "Закодировать байты в записи Intel HEX"
+    },
+    "url-encode": {
+      "from": "URL",
+      "to": "закодированный URL",
+      "description": "URL-encode (для query-параметров)"
+    },
+    "url-decode": {
+      "from": "закодированный URL",
+      "to": "URL",
+      "description": "URL-decode"
+    },
+    "idn-encode": {
+      "from": "Unicode-домен",
+      "to": "Punycode / IDN",
+      "description": "Преобразовать интернациональный домен в Punycode"
+    },
+    "idn-decode": {
+      "from": "Punycode / IDN",
+      "to": "Unicode-домен",
+      "description": "Преобразовать Punycode в читаемый домен"
+    },
+    "quoted-printable-encode": {
+      "from": "Текст",
+      "to": "Quoted-Printable",
+      "description": "Закодировать MIME Quoted-Printable"
+    },
+    "quoted-printable-decode": {
+      "from": "Quoted-Printable",
+      "to": "Текст",
+      "description": "Декодировать MIME Quoted-Printable"
+    },
+    "uuencode": {
+      "from": "Текст",
+      "to": "Uuencode",
+      "description": "Закодировать классическим uuencode"
+    },
+    "uudecode": {
+      "from": "Uuencode",
+      "to": "Текст",
+      "description": "Декодировать классический uuencode"
+    },
+    "morse-encode": {
+      "from": "Текст",
+      "to": "Морзе",
+      "description": "Закодировать текст азбукой Морзе"
+    },
+    "morse-decode": {
+      "from": "Морзе",
+      "to": "Текст",
+      "description": "Декодировать азбуку Морзе"
+    },
+    "rot47": {
+      "from": "Текст",
+      "to": "ROT47",
+      "description": "Сдвинуть печатный ASCII на 47"
+    },
+    "atbash": {
+      "from": "Текст",
+      "to": "Атбаш",
+      "description": "Отразить латинский и кириллический алфавиты"
+    },
+    "caesar-encode": {
+      "from": "Текст",
+      "to": "Цезарь +3",
+      "description": "Сдвинуть латинские буквы на три"
+    },
+    "caesar-decode": {
+      "from": "Цезарь +3",
+      "to": "Текст",
+      "description": "Отменить сдвиг Цезаря на три буквы"
+    },
+    "xor-encode": {
+      "from": "Ключ + текст",
+      "to": "XOR hex",
+      "description": "XOR UTF-8-текста с ключом; ввод: ключ, новая строка, текст"
+    },
+    "xor-decode": {
+      "from": "Ключ + XOR hex",
+      "to": "Текст",
+      "description": "Декодировать XOR hex; ввод: ключ, новая строка, hex"
+    },
+    "a1z26-encode": {
+      "from": "Текст",
+      "to": "A1Z26",
+      "description": "Преобразовать A–Z в числа 1–26"
+    },
+    "a1z26-decode": {
+      "from": "A1Z26",
+      "to": "Текст",
+      "description": "Преобразовать числа 1–26 обратно в буквы"
+    },
+    "bacon-encode": {
+      "from": "Текст",
+      "to": "Шифр Бэкона",
+      "description": "Закодировать буквы группами a и b"
+    },
+    "bacon-decode": {
+      "from": "Шифр Бэкона",
+      "to": "Текст",
+      "description": "Декодировать группы a и b"
+    },
+    "tap-code-encode": {
+      "from": "Текст",
+      "to": "Тап-код",
+      "description": "Закодировать буквы парами строка-столбец"
+    },
+    "tap-code-decode": {
+      "from": "Тап-код",
+      "to": "Текст",
+      "description": "Декодировать пары тап-кода"
+    },
+    "strip-diacritics": {
+      "from": "Текст",
+      "to": "Текст без диакритики",
+      "description": "Удалить комбинируемые диакритические знаки"
+    },
+    "unfuck-paste": {
+      "from": "Грязная вставка",
+      "to": "Чистый текст",
+      "description": "Удалить невидимые символы и нормализовать типографику"
+    },
+    "unix-to-iso": {
+      "from": "Unix timestamp",
+      "to": "ISO 8601",
+      "description": "Используй s:/ms: и необязательный local:; по умолчанию UTC"
+    },
+    "iso-to-unix": {
+      "from": "ISO 8601",
+      "to": "Unix timestamp",
+      "description": "Используй s:/ms: и необязательный local:; по умолчанию секунды"
+    },
+    "mac-to-colon": {
+      "from": "MAC-адрес",
+      "to": "aa:bb:cc:dd:ee:ff",
+      "description": "Оформить MAC-адрес через двоеточия"
+    },
+    "mac-to-dash": {
+      "from": "MAC-адрес",
+      "to": "aa-bb-cc-dd-ee-ff",
+      "description": "Оформить MAC-адрес через дефисы"
+    },
+    "mac-to-cisco": {
+      "from": "MAC-адрес",
+      "to": "aabb.ccdd.eeff",
+      "description": "Оформить MAC-адрес в формате Cisco"
+    },
+    "mac-to-plain": {
+      "from": "MAC-адрес",
+      "to": "aabbccddeeff",
+      "description": "Убрать разделители MAC-адреса"
+    },
+    "hjson-to-json": {
+      "from": "HJSON",
+      "to": "JSON",
+      "description": "Разобрать человекочитаемый JSON с комментариями и ключами без кавычек"
+    },
+    "json-to-hjson": {
+      "from": "JSON",
+      "to": "HJSON",
+      "description": "Отформатировать JSON как человекочитаемый конфиг"
+    },
+    "bbcode-to-html": {
+      "from": "BBCode",
+      "to": "HTML",
+      "description": "Преобразовать форумный BBCode в безопасный HTML"
+    },
+    "csv-to-markdown": {
+      "from": "CSV",
+      "to": "Markdown-таблица",
+      "description": "Преобразовать строки CSV в Markdown-таблицу"
+    },
+    "tsv-to-markdown": {
+      "from": "TSV",
+      "to": "Markdown-таблица",
+      "description": "Преобразовать строки TSV в Markdown-таблицу"
+    },
+    "properties-to-json": {
+      "from": "Java properties",
+      "to": "JSON",
+      "description": "Разобрать Java properties с комментариями и escape-последовательностями"
+    },
+    "json-to-properties": {
+      "from": "JSON",
+      "to": "Java properties",
+      "description": "Записать JSON в Java properties"
+    },
+    "env-to-json": {
+      "from": ".env",
+      "to": "JSON",
+      "description": "Преобразовать переменные окружения в JSON"
+    },
+    "json-to-env": {
+      "from": "JSON",
+      "to": ".env",
+      "description": "Записать JSON в env-файл"
+    },
+    "stego-encode": {
+      "from": "Носитель + секрет",
+      "to": "Текст с zero-width",
+      "description": "Спрятать UTF-8-текст в невидимых символах; ввод: носитель, новая строка, ---, секрет"
+    },
+    "stego-decode": {
+      "from": "Текст с zero-width",
+      "to": "Секрет",
+      "description": "Извлечь строгий UWC-payload из невидимых символов"
+    },
+    "sort-lines": {
+      "from": "Строки",
+      "to": "Отсортированные строки",
+      "description": "Отсортировать строки по алфавиту"
+    },
+    "dedupe-lines": {
+      "from": "Строки",
+      "to": "Уникальные строки",
+      "description": "Удалить повторы, сохранив порядок"
+    },
+    "shuffle-lines": {
+      "from": "Строки",
+      "to": "Перемешанные строки",
+      "description": "Перемешать строки криптографической случайностью"
+    },
+    "number-lines": {
+      "from": "Строки",
+      "to": "Нумерованные строки",
+      "description": "Добавить номера строк с единицы"
+    },
+    "wrap-text": {
+      "from": "Ширина + текст",
+      "to": "Переносы",
+      "description": "Перенести слова; ввод: ширина, новая строка, текст"
+    },
+    "number-base-convert": {
+      "from": "Система + число",
+      "to": "Число",
+      "description": "Перевести системы 2–36; ввод: fromBase:toBase, новая строка, число"
+    },
+    "iso-duration-to-seconds": {
+      "from": "ISO 8601 duration",
+      "to": "Секунды",
+      "description": "Преобразовать длительность PT1H30M в секунды"
+    },
+    "seconds-to-iso-duration": {
+      "from": "Секунды",
+      "to": "ISO 8601 duration",
+      "description": "Преобразовать секунды в длительность PT..."
+    },
+    "hex-to-rgb": {
+      "from": "HEX",
+      "to": "RGB",
+      "description": "Преобразовать hex-цвет в CSS rgb()"
+    },
+    "rgb-to-hex": {
+      "from": "RGB",
+      "to": "HEX",
+      "description": "Преобразовать CSS rgb() в hex-цвет"
+    },
+    "rgb-to-hsl": {
+      "from": "RGB",
+      "to": "HSL",
+      "description": "Преобразовать RGB в CSS hsl()"
+    },
+    "hsl-to-rgb": {
+      "from": "HSL",
+      "to": "RGB",
+      "description": "Преобразовать CSS hsl() в RGB"
+    },
+    "hex-to-hsl": {
+      "from": "HEX",
+      "to": "HSL",
+      "description": "Преобразовать hex-цвет в CSS hsl()"
+    },
+    "hsl-to-hex": {
+      "from": "HSL",
+      "to": "HEX",
+      "description": "Преобразовать CSS hsl() в hex-цвет"
+    },
+    "roman-to-arabic": {
+      "from": "Римские числа",
+      "to": "Арабское число",
+      "description": "Преобразовать канонические римские числа от I до MMMCMXCIX"
+    },
+    "arabic-to-roman": {
+      "from": "Арабское число",
+      "to": "Римские числа",
+      "description": "Преобразовать целые числа от 1 до 3999 в римские"
+    },
+    "jwt-decode": {
+      "from": "JWT",
+      "to": "JSON",
+      "description": "Декодировать header и payload JWT без проверки подписи"
+    },
+    "glob-to-regex": {
+      "from": "Glob",
+      "to": "Регулярное выражение",
+      "description": "Преобразовать glob *, ?, ** в regex"
+    },
+    "regex-to-glob": {
+      "from": "Регулярное выражение",
+      "to": "Glob",
+      "description": "Преобразовать базовый regex с якорями в glob"
+    },
+    "c-escape-encode": {
+      "from": "Текст",
+      "to": "C escapes",
+      "description": "Экранировать текст для C-строки"
+    },
+    "c-escape-decode": {
+      "from": "C escapes",
+      "to": "Текст",
+      "description": "Декодировать C-style escape-последовательности"
+    },
+    "shell-quote": {
+      "from": "Аргументы",
+      "to": "Shell-команда",
+      "description": "Ввод: shell, новая строка, по одному аргументу в строке"
+    },
+    "argv-split": {
+      "from": "Shell-команда",
+      "to": "Аргументы",
+      "description": "Разбить командную строку на аргументы"
+    },
+    "windows-to-posix": {
+      "from": "Windows-путь",
+      "to": "POSIX-путь",
+      "description": "Преобразовать C:\\-пути в /c/-пути"
+    },
+    "posix-to-windows": {
+      "from": "POSIX-путь",
+      "to": "Windows-путь",
+      "description": "Преобразовать /c/-пути в C:\\-пути"
+    },
+    "json-to-typescript": {
+      "from": "JSON",
+      "to": "TypeScript-интерфейсы",
+      "description": "Сгенерировать рекурсивные TypeScript-интерфейсы из JSON"
+    },
+    "zalgo-add": {
+      "from": "Текст",
+      "to": "Zalgo",
+      "description": "Наложить combining-марки на каждый непробельный символ"
+    },
+    "zalgo-remove": {
+      "from": "Zalgo",
+      "to": "Чистый текст",
+      "description": "Удалить все Unicode combining-марки"
+    },
+    "slugify": {
+      "from": "Текст",
+      "to": "Slug",
+      "description": "Транслитерировать, привести к lowercase и соединить дефисами"
+    },
+    "luhn-check": {
+      "from": "Номер карты",
+      "to": "Результат Luhn",
+      "description": "Проверить число алгоритмом Луна"
+    },
+    "inn-check": {
+      "from": "ИНН РФ",
+      "to": "Результат ИНН",
+      "description": "Проверить 10- или 12-значный российский ИНН"
+    },
+    "isbn-check": {
+      "from": "ISBN",
+      "to": "Результат ISBN",
+      "description": "Проверить ISBN-10 или ISBN-13"
+    },
+    "ean-upc-check": {
+      "from": "EAN / UPC",
+      "to": "Результат штрихкода",
+      "description": "Проверить EAN-13 или UPC-A"
+    },
+    "crc32": {
+      "from": "Текст",
+      "to": "CRC32",
+      "description": "Посчитать контрольную сумму CRC-32"
+    },
+    "iban-format": {
+      "from": "IBAN",
+      "to": "IBAN с пробелами",
+      "description": "Нормализовать IBAN и разбить на группы по четыре символа"
+    },
+    "iban-validate": {
+      "from": "IBAN",
+      "to": "Результат IBAN",
+      "description": "Проверить длину страны и контрольную сумму MOD-97"
+    },
+    "chmod-to-symbolic": {
+      "from": "Цифры chmod",
+      "to": "rwx-права",
+      "description": "Преобразовать права 755 в rwxr-xr-x"
+    },
+    "symbolic-to-chmod": {
+      "from": "rwx-права",
+      "to": "Цифры chmod",
+      "description": "Преобразовать rwxr-xr-x в права 755"
+    },
+    "ebcdic-encode": {
+      "from": "ASCII-текст",
+      "to": "EBCDIC hex",
+      "description": "Закодировать байтами IBM CP037 EBCDIC"
+    },
+    "ebcdic-decode": {
+      "from": "EBCDIC hex",
+      "to": "ASCII-текст",
+      "description": "Декодировать байты IBM CP037 EBCDIC"
+    },
+    "baudot-encode": {
+      "from": "Текст",
+      "to": "Baudot / ITA2",
+      "description": "Закодировать 5-битными кодами RTTY Baudot"
+    },
+    "baudot-decode": {
+      "from": "Baudot / ITA2",
+      "to": "Текст",
+      "description": "Декодировать 5-битные коды RTTY Baudot"
+    },
+    "fullwidth-to-halfwidth": {
+      "from": "Full-width",
+      "to": "Half-width",
+      "description": "Преобразовать японские полноширинные символы в полуширинные"
+    },
+    "halfwidth-to-fullwidth": {
+      "from": "Half-width",
+      "to": "Full-width",
+      "description": "Преобразовать японские полуширинные символы в полноширинные"
+    },
+    "html-escape": {
+      "from": "Текст",
+      "to": "HTML-escape",
+      "description": "Экранировать HTML-спецсимволы"
+    },
+    "json-pretty": {
+      "from": "JSON",
+      "to": "JSON (pretty)",
+      "description": "Отформатировать JSON с отступами"
+    },
+    "json-minify": {
+      "from": "JSON (pretty)",
+      "to": "JSON (min)",
+      "description": "Сжать JSON в одну строку"
+    },
+    "json-sort": {
+      "from": "JSON",
+      "to": "JSON (sorted)",
+      "description": "Отсортировать ключи по алфавиту"
+    },
+    "json-to-jsonp": {
+      "from": "JSON",
+      "to": "JSONP",
+      "description": "Обернуть JSON в колбэк-функцию"
+    },
+    "jsonp-to-json": {
+      "from": "JSONP",
+      "to": "JSON",
+      "description": "Достать JSON из JSONP-обёртки"
+    },
+    "reverse": {
+      "from": "Текст",
+      "to": "Развёрнутый текст",
+      "description": "Текст задом наперёд"
+    },
+    "rot13": {
+      "from": "Текст",
+      "to": "ROT13",
+      "description": "ROT13 — сдвиг букв на 13 (обратное преобразование — то же самое)"
+    },
+    "collapse-space": {
+      "from": "Текст",
+      "to": "Текст без лишних пробелов",
+      "description": "Схлопнуть повторяющиеся пробелы"
+    },
+    "crlf-to-lf": {
+      "from": "CRLF (Windows)",
+      "to": "LF (Unix)",
+      "description": "Переносы строк Windows → Unix"
+    },
+    "lf-to-crlf": {
+      "from": "LF (Unix)",
+      "to": "CRLF (Windows)",
+      "description": "Переносы строк Unix → Windows"
+    },
+    "cr-to-lf": {
+      "from": "CR (старый Mac)",
+      "to": "LF (Unix)",
+      "description": "Переносы старого Mac → Unix"
+    },
+    "lf-to-cr": {
+      "from": "LF (Unix)",
+      "to": "CR (старый Mac)",
+      "description": "Переносы Unix → старый Mac"
+    },
+    "csv-to-tsv": {
+      "from": "CSV",
+      "to": "TSV",
+      "description": "Поменять разделитель: запятая → таб (учитываются кавычки)"
+    },
+    "tsv-to-csv": {
+      "from": "TSV",
+      "to": "CSV",
+      "description": "Поменять разделитель: таб → запятая (учитываются кавычки)"
+    },
+    "text-stats": {
+      "from": "Текст",
+      "to": "Статистика",
+      "description": "Символы, слова и строки"
+    },
+    "translit": {
+      "from": "Кириллица",
+      "to": "Транслит",
+      "description": "Русский текст латиницей"
+    },
+    "layout-to-ru": {
+      "from": "QWERTY",
+      "to": "ЙЦУКЕН",
+      "description": "Починить текст, набранный не той раскладкой: ntrcn → текст"
+    },
+    "layout-to-en": {
+      "from": "ЙЦУКЕН",
+      "to": "QWERTY",
+      "description": "Русская раскладка обратно в QWERTY: текст → ntrcn"
+    },
+    "leet": {
+      "from": "Текст",
+      "to": "1337",
+      "description": "Leet speak"
+    },
+    "sha256": {
+      "from": "Текст",
+      "to": "SHA-256",
+      "description": "Хеш SHA-256 (WebCrypto)"
+    },
+    "sha1": {
+      "from": "Текст",
+      "to": "SHA-1",
+      "description": "Хеш SHA-1 (WebCrypto, легаси)"
+    },
+    "md5": {
+      "from": "Текст",
+      "to": "MD5",
+      "description": "Хеш MD5 (чистый JS, для легаси-проверок)"
+    },
+    "emoji-to-codes": {
+      "from": "Смайлики",
+      "to": "Коды",
+      "description": "😀 → U+1F600 (кодовые точки)"
+    },
+    "codes-to-emoji": {
+      "from": "Коды",
+      "to": "Смайлики",
+      "description": "U+1F600 → 😀 (из кодовых точек)"
+    },
+    "md-to-html": {
+      "from": "Markdown",
+      "to": "HTML",
+      "description": "Отрендерить Markdown в HTML (Tiptap)"
+    },
+    "html-to-md": {
+      "from": "HTML",
+      "to": "Markdown",
+      "description": "Сконвертировать HTML обратно в Markdown"
+    },
+    "ini-to-json": {
+      "from": "INI",
+      "to": "JSON",
+      "description": "INI-конфиг в JSON"
+    },
+    "json-to-ini": {
+      "from": "JSON",
+      "to": "INI",
+      "description": "JSON в INI-конфиг"
+    },
+    "csv-to-json": {
+      "from": "CSV",
+      "to": "JSON",
+      "description": "CSV-таблица в JSON"
+    },
+    "json-to-csv": {
+      "from": "JSON",
+      "to": "CSV",
+      "description": "JSON в CSV-таблицу (у объектов — заголовки)"
+    },
+    "ini-to-yaml": {
+      "from": "INI",
+      "to": "YAML",
+      "description": "INI-конфиг в YAML"
+    },
+    "ini-to-toml": {
+      "from": "INI",
+      "to": "TOML",
+      "description": "INI-конфиг в TOML"
+    },
+    "csv-to-yaml": {
+      "from": "CSV",
+      "to": "YAML",
+      "description": "CSV-таблица в YAML"
+    },
+    "csv-to-toml": {
+      "from": "CSV",
+      "to": "TOML",
+      "description": "CSV-таблица в TOML"
+    },
+    "json-to-yaml": {
+      "from": "JSON",
+      "to": "YAML",
+      "description": "JSON в YAML"
+    },
+    "json-to-toml": {
+      "from": "JSON",
+      "to": "TOML",
+      "description": "JSON в TOML"
+    },
+    "yaml-to-json": {
+      "from": "YAML",
+      "to": "JSON",
+      "description": "YAML в JSON"
+    },
+    "yaml-to-ini": {
+      "from": "YAML",
+      "to": "INI",
+      "description": "YAML в INI-конфиг"
+    },
+    "yaml-to-toml": {
+      "from": "YAML",
+      "to": "TOML",
+      "description": "YAML в TOML"
+    },
+    "yaml-to-csv": {
+      "from": "YAML",
+      "to": "CSV",
+      "description": "YAML-список в CSV"
+    },
+    "toml-to-json": {
+      "from": "TOML",
+      "to": "JSON",
+      "description": "TOML в JSON"
+    },
+    "toml-to-ini": {
+      "from": "TOML",
+      "to": "INI",
+      "description": "TOML-конфиг в INI"
+    },
+    "toml-to-yaml": {
+      "from": "TOML",
+      "to": "YAML",
+      "description": "TOML в YAML"
+    },
+    "toml-to-csv": {
+      "from": "TOML",
+      "to": "CSV",
+      "description": "TOML-данные в CSV"
+    },
+    "xml-to-json": {
+      "from": "XML",
+      "to": "JSON",
+      "description": "XML в JSON"
+    },
+    "json-to-xml": {
+      "from": "JSON",
+      "to": "XML",
+      "description": "JSON в XML"
+    },
+    "vcard-to-json": {
+      "from": "vCard",
+      "to": "JSON",
+      "description": "vCard-контакт в JSON"
+    },
+    "json-to-vcard": {
+      "from": "JSON",
+      "to": "vCard",
+      "description": "JSON в vCard-контакт"
+    },
+    "ical-to-json": {
+      "from": "iCal",
+      "to": "JSON",
+      "description": "iCal-календарь в JSON"
+    },
+    "json-to-ical": {
+      "from": "JSON",
+      "to": "iCal",
+      "description": "JSON в iCal-календарь"
+    },
+    "docx-to-html": {
+      "from": "DOCX",
+      "to": "HTML",
+      "description": "Извлечь HTML из документа Word (mammoth)"
+    },
+    "html-to-docx": {
+      "from": "HTML",
+      "to": "DOCX",
+      "description": "Преобразовать HTML в документ Word"
+    },
+    "docx-to-txt": {
+      "from": "DOCX",
+      "to": "TXT",
+      "description": "Извлечь чистый текст из документа Word"
+    },
+    "txt-to-docx": {
+      "from": "TXT",
+      "to": "DOCX",
+      "description": "Преобразовать текст в документ Word"
+    },
+    "pdf-to-txt": {
+      "from": "PDF",
+      "to": "TXT",
+      "description": "Извлечь текст из PDF (pdfjs-dist)"
+    },
+    "txt-to-pdf": {
+      "from": "TXT",
+      "to": "PDF",
+      "description": "Создать PDF из текста (pdf-lib)"
+    },
+    "xlsx-to-csv": {
+      "from": "XLSX",
+      "to": "CSV",
+      "description": "Извлечь данные листа в CSV (exceljs)"
+    },
+    "csv-to-xlsx": {
+      "from": "CSV",
+      "to": "XLSX",
+      "description": "Создать таблицу из CSV (exceljs)"
+    },
+    "xlsx-to-json": {
+      "from": "XLSX",
+      "to": "JSON",
+      "description": "Извлечь данные листа в JSON (exceljs)"
+    },
+    "json-to-xlsx": {
+      "from": "JSON",
+      "to": "XLSX",
+      "description": "Создать таблицу из JSON (exceljs)"
+    },
+    "sql-to-json": {
+      "from": "SQL",
+      "to": "JSON",
+      "description": "Разобрать SQL dump (CREATE TABLE + INSERT) в JSON"
+    },
+    "json-to-sql": {
+      "from": "JSON",
+      "to": "SQL",
+      "description": "Сгенерировать SQL dump из данных"
+    },
+    "kml-to-geojson": {
+      "from": "KML",
+      "to": "GeoJSON",
+      "description": "KML в GeoJSON"
+    },
+    "gpx-to-geojson": {
+      "from": "GPX",
+      "to": "GeoJSON",
+      "description": "GPX в GeoJSON"
+    },
+    "geojson-to-kml": {
+      "from": "GeoJSON",
+      "to": "KML",
+      "description": "GeoJSON в KML"
+    },
+    "geojson-to-gpx": {
+      "from": "GeoJSON",
+      "to": "GPX",
+      "description": "GeoJSON в GPX"
+    },
+    "geojson-to-csv": {
+      "from": "GeoJSON",
+      "to": "CSV",
+      "description": "Экспорт точек и треков в CSV"
+    },
+    "geojson-to-json": {
+      "from": "GeoJSON",
+      "to": "JSON",
+      "description": "Отформатировать GeoJSON как JSON"
+    },
+    "json-to-geojson": {
+      "from": "JSON",
+      "to": "GeoJSON",
+      "description": "Валидация / импорт GeoJSON из JSON"
+    }
   },
-
   "stats": {
     "chars": "Символов",
     "words": "Слов",
     "lines": "Строк"
   },
-
   "errors": {
     "badJwt": "Некорректный JWT: нужны три JSON base64url-части",
     "badGlob": "Неподдерживаемый или некорректный glob/regex",
@@ -380,24 +1087,23 @@
     "badGzip": "Некорректный GZIP-файл",
     "badBrotli": "Некорректный Brotli-файл",
     "noBrotli": "Ваш браузер не поддерживает распаковку Brotli (Chrome 80+, Safari 16.4+, Firefox 147+)",
-    "badArchive": "Неподдерживаемый формат архива"
-    ,"badLzma": "Некорректный LZMA-архив"
-    ,"badBzip2": "Некорректный BZIP2-архив"
-    ,"badZstd": "Некорректный Zstandard-архив"
-    ,"badXz": "Некорректный XZ-архив"
-    ,"badCab": "Некорректный CAB-архив"
-    ,"unsupportedCabCompression": "Этот CAB использует неподдерживаемое сжатие (LZX или Quantum)"
-    ,"badCpio": "Некорректный CPIO-архив"
-    ,"badAr": "Некорректный AR-архив"
-    ,"badCompress": "Некорректный Unix compress-архив"
-    ,"badIso": "Некорректный ISO9660-образ"
-    ,"badXar": "Некорректный XAR-архив"
-    ,"badIhex": "Некорректный Intel HEX-файл"
-    ,"badPartitionTable": "Некорректная таблица разделов GPT/MBR"
-    ,"archiveTooLarge": "Архив превышает лимит 500 МБ в распакованном виде"
-    ,"archiveTooManyEntries": "Архив превышает лимит в 10 000 файлов"
+    "badArchive": "Неподдерживаемый формат архива",
+    "badLzma": "Некорректный LZMA-архив",
+    "badBzip2": "Некорректный BZIP2-архив",
+    "badZstd": "Некорректный Zstandard-архив",
+    "badXz": "Некорректный XZ-архив",
+    "badCab": "Некорректный CAB-архив",
+    "unsupportedCabCompression": "Этот CAB использует неподдерживаемое сжатие (LZX или Quantum)",
+    "badCpio": "Некорректный CPIO-архив",
+    "badAr": "Некорректный AR-архив",
+    "badCompress": "Некорректный Unix compress-архив",
+    "badIso": "Некорректный ISO9660-образ",
+    "badXar": "Некорректный XAR-архив",
+    "badIhex": "Некорректный Intel HEX-файл",
+    "badPartitionTable": "Некорректная таблица разделов GPT/MBR",
+    "archiveTooLarge": "Архив превышает лимит 500 МБ в распакованном виде",
+    "archiveTooManyEntries": "Архив превышает лимит в 10 000 файлов"
   },
-
   "cats": {
     "text": {
       "title": "Текст и разметка",
@@ -424,7 +1130,6 @@
       "description": "Транслит, ROT13, leet, статистика текста. Бесполезно — и именно поэтому полезно."
     }
   },
-
   "passwordAnalysis": {
     "length": "Длина",
     "charset": "Оценка алфавита",
@@ -439,12 +1144,10 @@
     "medium": "средний",
     "strong": "сильный"
   },
-
   "checksums": {
     "valid": "Корректно",
     "invalid": "Некорректно"
   },
-
   "formatNames": {
     "translit": "Транслит",
     "stats": "Статистика",
@@ -457,16 +1160,44 @@
     "txt": "TXT",
     "pdf": "PDF",
     "xlsx": "XLSX",
-    "sql": "SQL"
+    "sql": "SQL",
+    "arabic": "Арабские",
+    "avif": "AVIF",
+    "bmp": "BMP",
+    "csv": "CSV",
+    "cur": "CUR",
+    "env": "ENV",
+    "hex": "Hex",
+    "hjson": "HJSON",
+    "hsl": "HSL",
+    "ical": "iCal",
+    "ico": "ICO",
+    "ini": "INI",
+    "jpeg": "JPEG",
+    "json": "JSON",
+    "jsonp": "JSONP",
+    "markdown": "Markdown",
+    "md": "Markdown",
+    "pcx": "PCX",
+    "png": "PNG",
+    "ppm": "PPM",
+    "properties": "Properties",
+    "rgb": "RGB",
+    "roman": "Римские",
+    "tga": "TGA",
+    "tiff": "TIFF",
+    "tsv": "TSV",
+    "vcard": "vCard",
+    "xbm": "XBM",
+    "xml": "XML",
+    "yaml": "YAML"
   },
-
   "formatsSection": {
     "badge": "форматы",
     "title1": "Чем можно",
     "title2": "конвертировать",
     "subtitle": "Не только популярные форматы — UWC задуман как «конвертер всего во что угодно»: от транслита и ROT13 до GeoJSON и vCard."
   },
-
   "features": {
     "badge": "почему UWC",
     "title1": "Лёгкий,",
@@ -491,7 +1222,6 @@
       }
     }
   },
-
   "error404": {
     "title": "404",
     "subtitle": "Страница не найдена",
@@ -510,7 +1240,6 @@
     "back": "Назад",
     "retry": "Попробовать снова"
   },
-
   "footer": {
     "tagline": "Конвертируй что угодно, во что угодно.",
     "converter": "Конвертер",
@@ -518,7 +1247,6 @@
     "why": "Почему UWC",
     "plus": "UWC+"
   },
-
   "totp": {
     "title": "TOTP / HOTP",
     "subtitle": "Живой код 2FA и билдер otpauth:// — всё локально",
@@ -533,20 +1261,21 @@
     "uri": "URI otpauth://",
     "copy": "Копировать URI",
     "localNote": "Секрет не покидает браузер.",
-    "modes": { "totp": "TOTP (по времени)", "hotp": "HOTP (по счётчику)" },
+    "modes": {
+      "totp": "TOTP (по времени)",
+      "hotp": "HOTP (по счётчику)"
+    },
     "errors": {
       "badSecret": "Секрет должен быть Base32: только A–Z и 2–7",
       "badCounter": "Счётчик должен быть неотрицательным безопасным целым числом"
     }
   },
-
   "counter": {
     "one": "символ",
     "few": "символа",
     "many": "символов",
     "other": "символов"
   },
-
   "gen": {
     "selectPlaceholder": "Что генерируем…",
     "generate": "Сгенерировать",
@@ -573,17 +1302,17 @@
       "range": "Диапазон",
       "namespace": "Namespace",
       "name": "Имя",
-      "password": "Пароль для анализа"
-      ,"items": "Количество"
-      ,"secret": "Секрет подписи"
-      ,"payload": "JSON payload"
-      ,"rolls": "Бросков"
-      ,"flips": "Подбрасываний"
-      ,"choices": "Варианты"
-      ,"choicesPlaceholder": "Один вариант на строку"
-      ,"input": "Snowflake ID"
-      ,"epoch": "Эпоха"
-      ,"snowflakePlaceholder": "Введи Snowflake ID"
+      "password": "Пароль для анализа",
+      "items": "Количество",
+      "secret": "Секрет подписи",
+      "payload": "JSON payload",
+      "rolls": "Бросков",
+      "flips": "Подбрасываний",
+      "choices": "Варианты",
+      "choicesPlaceholder": "Один вариант на строку",
+      "input": "Snowflake ID",
+      "epoch": "Эпоха",
+      "snowflakePlaceholder": "Введи Snowflake ID"
     },
     "namespaces": {
       "dns": "DNS",
@@ -613,13 +1342,13 @@
       "nanRange": "Укажи границы диапазона",
       "rangeTooBig": "Диапазон должен быть от 1 до 4 294 967 296 значений",
       "noName": "Введи имя для name-based UUID",
-      "noPassword": "Введи пароль для анализа"
-      ,"noSecret": "Введи секрет подписи"
-      ,"badPayload": "Payload должен быть корректным JSON"
-      ,"noChoices": "Введи хотя бы один вариант"
-      ,"badSnowflake": "Некорректный Snowflake ID"
-      ,"snowflakeTime": "Текущее время вне диапазона таймстампа Snowflake"
-      ,"ksuidTime": "Текущее время вне диапазона таймстампа KSUID"
+      "noPassword": "Введи пароль для анализа",
+      "noSecret": "Введи секрет подписи",
+      "badPayload": "Payload должен быть корректным JSON",
+      "noChoices": "Введи хотя бы один вариант",
+      "badSnowflake": "Некорректный Snowflake ID",
+      "snowflakeTime": "Текущее время вне диапазона таймстампа Snowflake",
+      "ksuidTime": "Текущее время вне диапазона таймстампа KSUID"
     },
     "defs": {
       "password": {
@@ -724,7 +1453,6 @@
       }
     }
   },
-
   "plus": {
     "badge": "Программа сообщества",
     "title1": "Представляем",
@@ -733,7 +1461,6 @@
       "title": "UWC+ — запросить формат",
       "description": "Не хватает формата? Запросите через GitHub Issues: опишите спеку, приложите пример — получите конвертер. Бесплатно, open-source, без регистрации."
     },
-
     "goals": {
       "title": "Что такое UWC+",
       "free": {
@@ -749,7 +1476,6 @@
         "text": "Мы не гонимся за форматами, которые никому не нужны. Если вы просите — это реальный спрос, а ваш issue становится спецификацией."
       }
     },
-
     "how": {
       "title": "Как это работает",
       "step1": "Вы открываете GitHub Issue с описанием формата и примером файла (шаблон ниже).",
@@ -757,7 +1483,6 @@
       "step3": "Конвертер строится — на клиенте, если возможно; на сервере для тяжёлых форматов.",
       "step4": "Issue закрывается с пометкой о релизе. Ваш формат теперь в UWC — для всех."
     },
-
     "requirements": {
       "title": "Как выглядит хороший запрос",
       "subtitle": "Четыре вещи превращают «добавьте X плз» в конвертер. Первая обязательна — без неё issue закрывается.",
@@ -779,7 +1504,6 @@
       },
       "rejected": "Запросы вида «добавьте .toon в .json плз» закрываются как invalid — без описания формата нечего реализовывать. Ссылка на спеку или собственное описание — входной билет."
     },
-
     "examples": {
       "title": "Примеры issue",
       "good": "Будет принят",
@@ -788,7 +1512,6 @@
       "copied": "Скопировано",
       "badWhy": "Ни спеки, ни примера, ни направления. Даже зная, что такое TOON, пришлось бы угадывать точный диалект, правила экранирования и краевые случаи — так рождаются сломанные конвертеры."
     },
-
     "cta": {
       "title": "Готовы запросить?",
       "text": "Откройте GitHub Issue по шаблону — скопируйте хороший пример выше и подставьте свой формат. Issue разбираются еженедельно.",

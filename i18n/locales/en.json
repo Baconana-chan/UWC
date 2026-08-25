@@ -5,14 +5,12 @@
     "titleConverter": "UWC — conversion studio",
     "descriptionConverter": "Convert text, images and audio right in your browser — the server is not involved."
   },
-
   "converterPage": {
     "badge": "converter",
     "title1": "Conversion",
     "title2": "studio",
     "subtitle": "Text, images and audio — everything runs in your browser. No uploads, no queues, no waiting."
   },
-
   "nav": {
     "converter": "Converter",
     "formats": "Formats",
@@ -32,7 +30,6 @@
     "lightMode": "Switch to light mode",
     "darkMode": "Switch to dark mode"
   },
-
   "hero": {
     "title1": "Convert",
     "title2": "anything",
@@ -46,7 +43,6 @@
     "statTwoLevels": "2 levels",
     "statLevels": "browser + Nitro"
   },
-
   "studio": {
     "title": "Conversion studio",
     "subtitle": "Try it right now — everything is computed in your browser",
@@ -134,200 +130,911 @@
       "emptyHint": "Drop a ZIP file to see the list of files inside."
     }
   },
-
   "groups": {
-    "case": { "label": "Case" },
-    "encoding": { "label": "Encodings" },
-    "json": { "label": "JSON" },
-    "string": { "label": "Strings" },
-    "fun": { "label": "Fun" },
-    "markup": { "label": "Markup" },
-    "data": { "label": "Data formats" }
+    "case": {
+      "label": "Case"
+    },
+    "encoding": {
+      "label": "Encodings"
+    },
+    "json": {
+      "label": "JSON"
+    },
+    "string": {
+      "label": "Strings"
+    },
+    "fun": {
+      "label": "Fun"
+    },
+    "markup": {
+      "label": "Markup"
+    },
+    "data": {
+      "label": "Data formats"
+    }
   },
-
   "conv": {
-    "upper": { "from": "Text", "to": "UPPERCASE", "description": "All letters uppercase" },
-    "lower": { "from": "Text", "to": "lowercase", "description": "All letters lowercase" },
-    "title": { "from": "Text", "to": "Title Case", "description": "Capitalize every word" },
-    "camel": { "from": "Text", "to": "camelCase", "description": "camelCase" },
-    "snake": { "from": "Text", "to": "snake_case", "description": "snake_case" },
-    "kebab": { "from": "Text", "to": "kebab-case", "description": "kebab-case" },
-    "base64-encode": { "from": "Text", "to": "Base64", "description": "Encode to Base64" },
-    "base64-decode": { "from": "Base64", "to": "Text", "description": "Decode from Base64" },    "base32-encode": { "from": "Text", "to": "Base32", "description": "Encode to RFC 4648 Base32" },
-    "base32-decode": { "from": "Base32", "to": "Text", "description": "Decode from Base32" },
-    "base36-encode": { "from": "Text", "to": "Base36", "description": "Encode UTF-8 bytes as Base36" },
-    "base36-decode": { "from": "Base36", "to": "Text", "description": "Decode from Base36" },
-    "base62-encode": { "from": "Text", "to": "Base62", "description": "Encode UTF-8 bytes as Base62" },
-    "base62-decode": { "from": "Base62", "to": "Text", "description": "Decode from Base62" },
-    "ascii85-encode": { "from": "Text", "to": "Ascii85", "description": "Encode to Ascii85" },
-    "ascii85-decode": { "from": "Ascii85", "to": "Text", "description": "Decode from Ascii85" },
-    "hex-encode": { "from": "Text", "to": "Hex", "description": "Encode to hexadecimal" },
-    "hex-decode": { "from": "Hex", "to": "Text", "description": "Decode from hex" },
-    "ihex-decode": { "from": "Intel HEX", "to": "Base64 bytes", "description": "Decode Intel HEX records with checksum validation" },
-    "ihex-encode": { "from": "Base64 bytes", "to": "Intel HEX", "description": "Encode bytes as Intel HEX records" },
-    "url-encode": { "from": "URL", "to": "URL-encoded", "description": "URL-encode (for query parameters)" },
-    "url-decode": { "from": "URL-encoded", "to": "URL", "description": "URL-decode" },
-    "idn-encode": { "from": "Unicode domain", "to": "Punycode / IDN", "description": "Convert an internationalized domain to Punycode" },
-    "idn-decode": { "from": "Punycode / IDN", "to": "Unicode domain", "description": "Convert Punycode to a readable internationalized domain" },
-    "quoted-printable-encode": { "from": "Text", "to": "Quoted-Printable", "description": "Encode MIME Quoted-Printable" },
-    "quoted-printable-decode": { "from": "Quoted-Printable", "to": "Text", "description": "Decode MIME Quoted-Printable" },
-    "uuencode": { "from": "Text", "to": "Uuencode", "description": "Encode with classic uuencode" },
-    "uudecode": { "from": "Uuencode", "to": "Text", "description": "Decode classic uuencode" },
-    "morse-encode": { "from": "Text", "to": "Morse", "description": "Encode text as Morse code" },
-    "morse-decode": { "from": "Morse", "to": "Text", "description": "Decode Morse code" },
-    "rot47": { "from": "Text", "to": "ROT47", "description": "Rotate printable ASCII by 47" },
-    "atbash": { "from": "Text", "to": "Atbash", "description": "Mirror Latin and Cyrillic alphabets" },
-    "caesar-encode": { "from": "Text", "to": "Caesar +3", "description": "Shift Latin letters by three" },
-    "caesar-decode": { "from": "Caesar +3", "to": "Text", "description": "Undo a three-letter Caesar shift" },
-    "xor-encode": { "from": "Key + text", "to": "XOR hex", "description": "XOR UTF-8 text with a key; input: key, newline, text" },
-    "xor-decode": { "from": "Key + XOR hex", "to": "Text", "description": "Decode XOR hex; input: key, newline, hex" },
-    "a1z26-encode": { "from": "Text", "to": "A1Z26", "description": "Map A–Z to numbers 1–26" },
-    "a1z26-decode": { "from": "A1Z26", "to": "Text", "description": "Map numbers 1–26 back to letters" },
-    "bacon-encode": { "from": "Text", "to": "Bacon cipher", "description": "Encode letters as groups of a and b" },
-    "bacon-decode": { "from": "Bacon cipher", "to": "Text", "description": "Decode groups of a and b" },
-    "tap-code-encode": { "from": "Text", "to": "Tap code", "description": "Encode letters as row and column taps" },
-    "tap-code-decode": { "from": "Tap code", "to": "Text", "description": "Decode row and column taps" },
-    "strip-diacritics": { "from": "Text", "to": "Plain text", "description": "Remove combining diacritical marks" },
-    "unfuck-paste": { "from": "Messy paste", "to": "Clean text", "description": "Remove invisible characters and normalize typography" },
-    "unix-to-iso": { "from": "Unix timestamp", "to": "ISO 8601", "description": "Use s:/ms: and optional local: prefix; default is UTC" },
-    "iso-to-unix": { "from": "ISO 8601", "to": "Unix timestamp", "description": "Use s:/ms: and optional local: prefix; default output is seconds" },
-    "mac-to-colon": { "from": "MAC address", "to": "aa:bb:cc:dd:ee:ff", "description": "Format a MAC address with colons" },
-    "mac-to-dash": { "from": "MAC address", "to": "aa-bb-cc-dd-ee-ff", "description": "Format a MAC address with dashes" },
-    "mac-to-cisco": { "from": "MAC address", "to": "aabb.ccdd.eeff", "description": "Format a MAC address in Cisco notation" },
-    "mac-to-plain": { "from": "MAC address", "to": "aabbccddeeff", "description": "Remove separators from a MAC address" },
-    "hjson-to-json": { "from": "HJSON", "to": "JSON", "description": "Parse human-friendly JSON with comments and unquoted keys" },
-    "json-to-hjson": { "from": "JSON", "to": "HJSON", "description": "Format JSON as human-friendly configuration" },
-    "bbcode-to-html": { "from": "BBCode", "to": "HTML", "description": "Render forum BBCode as safe HTML" },
-    "csv-to-markdown": { "from": "CSV", "to": "Markdown table", "description": "Convert CSV rows into a Markdown table" },
-    "tsv-to-markdown": { "from": "TSV", "to": "Markdown table", "description": "Convert TSV rows into a Markdown table" },
-    "properties-to-json": { "from": "Java properties", "to": "JSON", "description": "Parse Java properties with comments and escapes" },
-    "json-to-properties": { "from": "JSON", "to": "Java properties", "description": "Write JSON as Java properties" },
-    "env-to-json": { "from": ".env", "to": "JSON", "description": "Parse environment variables into JSON" },
-    "json-to-env": { "from": "JSON", "to": ".env", "description": "Write JSON as an environment file" },
-    "stego-encode": { "from": "Carrier + secret", "to": "Zero-width text", "description": "Hide UTF-8 text in invisible zero-width characters; use carrier, newline, ---, secret" },
-    "stego-decode": { "from": "Zero-width text", "to": "Secret", "description": "Extract a strict UWC zero-width payload" },
-    "sort-lines": { "from": "Lines", "to": "Sorted lines", "description": "Sort lines alphabetically" },
-    "dedupe-lines": { "from": "Lines", "to": "Unique lines", "description": "Remove duplicate lines while preserving order" },
-    "shuffle-lines": { "from": "Lines", "to": "Shuffled lines", "description": "Shuffle lines with cryptographic randomness" },
-    "number-lines": { "from": "Lines", "to": "Numbered lines", "description": "Add line numbers starting at 1" },
-    "wrap-text": { "from": "Width + text", "to": "Wrapped text", "description": "Wrap words; input is column width, newline, text" },
-    "number-base-convert": { "from": "Base + number", "to": "Number", "description": "Convert bases 2–36; input is fromBase:toBase, newline, number" },
-    "iso-duration-to-seconds": { "from": "ISO 8601 duration", "to": "Seconds", "description": "Convert PT1H30M-style durations to seconds" },
-    "seconds-to-iso-duration": { "from": "Seconds", "to": "ISO 8601 duration", "description": "Convert seconds to a PT... duration" },
-    "hex-to-rgb": { "from": "HEX", "to": "RGB", "description": "Convert a hex color to CSS rgb()" },
-    "rgb-to-hex": { "from": "RGB", "to": "HEX", "description": "Convert CSS rgb() to a hex color" },
-    "rgb-to-hsl": { "from": "RGB", "to": "HSL", "description": "Convert RGB to CSS hsl()" },
-    "hsl-to-rgb": { "from": "HSL", "to": "RGB", "description": "Convert CSS hsl() to RGB" },
-    "hex-to-hsl": { "from": "HEX", "to": "HSL", "description": "Convert a hex color to CSS hsl()" },
-    "hsl-to-hex": { "from": "HSL", "to": "HEX", "description": "Convert CSS hsl() to a hex color" },
-    "roman-to-arabic": { "from": "Roman numerals", "to": "Arabic number", "description": "Convert canonical Roman numerals from I to MMMCMXCIX" },
-    "arabic-to-roman": { "from": "Arabic number", "to": "Roman numerals", "description": "Convert integers from 1 to 3999 to Roman numerals" },
-    "jwt-decode": { "from": "JWT", "to": "JSON", "description": "Decode JWT header and payload without verification" },
-    "glob-to-regex": { "from": "Glob", "to": "Regular expression", "description": "Convert *, ?, ** glob patterns to a regex" },
-    "regex-to-glob": { "from": "Regular expression", "to": "Glob", "description": "Convert basic anchored regex patterns to glob syntax" },
-    "c-escape-encode": { "from": "Text", "to": "C escapes", "description": "Escape text for C-style string literals" },
-    "c-escape-decode": { "from": "C escapes", "to": "Text", "description": "Decode C-style string escapes" },
-    "shell-quote": { "from": "Arguments", "to": "Shell command", "description": "Input: shell, newline, one argument per line" },
-    "argv-split": { "from": "Shell command", "to": "Arguments", "description": "Split a quoted command line into one argument per line" },
-    "windows-to-posix": { "from": "Windows path", "to": "POSIX path", "description": "Convert C:\\ paths to /c/ paths" },
-    "posix-to-windows": { "from": "POSIX path", "to": "Windows path", "description": "Convert /c/ paths to C:\\ paths" },
-    "json-to-typescript": { "from": "JSON", "to": "TypeScript interfaces", "description": "Generate recursive TypeScript interfaces from JSON" },
-    "zalgo-add": { "from": "Text", "to": "Zalgo", "description": "Overlay combining marks on every non-space character" },
-    "zalgo-remove": { "from": "Zalgo", "to": "Clean text", "description": "Remove all Unicode combining marks" },
-    "slugify": { "from": "Text", "to": "Slug", "description": "Transliterate, lowercase and join words with hyphens" },
-    "luhn-check": { "from": "Card number", "to": "Luhn result", "description": "Validate a number with the Luhn algorithm" },
-    "inn-check": { "from": "RU INN", "to": "INN result", "description": "Validate a Russian 10- or 12-digit taxpayer ID" },
-    "isbn-check": { "from": "ISBN", "to": "ISBN result", "description": "Validate ISBN-10 or ISBN-13" },
-    "ean-upc-check": { "from": "EAN / UPC", "to": "Barcode result", "description": "Validate EAN-13 or UPC-A" },
-    "crc32": { "from": "Text", "to": "CRC32", "description": "Calculate the CRC-32 checksum" },
-    "iban-format": { "from": "IBAN", "to": "Formatted IBAN", "description": "Normalize and group an IBAN into four-character blocks" },
-    "iban-validate": { "from": "IBAN", "to": "IBAN result", "description": "Validate IBAN country length and MOD-97 checksum" },
-    "chmod-to-symbolic": { "from": "Chmod digits", "to": "rwx permissions", "description": "Convert 755-style permissions to rwxr-xr-x" },
-    "symbolic-to-chmod": { "from": "rwx permissions", "to": "Chmod digits", "description": "Convert rwxr-xr-x permissions to 755-style digits" },
-    "ebcdic-encode": { "from": "ASCII text", "to": "EBCDIC hex", "description": "Encode as IBM CP037 EBCDIC bytes" },
-    "ebcdic-decode": { "from": "EBCDIC hex", "to": "ASCII text", "description": "Decode IBM CP037 EBCDIC bytes" },
-    "baudot-encode": { "from": "Text", "to": "Baudot / ITA2", "description": "Encode RTTY Baudot 5-bit codes" },
-    "baudot-decode": { "from": "Baudot / ITA2", "to": "Text", "description": "Decode RTTY Baudot 5-bit codes" },
-    "fullwidth-to-halfwidth": { "from": "Full-width", "to": "Half-width", "description": "Convert Japanese full-width characters to half-width" },
-    "halfwidth-to-fullwidth": { "from": "Half-width", "to": "Full-width", "description": "Convert Japanese half-width characters to full-width" },
-    "html-escape": { "from": "Text", "to": "HTML-escaped", "description": "Escape HTML special characters" },
-    "json-pretty": { "from": "JSON", "to": "JSON (pretty)", "description": "Format JSON with indentation" },
-    "json-minify": { "from": "JSON (pretty)", "to": "JSON (min)", "description": "Minify JSON to a single line" },
-    "json-sort": { "from": "JSON", "to": "JSON (sorted)", "description": "Sort keys alphabetically" },
-    "json-to-jsonp": { "from": "JSON", "to": "JSONP", "description": "Wrap JSON in a callback function" },
-    "jsonp-to-json": { "from": "JSONP", "to": "JSON", "description": "Extract JSON from a JSONP wrapper" },
-    "reverse": { "from": "Text", "to": "Reversed text", "description": "Reverse the text" },
-    "rot13": { "from": "Text", "to": "ROT13", "description": "ROT13 — shift letters by 13 (reversing gives the same)" },
-    "collapse-space": { "from": "Text", "to": "Collapsed spaces", "description": "Collapse repeated whitespace" },
-    "crlf-to-lf": { "from": "CRLF (Windows)", "to": "LF (Unix)", "description": "Windows → Unix line endings" },
-    "lf-to-crlf": { "from": "LF (Unix)", "to": "CRLF (Windows)", "description": "Unix → Windows line endings" },
-    "cr-to-lf": { "from": "CR (old Mac)", "to": "LF (Unix)", "description": "Old-Mac line endings → Unix" },
-    "lf-to-cr": { "from": "LF (Unix)", "to": "CR (old Mac)", "description": "Unix line endings → old-Mac CR" },
-    "csv-to-tsv": { "from": "CSV", "to": "TSV", "description": "Swap delimiter: comma → tab (quotes respected)" },
-    "tsv-to-csv": { "from": "TSV", "to": "CSV", "description": "Swap delimiter: tab → comma (quotes respected)" },
-    "text-stats": { "from": "Text", "to": "Stats", "description": "Characters, words and lines" },
-    "translit": { "from": "Cyrillic", "to": "Translit", "description": "Russian text in Latin letters" },
-    "layout-to-ru": { "from": "QWERTY", "to": "ЙЦУКЕН", "description": "Fix text typed on the wrong layout: ntrcn → текст" },
-    "layout-to-en": { "from": "ЙЦУКЕН", "to": "QWERTY", "description": "Back to QWERTY: текст → ntrcn" },
-    "leet": { "from": "Text", "to": "1337", "description": "Leet speak" },
-    "sha256": { "from": "Text", "to": "SHA-256", "description": "SHA-256 hash (WebCrypto)" },
-    "sha1": { "from": "Text", "to": "SHA-1", "description": "SHA-1 hash (WebCrypto, legacy)" },
-    "md5": { "from": "Text", "to": "MD5", "description": "MD5 hash (pure JS, legacy checks)" },
-    "emoji-to-codes": { "from": "Emoji", "to": "Code points", "description": "😀 → U+1F600 (code points)" },
-    "codes-to-emoji": { "from": "Code points", "to": "Emoji", "description": "U+1F600 → 😀 (from code points)" },
-    "md-to-html": { "from": "Markdown", "to": "HTML", "description": "Render Markdown to HTML (Tiptap)" },
-    "html-to-md": { "from": "HTML", "to": "Markdown", "description": "Convert HTML back to Markdown" },
-    "ini-to-json": { "from": "INI", "to": "JSON", "description": "Parse INI config into JSON" },
-    "json-to-ini": { "from": "JSON", "to": "INI", "description": "Write JSON as INI config" },
-    "csv-to-json": { "from": "CSV", "to": "JSON", "description": "Parse CSV table into JSON" },
-    "json-to-csv": { "from": "JSON", "to": "CSV", "description": "Write JSON as CSV table (objects get headers)" },
-    "ini-to-yaml": { "from": "INI", "to": "YAML", "description": "Write INI config as YAML" },
-    "ini-to-toml": { "from": "INI", "to": "TOML", "description": "Write INI config as TOML" },
-    "csv-to-yaml": { "from": "CSV", "to": "YAML", "description": "Write CSV table as YAML" },
-    "csv-to-toml": { "from": "CSV", "to": "TOML", "description": "Write CSV table as TOML" },
-    "json-to-yaml": { "from": "JSON", "to": "YAML", "description": "Write JSON as YAML" },
-    "json-to-toml": { "from": "JSON", "to": "TOML", "description": "Write JSON as TOML" },
-    "yaml-to-json": { "from": "YAML", "to": "JSON", "description": "Parse YAML into JSON" },
-    "yaml-to-ini": { "from": "YAML", "to": "INI", "description": "Write YAML as INI config" },
-    "yaml-to-toml": { "from": "YAML", "to": "TOML", "description": "Write YAML as TOML" },
-    "yaml-to-csv": { "from": "YAML", "to": "CSV", "description": "Write YAML list as CSV" },
-    "toml-to-json": { "from": "TOML", "to": "JSON", "description": "Parse TOML into JSON" },
-    "toml-to-ini": { "from": "TOML", "to": "INI", "description": "Write TOML config as INI" },
-    "toml-to-yaml": { "from": "TOML", "to": "YAML", "description": "Write TOML as YAML" },
-    "toml-to-csv": { "from": "TOML", "to": "CSV", "description": "Write TOML data as a CSV table" },
-    "xml-to-json": { "from": "XML", "to": "JSON", "description": "Parse XML into JSON" },
-    "json-to-xml": { "from": "JSON", "to": "XML", "description": "Write JSON as XML" },
-    "vcard-to-json": { "from": "vCard", "to": "JSON", "description": "Parse vCard contact into JSON" },
-    "json-to-vcard": { "from": "JSON", "to": "vCard", "description": "Write JSON as vCard contact" },
-    "ical-to-json": { "from": "iCal", "to": "JSON", "description": "Parse iCal calendar into JSON" },
-    "json-to-ical": { "from": "JSON", "to": "iCal", "description": "Write JSON as iCal calendar" },
-    "docx-to-html": { "from": "DOCX", "to": "HTML", "description": "Extract HTML from a Word document (mammoth)" },
-    "html-to-docx": { "from": "HTML", "to": "DOCX", "description": "Convert HTML to a Word document" },
-    "docx-to-txt": { "from": "DOCX", "to": "TXT", "description": "Extract plain text from a Word document" },
-    "txt-to-docx": { "from": "TXT", "to": "DOCX", "description": "Convert plain text to a Word document" },
-    "pdf-to-txt": { "from": "PDF", "to": "TXT", "description": "Extract text from a PDF (pdfjs-dist)" },
-    "txt-to-pdf": { "from": "TXT", "to": "PDF", "description": "Create a PDF from plain text (pdf-lib)" },
-    "xlsx-to-csv": { "from": "XLSX", "to": "CSV", "description": "Extract sheet data to CSV (exceljs)" },
-    "csv-to-xlsx": { "from": "CSV", "to": "XLSX", "description": "Create a spreadsheet from CSV (exceljs)" },
-    "xlsx-to-json": { "from": "XLSX", "to": "JSON", "description": "Extract sheet data to JSON (exceljs)" },
-    "json-to-xlsx": { "from": "JSON", "to": "XLSX", "description": "Create a spreadsheet from JSON (exceljs)" },
-    "sql-to-json": { "from": "SQL", "to": "JSON", "description": "Parse a SQL dump (CREATE TABLE + INSERT) into JSON" },
-    "json-to-sql": { "from": "JSON", "to": "SQL", "description": "Generate a SQL dump from JSON data" },
-    "kml-to-geojson": { "from": "KML", "to": "GeoJSON", "description": "Parse KML into GeoJSON" },
-    "gpx-to-geojson": { "from": "GPX", "to": "GeoJSON", "description": "Parse GPX into GeoJSON" },
-    "geojson-to-kml": { "from": "GeoJSON", "to": "KML", "description": "Export GeoJSON as KML" },
-    "geojson-to-gpx": { "from": "GeoJSON", "to": "GPX", "description": "Export GeoJSON as GPX" },
-    "geojson-to-csv": { "from": "GeoJSON", "to": "CSV", "description": "Export points and tracks to CSV" },
-    "geojson-to-json": { "from": "GeoJSON", "to": "JSON", "description": "Pretty-print GeoJSON as JSON" },
-    "json-to-geojson": { "from": "JSON", "to": "GeoJSON", "description": "Validate / import GeoJSON from JSON" }
+    "upper": {
+      "from": "Text",
+      "to": "UPPERCASE",
+      "description": "All letters uppercase"
+    },
+    "lower": {
+      "from": "Text",
+      "to": "lowercase",
+      "description": "All letters lowercase"
+    },
+    "title": {
+      "from": "Text",
+      "to": "Title Case",
+      "description": "Capitalize every word"
+    },
+    "camel": {
+      "from": "Text",
+      "to": "camelCase",
+      "description": "camelCase"
+    },
+    "snake": {
+      "from": "Text",
+      "to": "snake_case",
+      "description": "snake_case"
+    },
+    "kebab": {
+      "from": "Text",
+      "to": "kebab-case",
+      "description": "kebab-case"
+    },
+    "base64-encode": {
+      "from": "Text",
+      "to": "Base64",
+      "description": "Encode to Base64"
+    },
+    "base64-decode": {
+      "from": "Base64",
+      "to": "Text",
+      "description": "Decode from Base64"
+    },
+    "base32-encode": {
+      "from": "Text",
+      "to": "Base32",
+      "description": "Encode to RFC 4648 Base32"
+    },
+    "base32-decode": {
+      "from": "Base32",
+      "to": "Text",
+      "description": "Decode from Base32"
+    },
+    "base36-encode": {
+      "from": "Text",
+      "to": "Base36",
+      "description": "Encode UTF-8 bytes as Base36"
+    },
+    "base36-decode": {
+      "from": "Base36",
+      "to": "Text",
+      "description": "Decode from Base36"
+    },
+    "base62-encode": {
+      "from": "Text",
+      "to": "Base62",
+      "description": "Encode UTF-8 bytes as Base62"
+    },
+    "base62-decode": {
+      "from": "Base62",
+      "to": "Text",
+      "description": "Decode from Base62"
+    },
+    "ascii85-encode": {
+      "from": "Text",
+      "to": "Ascii85",
+      "description": "Encode to Ascii85"
+    },
+    "ascii85-decode": {
+      "from": "Ascii85",
+      "to": "Text",
+      "description": "Decode from Ascii85"
+    },
+    "hex-encode": {
+      "from": "Text",
+      "to": "Hex",
+      "description": "Encode to hexadecimal"
+    },
+    "hex-decode": {
+      "from": "Hex",
+      "to": "Text",
+      "description": "Decode from hex"
+    },
+    "ihex-decode": {
+      "from": "Intel HEX",
+      "to": "Base64 bytes",
+      "description": "Decode Intel HEX records with checksum validation"
+    },
+    "ihex-encode": {
+      "from": "Base64 bytes",
+      "to": "Intel HEX",
+      "description": "Encode bytes as Intel HEX records"
+    },
+    "url-encode": {
+      "from": "URL",
+      "to": "URL-encoded",
+      "description": "URL-encode (for query parameters)"
+    },
+    "url-decode": {
+      "from": "URL-encoded",
+      "to": "URL",
+      "description": "URL-decode"
+    },
+    "idn-encode": {
+      "from": "Unicode domain",
+      "to": "Punycode / IDN",
+      "description": "Convert an internationalized domain to Punycode"
+    },
+    "idn-decode": {
+      "from": "Punycode / IDN",
+      "to": "Unicode domain",
+      "description": "Convert Punycode to a readable internationalized domain"
+    },
+    "quoted-printable-encode": {
+      "from": "Text",
+      "to": "Quoted-Printable",
+      "description": "Encode MIME Quoted-Printable"
+    },
+    "quoted-printable-decode": {
+      "from": "Quoted-Printable",
+      "to": "Text",
+      "description": "Decode MIME Quoted-Printable"
+    },
+    "uuencode": {
+      "from": "Text",
+      "to": "Uuencode",
+      "description": "Encode with classic uuencode"
+    },
+    "uudecode": {
+      "from": "Uuencode",
+      "to": "Text",
+      "description": "Decode classic uuencode"
+    },
+    "morse-encode": {
+      "from": "Text",
+      "to": "Morse",
+      "description": "Encode text as Morse code"
+    },
+    "morse-decode": {
+      "from": "Morse",
+      "to": "Text",
+      "description": "Decode Morse code"
+    },
+    "rot47": {
+      "from": "Text",
+      "to": "ROT47",
+      "description": "Rotate printable ASCII by 47"
+    },
+    "atbash": {
+      "from": "Text",
+      "to": "Atbash",
+      "description": "Mirror Latin and Cyrillic alphabets"
+    },
+    "caesar-encode": {
+      "from": "Text",
+      "to": "Caesar +3",
+      "description": "Shift Latin letters by three"
+    },
+    "caesar-decode": {
+      "from": "Caesar +3",
+      "to": "Text",
+      "description": "Undo a three-letter Caesar shift"
+    },
+    "xor-encode": {
+      "from": "Key + text",
+      "to": "XOR hex",
+      "description": "XOR UTF-8 text with a key; input: key, newline, text"
+    },
+    "xor-decode": {
+      "from": "Key + XOR hex",
+      "to": "Text",
+      "description": "Decode XOR hex; input: key, newline, hex"
+    },
+    "a1z26-encode": {
+      "from": "Text",
+      "to": "A1Z26",
+      "description": "Map A–Z to numbers 1–26"
+    },
+    "a1z26-decode": {
+      "from": "A1Z26",
+      "to": "Text",
+      "description": "Map numbers 1–26 back to letters"
+    },
+    "bacon-encode": {
+      "from": "Text",
+      "to": "Bacon cipher",
+      "description": "Encode letters as groups of a and b"
+    },
+    "bacon-decode": {
+      "from": "Bacon cipher",
+      "to": "Text",
+      "description": "Decode groups of a and b"
+    },
+    "tap-code-encode": {
+      "from": "Text",
+      "to": "Tap code",
+      "description": "Encode letters as row and column taps"
+    },
+    "tap-code-decode": {
+      "from": "Tap code",
+      "to": "Text",
+      "description": "Decode row and column taps"
+    },
+    "strip-diacritics": {
+      "from": "Text",
+      "to": "Plain text",
+      "description": "Remove combining diacritical marks"
+    },
+    "unfuck-paste": {
+      "from": "Messy paste",
+      "to": "Clean text",
+      "description": "Remove invisible characters and normalize typography"
+    },
+    "unix-to-iso": {
+      "from": "Unix timestamp",
+      "to": "ISO 8601",
+      "description": "Use s:/ms: and optional local: prefix; default is UTC"
+    },
+    "iso-to-unix": {
+      "from": "ISO 8601",
+      "to": "Unix timestamp",
+      "description": "Use s:/ms: and optional local: prefix; default output is seconds"
+    },
+    "mac-to-colon": {
+      "from": "MAC address",
+      "to": "aa:bb:cc:dd:ee:ff",
+      "description": "Format a MAC address with colons"
+    },
+    "mac-to-dash": {
+      "from": "MAC address",
+      "to": "aa-bb-cc-dd-ee-ff",
+      "description": "Format a MAC address with dashes"
+    },
+    "mac-to-cisco": {
+      "from": "MAC address",
+      "to": "aabb.ccdd.eeff",
+      "description": "Format a MAC address in Cisco notation"
+    },
+    "mac-to-plain": {
+      "from": "MAC address",
+      "to": "aabbccddeeff",
+      "description": "Remove separators from a MAC address"
+    },
+    "hjson-to-json": {
+      "from": "HJSON",
+      "to": "JSON",
+      "description": "Parse human-friendly JSON with comments and unquoted keys"
+    },
+    "json-to-hjson": {
+      "from": "JSON",
+      "to": "HJSON",
+      "description": "Format JSON as human-friendly configuration"
+    },
+    "bbcode-to-html": {
+      "from": "BBCode",
+      "to": "HTML",
+      "description": "Render forum BBCode as safe HTML"
+    },
+    "csv-to-markdown": {
+      "from": "CSV",
+      "to": "Markdown table",
+      "description": "Convert CSV rows into a Markdown table"
+    },
+    "tsv-to-markdown": {
+      "from": "TSV",
+      "to": "Markdown table",
+      "description": "Convert TSV rows into a Markdown table"
+    },
+    "properties-to-json": {
+      "from": "Java properties",
+      "to": "JSON",
+      "description": "Parse Java properties with comments and escapes"
+    },
+    "json-to-properties": {
+      "from": "JSON",
+      "to": "Java properties",
+      "description": "Write JSON as Java properties"
+    },
+    "env-to-json": {
+      "from": ".env",
+      "to": "JSON",
+      "description": "Parse environment variables into JSON"
+    },
+    "json-to-env": {
+      "from": "JSON",
+      "to": ".env",
+      "description": "Write JSON as an environment file"
+    },
+    "stego-encode": {
+      "from": "Carrier + secret",
+      "to": "Zero-width text",
+      "description": "Hide UTF-8 text in invisible zero-width characters; use carrier, newline, ---, secret"
+    },
+    "stego-decode": {
+      "from": "Zero-width text",
+      "to": "Secret",
+      "description": "Extract a strict UWC zero-width payload"
+    },
+    "sort-lines": {
+      "from": "Lines",
+      "to": "Sorted lines",
+      "description": "Sort lines alphabetically"
+    },
+    "dedupe-lines": {
+      "from": "Lines",
+      "to": "Unique lines",
+      "description": "Remove duplicate lines while preserving order"
+    },
+    "shuffle-lines": {
+      "from": "Lines",
+      "to": "Shuffled lines",
+      "description": "Shuffle lines with cryptographic randomness"
+    },
+    "number-lines": {
+      "from": "Lines",
+      "to": "Numbered lines",
+      "description": "Add line numbers starting at 1"
+    },
+    "wrap-text": {
+      "from": "Width + text",
+      "to": "Wrapped text",
+      "description": "Wrap words; input is column width, newline, text"
+    },
+    "number-base-convert": {
+      "from": "Base + number",
+      "to": "Number",
+      "description": "Convert bases 2–36; input is fromBase:toBase, newline, number"
+    },
+    "iso-duration-to-seconds": {
+      "from": "ISO 8601 duration",
+      "to": "Seconds",
+      "description": "Convert PT1H30M-style durations to seconds"
+    },
+    "seconds-to-iso-duration": {
+      "from": "Seconds",
+      "to": "ISO 8601 duration",
+      "description": "Convert seconds to a PT... duration"
+    },
+    "hex-to-rgb": {
+      "from": "HEX",
+      "to": "RGB",
+      "description": "Convert a hex color to CSS rgb()"
+    },
+    "rgb-to-hex": {
+      "from": "RGB",
+      "to": "HEX",
+      "description": "Convert CSS rgb() to a hex color"
+    },
+    "rgb-to-hsl": {
+      "from": "RGB",
+      "to": "HSL",
+      "description": "Convert RGB to CSS hsl()"
+    },
+    "hsl-to-rgb": {
+      "from": "HSL",
+      "to": "RGB",
+      "description": "Convert CSS hsl() to RGB"
+    },
+    "hex-to-hsl": {
+      "from": "HEX",
+      "to": "HSL",
+      "description": "Convert a hex color to CSS hsl()"
+    },
+    "hsl-to-hex": {
+      "from": "HSL",
+      "to": "HEX",
+      "description": "Convert CSS hsl() to a hex color"
+    },
+    "roman-to-arabic": {
+      "from": "Roman numerals",
+      "to": "Arabic number",
+      "description": "Convert canonical Roman numerals from I to MMMCMXCIX"
+    },
+    "arabic-to-roman": {
+      "from": "Arabic number",
+      "to": "Roman numerals",
+      "description": "Convert integers from 1 to 3999 to Roman numerals"
+    },
+    "jwt-decode": {
+      "from": "JWT",
+      "to": "JSON",
+      "description": "Decode JWT header and payload without verification"
+    },
+    "glob-to-regex": {
+      "from": "Glob",
+      "to": "Regular expression",
+      "description": "Convert *, ?, ** glob patterns to a regex"
+    },
+    "regex-to-glob": {
+      "from": "Regular expression",
+      "to": "Glob",
+      "description": "Convert basic anchored regex patterns to glob syntax"
+    },
+    "c-escape-encode": {
+      "from": "Text",
+      "to": "C escapes",
+      "description": "Escape text for C-style string literals"
+    },
+    "c-escape-decode": {
+      "from": "C escapes",
+      "to": "Text",
+      "description": "Decode C-style string escapes"
+    },
+    "shell-quote": {
+      "from": "Arguments",
+      "to": "Shell command",
+      "description": "Input: shell, newline, one argument per line"
+    },
+    "argv-split": {
+      "from": "Shell command",
+      "to": "Arguments",
+      "description": "Split a quoted command line into one argument per line"
+    },
+    "windows-to-posix": {
+      "from": "Windows path",
+      "to": "POSIX path",
+      "description": "Convert C:\\ paths to /c/ paths"
+    },
+    "posix-to-windows": {
+      "from": "POSIX path",
+      "to": "Windows path",
+      "description": "Convert /c/ paths to C:\\ paths"
+    },
+    "json-to-typescript": {
+      "from": "JSON",
+      "to": "TypeScript interfaces",
+      "description": "Generate recursive TypeScript interfaces from JSON"
+    },
+    "zalgo-add": {
+      "from": "Text",
+      "to": "Zalgo",
+      "description": "Overlay combining marks on every non-space character"
+    },
+    "zalgo-remove": {
+      "from": "Zalgo",
+      "to": "Clean text",
+      "description": "Remove all Unicode combining marks"
+    },
+    "slugify": {
+      "from": "Text",
+      "to": "Slug",
+      "description": "Transliterate, lowercase and join words with hyphens"
+    },
+    "luhn-check": {
+      "from": "Card number",
+      "to": "Luhn result",
+      "description": "Validate a number with the Luhn algorithm"
+    },
+    "inn-check": {
+      "from": "RU INN",
+      "to": "INN result",
+      "description": "Validate a Russian 10- or 12-digit taxpayer ID"
+    },
+    "isbn-check": {
+      "from": "ISBN",
+      "to": "ISBN result",
+      "description": "Validate ISBN-10 or ISBN-13"
+    },
+    "ean-upc-check": {
+      "from": "EAN / UPC",
+      "to": "Barcode result",
+      "description": "Validate EAN-13 or UPC-A"
+    },
+    "crc32": {
+      "from": "Text",
+      "to": "CRC32",
+      "description": "Calculate the CRC-32 checksum"
+    },
+    "iban-format": {
+      "from": "IBAN",
+      "to": "Formatted IBAN",
+      "description": "Normalize and group an IBAN into four-character blocks"
+    },
+    "iban-validate": {
+      "from": "IBAN",
+      "to": "IBAN result",
+      "description": "Validate IBAN country length and MOD-97 checksum"
+    },
+    "chmod-to-symbolic": {
+      "from": "Chmod digits",
+      "to": "rwx permissions",
+      "description": "Convert 755-style permissions to rwxr-xr-x"
+    },
+    "symbolic-to-chmod": {
+      "from": "rwx permissions",
+      "to": "Chmod digits",
+      "description": "Convert rwxr-xr-x permissions to 755-style digits"
+    },
+    "ebcdic-encode": {
+      "from": "ASCII text",
+      "to": "EBCDIC hex",
+      "description": "Encode as IBM CP037 EBCDIC bytes"
+    },
+    "ebcdic-decode": {
+      "from": "EBCDIC hex",
+      "to": "ASCII text",
+      "description": "Decode IBM CP037 EBCDIC bytes"
+    },
+    "baudot-encode": {
+      "from": "Text",
+      "to": "Baudot / ITA2",
+      "description": "Encode RTTY Baudot 5-bit codes"
+    },
+    "baudot-decode": {
+      "from": "Baudot / ITA2",
+      "to": "Text",
+      "description": "Decode RTTY Baudot 5-bit codes"
+    },
+    "fullwidth-to-halfwidth": {
+      "from": "Full-width",
+      "to": "Half-width",
+      "description": "Convert Japanese full-width characters to half-width"
+    },
+    "halfwidth-to-fullwidth": {
+      "from": "Half-width",
+      "to": "Full-width",
+      "description": "Convert Japanese half-width characters to full-width"
+    },
+    "html-escape": {
+      "from": "Text",
+      "to": "HTML-escaped",
+      "description": "Escape HTML special characters"
+    },
+    "json-pretty": {
+      "from": "JSON",
+      "to": "JSON (pretty)",
+      "description": "Format JSON with indentation"
+    },
+    "json-minify": {
+      "from": "JSON (pretty)",
+      "to": "JSON (min)",
+      "description": "Minify JSON to a single line"
+    },
+    "json-sort": {
+      "from": "JSON",
+      "to": "JSON (sorted)",
+      "description": "Sort keys alphabetically"
+    },
+    "json-to-jsonp": {
+      "from": "JSON",
+      "to": "JSONP",
+      "description": "Wrap JSON in a callback function"
+    },
+    "jsonp-to-json": {
+      "from": "JSONP",
+      "to": "JSON",
+      "description": "Extract JSON from a JSONP wrapper"
+    },
+    "reverse": {
+      "from": "Text",
+      "to": "Reversed text",
+      "description": "Reverse the text"
+    },
+    "rot13": {
+      "from": "Text",
+      "to": "ROT13",
+      "description": "ROT13 — shift letters by 13 (reversing gives the same)"
+    },
+    "collapse-space": {
+      "from": "Text",
+      "to": "Collapsed spaces",
+      "description": "Collapse repeated whitespace"
+    },
+    "crlf-to-lf": {
+      "from": "CRLF (Windows)",
+      "to": "LF (Unix)",
+      "description": "Windows → Unix line endings"
+    },
+    "lf-to-crlf": {
+      "from": "LF (Unix)",
+      "to": "CRLF (Windows)",
+      "description": "Unix → Windows line endings"
+    },
+    "cr-to-lf": {
+      "from": "CR (old Mac)",
+      "to": "LF (Unix)",
+      "description": "Old-Mac line endings → Unix"
+    },
+    "lf-to-cr": {
+      "from": "LF (Unix)",
+      "to": "CR (old Mac)",
+      "description": "Unix line endings → old-Mac CR"
+    },
+    "csv-to-tsv": {
+      "from": "CSV",
+      "to": "TSV",
+      "description": "Swap delimiter: comma → tab (quotes respected)"
+    },
+    "tsv-to-csv": {
+      "from": "TSV",
+      "to": "CSV",
+      "description": "Swap delimiter: tab → comma (quotes respected)"
+    },
+    "text-stats": {
+      "from": "Text",
+      "to": "Stats",
+      "description": "Characters, words and lines"
+    },
+    "translit": {
+      "from": "Cyrillic",
+      "to": "Translit",
+      "description": "Russian text in Latin letters"
+    },
+    "layout-to-ru": {
+      "from": "QWERTY",
+      "to": "ЙЦУКЕН",
+      "description": "Fix text typed on the wrong layout: ntrcn → текст"
+    },
+    "layout-to-en": {
+      "from": "ЙЦУКЕН",
+      "to": "QWERTY",
+      "description": "Back to QWERTY: текст → ntrcn"
+    },
+    "leet": {
+      "from": "Text",
+      "to": "1337",
+      "description": "Leet speak"
+    },
+    "sha256": {
+      "from": "Text",
+      "to": "SHA-256",
+      "description": "SHA-256 hash (WebCrypto)"
+    },
+    "sha1": {
+      "from": "Text",
+      "to": "SHA-1",
+      "description": "SHA-1 hash (WebCrypto, legacy)"
+    },
+    "md5": {
+      "from": "Text",
+      "to": "MD5",
+      "description": "MD5 hash (pure JS, legacy checks)"
+    },
+    "emoji-to-codes": {
+      "from": "Emoji",
+      "to": "Code points",
+      "description": "😀 → U+1F600 (code points)"
+    },
+    "codes-to-emoji": {
+      "from": "Code points",
+      "to": "Emoji",
+      "description": "U+1F600 → 😀 (from code points)"
+    },
+    "md-to-html": {
+      "from": "Markdown",
+      "to": "HTML",
+      "description": "Render Markdown to HTML (Tiptap)"
+    },
+    "html-to-md": {
+      "from": "HTML",
+      "to": "Markdown",
+      "description": "Convert HTML back to Markdown"
+    },
+    "ini-to-json": {
+      "from": "INI",
+      "to": "JSON",
+      "description": "Parse INI config into JSON"
+    },
+    "json-to-ini": {
+      "from": "JSON",
+      "to": "INI",
+      "description": "Write JSON as INI config"
+    },
+    "csv-to-json": {
+      "from": "CSV",
+      "to": "JSON",
+      "description": "Parse CSV table into JSON"
+    },
+    "json-to-csv": {
+      "from": "JSON",
+      "to": "CSV",
+      "description": "Write JSON as CSV table (objects get headers)"
+    },
+    "ini-to-yaml": {
+      "from": "INI",
+      "to": "YAML",
+      "description": "Write INI config as YAML"
+    },
+    "ini-to-toml": {
+      "from": "INI",
+      "to": "TOML",
+      "description": "Write INI config as TOML"
+    },
+    "csv-to-yaml": {
+      "from": "CSV",
+      "to": "YAML",
+      "description": "Write CSV table as YAML"
+    },
+    "csv-to-toml": {
+      "from": "CSV",
+      "to": "TOML",
+      "description": "Write CSV table as TOML"
+    },
+    "json-to-yaml": {
+      "from": "JSON",
+      "to": "YAML",
+      "description": "Write JSON as YAML"
+    },
+    "json-to-toml": {
+      "from": "JSON",
+      "to": "TOML",
+      "description": "Write JSON as TOML"
+    },
+    "yaml-to-json": {
+      "from": "YAML",
+      "to": "JSON",
+      "description": "Parse YAML into JSON"
+    },
+    "yaml-to-ini": {
+      "from": "YAML",
+      "to": "INI",
+      "description": "Write YAML as INI config"
+    },
+    "yaml-to-toml": {
+      "from": "YAML",
+      "to": "TOML",
+      "description": "Write YAML as TOML"
+    },
+    "yaml-to-csv": {
+      "from": "YAML",
+      "to": "CSV",
+      "description": "Write YAML list as CSV"
+    },
+    "toml-to-json": {
+      "from": "TOML",
+      "to": "JSON",
+      "description": "Parse TOML into JSON"
+    },
+    "toml-to-ini": {
+      "from": "TOML",
+      "to": "INI",
+      "description": "Write TOML config as INI"
+    },
+    "toml-to-yaml": {
+      "from": "TOML",
+      "to": "YAML",
+      "description": "Write TOML as YAML"
+    },
+    "toml-to-csv": {
+      "from": "TOML",
+      "to": "CSV",
+      "description": "Write TOML data as a CSV table"
+    },
+    "xml-to-json": {
+      "from": "XML",
+      "to": "JSON",
+      "description": "Parse XML into JSON"
+    },
+    "json-to-xml": {
+      "from": "JSON",
+      "to": "XML",
+      "description": "Write JSON as XML"
+    },
+    "vcard-to-json": {
+      "from": "vCard",
+      "to": "JSON",
+      "description": "Parse vCard contact into JSON"
+    },
+    "json-to-vcard": {
+      "from": "JSON",
+      "to": "vCard",
+      "description": "Write JSON as vCard contact"
+    },
+    "ical-to-json": {
+      "from": "iCal",
+      "to": "JSON",
+      "description": "Parse iCal calendar into JSON"
+    },
+    "json-to-ical": {
+      "from": "JSON",
+      "to": "iCal",
+      "description": "Write JSON as iCal calendar"
+    },
+    "docx-to-html": {
+      "from": "DOCX",
+      "to": "HTML",
+      "description": "Extract HTML from a Word document (mammoth)"
+    },
+    "html-to-docx": {
+      "from": "HTML",
+      "to": "DOCX",
+      "description": "Convert HTML to a Word document"
+    },
+    "docx-to-txt": {
+      "from": "DOCX",
+      "to": "TXT",
+      "description": "Extract plain text from a Word document"
+    },
+    "txt-to-docx": {
+      "from": "TXT",
+      "to": "DOCX",
+      "description": "Convert plain text to a Word document"
+    },
+    "pdf-to-txt": {
+      "from": "PDF",
+      "to": "TXT",
+      "description": "Extract text from a PDF (pdfjs-dist)"
+    },
+    "txt-to-pdf": {
+      "from": "TXT",
+      "to": "PDF",
+      "description": "Create a PDF from plain text (pdf-lib)"
+    },
+    "xlsx-to-csv": {
+      "from": "XLSX",
+      "to": "CSV",
+      "description": "Extract sheet data to CSV (exceljs)"
+    },
+    "csv-to-xlsx": {
+      "from": "CSV",
+      "to": "XLSX",
+      "description": "Create a spreadsheet from CSV (exceljs)"
+    },
+    "xlsx-to-json": {
+      "from": "XLSX",
+      "to": "JSON",
+      "description": "Extract sheet data to JSON (exceljs)"
+    },
+    "json-to-xlsx": {
+      "from": "JSON",
+      "to": "XLSX",
+      "description": "Create a spreadsheet from JSON (exceljs)"
+    },
+    "sql-to-json": {
+      "from": "SQL",
+      "to": "JSON",
+      "description": "Parse a SQL dump (CREATE TABLE + INSERT) into JSON"
+    },
+    "json-to-sql": {
+      "from": "JSON",
+      "to": "SQL",
+      "description": "Generate a SQL dump from JSON data"
+    },
+    "kml-to-geojson": {
+      "from": "KML",
+      "to": "GeoJSON",
+      "description": "Parse KML into GeoJSON"
+    },
+    "gpx-to-geojson": {
+      "from": "GPX",
+      "to": "GeoJSON",
+      "description": "Parse GPX into GeoJSON"
+    },
+    "geojson-to-kml": {
+      "from": "GeoJSON",
+      "to": "KML",
+      "description": "Export GeoJSON as KML"
+    },
+    "geojson-to-gpx": {
+      "from": "GeoJSON",
+      "to": "GPX",
+      "description": "Export GeoJSON as GPX"
+    },
+    "geojson-to-csv": {
+      "from": "GeoJSON",
+      "to": "CSV",
+      "description": "Export points and tracks to CSV"
+    },
+    "geojson-to-json": {
+      "from": "GeoJSON",
+      "to": "JSON",
+      "description": "Pretty-print GeoJSON as JSON"
+    },
+    "json-to-geojson": {
+      "from": "JSON",
+      "to": "GeoJSON",
+      "description": "Validate / import GeoJSON from JSON"
+    }
   },
-
   "stats": {
     "chars": "Characters",
     "words": "Words",
     "lines": "Lines"
   },
-
   "errors": {
     "badJwt": "Invalid JWT: expected three JSON base64url parts",
     "badGlob": "Unsupported or invalid glob/regex pattern",
@@ -380,24 +1087,23 @@
     "badGzip": "Not a valid GZIP file",
     "badBrotli": "Not a valid Brotli file",
     "noBrotli": "Your browser doesn't support Brotli decompression (Chrome 80+, Safari 16.4+, Firefox 147+)",
-    "badArchive": "Unsupported archive format"
-    ,"badLzma": "Not a valid LZMA archive"
-    ,"badBzip2": "Not a valid BZIP2 archive"
-    ,"badZstd": "Not a valid Zstandard archive"
-    ,"badXz": "Not a valid XZ archive"
-    ,"badCab": "Not a valid CAB archive"
-    ,"unsupportedCabCompression": "This CAB uses unsupported compression (LZX or Quantum)"
-    ,"badCpio": "Not a valid CPIO archive"
-    ,"badAr": "Not a valid AR archive"
-    ,"badCompress": "Not a valid Unix compress archive"
-    ,"badIso": "Not a valid ISO9660 image"
-    ,"badXar": "Not a valid XAR archive"
-    ,"badIhex": "Not a valid Intel HEX file"
-    ,"badPartitionTable": "Not a valid GPT/MBR partition table"
-    ,"archiveTooLarge": "Archive exceeds the 500 MB unpacked-size limit"
-    ,"archiveTooManyEntries": "Archive exceeds the 10,000-file limit"
+    "badArchive": "Unsupported archive format",
+    "badLzma": "Not a valid LZMA archive",
+    "badBzip2": "Not a valid BZIP2 archive",
+    "badZstd": "Not a valid Zstandard archive",
+    "badXz": "Not a valid XZ archive",
+    "badCab": "Not a valid CAB archive",
+    "unsupportedCabCompression": "This CAB uses unsupported compression (LZX or Quantum)",
+    "badCpio": "Not a valid CPIO archive",
+    "badAr": "Not a valid AR archive",
+    "badCompress": "Not a valid Unix compress archive",
+    "badIso": "Not a valid ISO9660 image",
+    "badXar": "Not a valid XAR archive",
+    "badIhex": "Not a valid Intel HEX file",
+    "badPartitionTable": "Not a valid GPT/MBR partition table",
+    "archiveTooLarge": "Archive exceeds the 500 MB unpacked-size limit",
+    "archiveTooManyEntries": "Archive exceeds the 10,000-file limit"
   },
-
   "cats": {
     "text": {
       "title": "Text & markup",
@@ -424,7 +1130,6 @@
       "description": "Translit, ROT13, leet, text stats. Useless — and that's exactly why it's useful."
     }
   },
-
   "passwordAnalysis": {
     "length": "Length",
     "charset": "Estimated alphabet",
@@ -439,12 +1144,10 @@
     "medium": "medium",
     "strong": "strong"
   },
-
   "checksums": {
     "valid": "Valid",
     "invalid": "Invalid"
   },
-
   "formatNames": {
     "translit": "Translit",
     "stats": "Stats",
@@ -457,16 +1160,44 @@
     "txt": "TXT",
     "pdf": "PDF",
     "xlsx": "XLSX",
-    "sql": "SQL"
+    "sql": "SQL",
+    "arabic": "Arabic",
+    "avif": "AVIF",
+    "bmp": "BMP",
+    "csv": "CSV",
+    "cur": "CUR",
+    "env": "ENV",
+    "hex": "Hex",
+    "hjson": "HJSON",
+    "hsl": "HSL",
+    "ical": "iCal",
+    "ico": "ICO",
+    "ini": "INI",
+    "jpeg": "JPEG",
+    "json": "JSON",
+    "jsonp": "JSONP",
+    "markdown": "Markdown",
+    "md": "Markdown",
+    "pcx": "PCX",
+    "png": "PNG",
+    "ppm": "PPM",
+    "properties": "Properties",
+    "rgb": "RGB",
+    "roman": "Roman",
+    "tga": "TGA",
+    "tiff": "TIFF",
+    "tsv": "TSV",
+    "vcard": "vCard",
+    "xbm": "XBM",
+    "xml": "XML",
+    "yaml": "YAML"
   },
-
   "formatsSection": {
     "badge": "formats",
     "title1": "Everything can be",
     "title2": "converted",
     "subtitle": "Not just the popular formats — UWC is meant to be a “convert anything, into anything” converter: from translit and ROT13 to GeoJSON and vCard."
   },
-
   "features": {
     "badge": "why UWC",
     "title1": "Lightweight,",
@@ -491,7 +1222,6 @@
       }
     }
   },
-
   "error404": {
     "title": "404",
     "subtitle": "Page not found",
@@ -510,7 +1240,6 @@
     "back": "Go back",
     "retry": "Try again"
   },
-
   "footer": {
     "tagline": "Convert anything, into anything.",
     "converter": "Converter",
@@ -518,7 +1247,6 @@
     "why": "Why UWC",
     "plus": "UWC+"
   },
-
   "totp": {
     "title": "TOTP / HOTP",
     "subtitle": "Generate a live 2FA code and build an otpauth:// URI locally",
@@ -533,20 +1261,21 @@
     "uri": "otpauth:// URI",
     "copy": "Copy URI",
     "localNote": "The secret never leaves your browser.",
-    "modes": { "totp": "TOTP (time-based)", "hotp": "HOTP (counter-based)" },
+    "modes": {
+      "totp": "TOTP (time-based)",
+      "hotp": "HOTP (counter-based)"
+    },
     "errors": {
       "badSecret": "Secret must be a Base32 string using A–Z and 2–7",
       "badCounter": "Counter must be a non-negative safe integer"
     }
   },
-
   "counter": {
     "one": "char",
     "few": "chars",
     "many": "chars",
     "other": "chars"
   },
-
   "gen": {
     "selectPlaceholder": "What should we generate?",
     "generate": "Generate",
@@ -573,17 +1302,17 @@
       "range": "Range",
       "namespace": "Namespace",
       "name": "Name",
-      "password": "Password to analyze"
-      ,"items": "Items"
-      ,"secret": "Signing secret"
-      ,"payload": "Payload JSON"
-      ,"rolls": "Rolls"
-      ,"flips": "Flips"
-      ,"choices": "Choices"
-      ,"choicesPlaceholder": "One option per line"
-      ,"input": "Snowflake ID"
-      ,"epoch": "Epoch"
-      ,"snowflakePlaceholder": "Enter a Snowflake ID"
+      "password": "Password to analyze",
+      "items": "Items",
+      "secret": "Signing secret",
+      "payload": "Payload JSON",
+      "rolls": "Rolls",
+      "flips": "Flips",
+      "choices": "Choices",
+      "choicesPlaceholder": "One option per line",
+      "input": "Snowflake ID",
+      "epoch": "Epoch",
+      "snowflakePlaceholder": "Enter a Snowflake ID"
     },
     "namespaces": {
       "dns": "DNS",
@@ -613,13 +1342,13 @@
       "nanRange": "Set the range bounds",
       "rangeTooBig": "Range must be between 1 and 4,294,967,296 values",
       "noName": "Enter a name for a name-based UUID",
-      "noPassword": "Enter a password to analyze"
-      ,"noSecret": "Enter a signing secret"
-      ,"badPayload": "Payload must be valid JSON"
-      ,"noChoices": "Enter at least one choice"
-      ,"badSnowflake": "Invalid Snowflake ID"
-      ,"snowflakeTime": "Current time is outside the Snowflake timestamp range"
-      ,"ksuidTime": "Current time is outside the KSUID timestamp range"
+      "noPassword": "Enter a password to analyze",
+      "noSecret": "Enter a signing secret",
+      "badPayload": "Payload must be valid JSON",
+      "noChoices": "Enter at least one choice",
+      "badSnowflake": "Invalid Snowflake ID",
+      "snowflakeTime": "Current time is outside the Snowflake timestamp range",
+      "ksuidTime": "Current time is outside the KSUID timestamp range"
     },
     "defs": {
       "password": {
@@ -724,7 +1453,6 @@
       }
     }
   },
-
   "plus": {
     "badge": "Community program",
     "title1": "Introducing",
@@ -733,7 +1461,6 @@
       "title": "UWC+ — request a format",
       "description": "Missing a format? Request it through GitHub Issues: describe the spec, attach an example, get a converter. Free, open-source, no account needed."
     },
-
     "goals": {
       "title": "What UWC+ is about",
       "free": {
@@ -749,7 +1476,6 @@
         "text": "We don't chase formats nobody needs. If you ask, it's real demand — and your issue becomes the spec."
       }
     },
-
     "how": {
       "title": "How it works",
       "step1": "You open a GitHub Issue with the format description and an example file (template below).",
@@ -757,7 +1483,6 @@
       "step3": "The converter gets built — client-side when possible, server-side for heavy formats.",
       "step4": "The issue closes with a release note. Your format is now in UWC for everyone."
     },
-
     "requirements": {
       "title": "What a good request looks like",
       "subtitle": "Four things turn «add X pls» into a converter. The first one is mandatory — without it the issue is closed.",
@@ -779,7 +1504,6 @@
       },
       "rejected": "Issues like «add .toon to .json pls» are closed as invalid — without a format description there is nothing to implement. A spec link or your own description is the entry ticket."
     },
-
     "examples": {
       "title": "Issue examples",
       "good": "Will be accepted",
@@ -788,7 +1512,6 @@
       "copied": "Copied",
       "badWhy": "No spec, no example, no direction. Even knowing what TOON is, we'd have to guess the exact dialect, escaping rules and edge cases — that's how broken converters are born."
     },
-
     "cta": {
       "title": "Ready to request?",
       "text": "Open a GitHub Issue using the template — copy the good example above and fill in your format. Issues are triaged weekly.",
