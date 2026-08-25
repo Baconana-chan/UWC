@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { decodeQrFromFile, generateQrPng } from '../utils/qrConvert'
+import { buildWifiQr, decodeQrFromFile, generateQrPng, type WifiSecurity } from '../utils/qrConvert'
 
 const { t } = useI18n()
 
@@ -8,6 +8,20 @@ const qrText = ref('')
 const qrImage = ref('')
 const genError = ref('')
 const generating = ref(false)
+const wifiSsid = ref('')
+const wifiPassword = ref('')
+const wifiSecurity = ref<WifiSecurity>('WPA')
+const wifiHidden = ref(false)
+const wifiSecurityItems = [
+  { label: 'WPA / WPA2 / WPA3', value: 'WPA' },
+  { label: 'WEP', value: 'WEP' },
+  { label: 'Open network', value: 'nopass' }
+]
+
+function fillWifiQr() {
+  qrText.value = buildWifiQr(wifiSsid.value, wifiPassword.value, wifiSecurity.value, wifiHidden.value)
+  genError.value = ''
+}
 
 /* декодирование */
 const qrFile = ref<File | null>(null)
@@ -92,6 +106,16 @@ async function copyDecoded() {
           :placeholder="t('studio.qr.textPlaceholder')"
           class="min-h-40"
         />
+        <div class="space-y-3 rounded-xl border border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-3">
+          <p class="text-xs font-semibold uppercase tracking-wider text-[var(--ui-text-muted)]">{{ t('studio.qr.wifiTitle') }}</p>
+          <div class="grid gap-2 sm:grid-cols-2">
+            <UInput v-model="wifiSsid" :placeholder="t('studio.qr.wifiSsid')" size="sm" />
+            <UInput v-model="wifiPassword" :placeholder="t('studio.qr.wifiPassword')" type="password" size="sm" />
+            <USelect v-model="wifiSecurity" :items="wifiSecurityItems" size="sm" />
+            <UCheckbox v-model="wifiHidden" :label="t('studio.qr.wifiHidden')" />
+          </div>
+          <UButton :label="t('studio.qr.wifiBuild')" icon="i-lucide-wifi" variant="soft" block @click="fillWifiQr" />
+        </div>
         <p v-if="genError" class="text-sm text-red-500 dark:text-red-400">{{ genError }}</p>
         <UButton
           :label="t('studio.qr.generate')"

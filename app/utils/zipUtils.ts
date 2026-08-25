@@ -1,5 +1,5 @@
 /**
- * UWC — утилиты для работы с архивами в браузере (ZIP, TAR, TAR.GZ, GZIP, Brotli).
+ * UWC — утилиты для работы с архивами в браузере (ZIP, TAR, TAR.GZ, GZIP, Brotli, LZMA, BZIP2, Zstandard).
  *
  * Библиотеки:
  * - fflate (MIT, ~7KB gz) — ZIP и GZIP, чистый JS, работает в браузере
@@ -11,6 +11,18 @@
  */
 
 import { gunzipSync, unzipSync } from 'fflate'
+import { lzmaDecompress } from '../../shared/lzmaDecoder'
+import { bzip2Decompress } from '../../shared/bzip2Decoder'
+import { zstdDecompress } from '../../shared/zstdDecoder'
+import { xzDecompress } from '../../shared/xzDecoder'
+import { extractCabEntry, listCab } from './cabUtils'
+import { extractCpioEntry, listCpio } from './cpioUtils'
+import { extractArEntry, listAr } from './arUtils'
+import { uncompress } from './compressUtils'
+import { extractIsoEntry, listIso } from './isoUtils'
+import { extractXarEntry, listXar } from './xarUtils'
+import { extractPartition, listPartitionTable } from './partitionUtils'
+
 
 /** Один файл внутри архива. */
 export interface ZipEntry {
@@ -19,13 +31,29 @@ export interface ZipEntry {
 }
 
 /** Поддерживаемые форматы архивов. */
-export type ArchiveFormat = 'zip' | 'tar' | 'tar.gz' | 'gz' | 'br'
+export type ArchiveFormat = 'zip' | 'tar' | 'tar.gz' | 'gz' | 'br' | 'lzma' | 'bzip2' | 'zstd' | 'xz' | 'cab' | 'cpio' | 'ar' | 'compress' | 'iso' | 'xar' | 'partition'
 
 /* ---------------- детект формата по магическим байтам ---------------- */
 
 /** GZIP: 1f 8b */
 function isGzip(data: Uint8Array): boolean {
   return data.length >= 2 && data[0] === 0x1f && data[1] === 0x8b
+}
+
+/** BZIP2: ASCII `BZh` followed by block-size digit 1–9. */
+function isBzip2(data: Uint8Array): boolean {
+  return data.length >= 4 && data[0] === 0x42 && data[1] === 0x5a && data[2] === 0x68 && data[3]! >= 0x31 && data[3]! <= 0x39
+}
+
+/** Zstandard frame magic: 28 b5 2f fd. */
+function isZstd(data: Uint8Array): boolean {
+  return data.length >= 4 && data[0] === 0x28 && data[1] === 0xb5 && data[2] === 0x2f && data[3] === 0xfd
+}
+
+/** XZ stream magic: fd 37 7a 58 5a 00. */
+function isXz(data: Uint8Array): boolean {
+  return data.length >= 6 && data[0] === 0xfd && data[1] === 0x37 && data[2] === 0x7a
+    && data[3] === 0x58 && data[4] === 0x5a && data[5] === 0x00
 }
 
 /**
@@ -58,12 +86,33 @@ function isTar(data: Uint8Array): boolean {
 }
 
 /** Определить формат архива по содержимому. */
-export function detectArchiveFormat(data: Uint8Array): ArchiveFormat {
+export function detectArchiveFormat(data: Uint8Array, fileName = ''): ArchiveFormat {
+  if (/\.(?:cpio|img\.cpio)$/i.test(fileName)) return 'cpio'
+  if (/\.(?:a|ar|deb)$/i.test(fileName)) return 'ar'
+  if (/\.Z$/i.test(fileName)) return 'compress'
+  if (/\.(?:iso|iso9660)$/i.test(fileName)) return 'iso'
+  if (/\.xar$/i.test(fileName)) return 'xar'
+  if (/\.cab$/i.test(fileName)) return 'cab'
+  if (/\.(?:xz|tar\.xz)$/i.test(fileName)) return 'xz'
+  if (/\.(?:zst|tar\.zst)$/i.test(fileName)) return 'zstd'
+  if (/\.(?:lzma|tar\.lz)$/i.test(fileName)) return 'lzma'
+  if (/\.(?:bz2|tar\.bz2)$/i.test(fileName)) return 'bzip2'
   if (isZip(data)) return 'zip'
+  if (data.length >= 4 && data[0] === 0x78 && data[1] === 0x61 && data[2] === 0x72 && data[3] === 0x21) return 'xar'
+  if (data.length >= 4 && data[0] === 0x4d && data[1] === 0x53 && data[2] === 0x43 && data[3] === 0x46) return 'cab'
+  const asciiMagic = new TextDecoder().decode(data.subarray(0, 8))
+  if (asciiMagic === '!<arch>\n') return 'ar'
+  if (asciiMagic.startsWith('070701') || asciiMagic.startsWith('070702') || asciiMagic.startsWith('070707')) return 'cpio'
+  if (data.length >= 3 && data[0] === 0x1f && data[1] === 0x9d) return 'compress'
   if (isGzip(data)) {
     // TAR.GZ: после gunzip должен остаться tar — проверяем по имени/содержимому в detectArchive()
     return 'tar.gz'
   }
+  if (isBzip2(data)) return 'bzip2'
+  if (isZstd(data)) return 'zstd'
+  if (isXz(data)) return 'xz'
+  if (data.length >= 16 * 2048 + 6 && new TextDecoder().decode(data.subarray(16 * 2048 + 1, 16 * 2048 + 6)) === 'CD001') return 'iso'
+  if (data.length >= 512 && data[510] === 0x55 && data[511] === 0xaa) return 'partition'
   if (isTar(data)) return 'tar'
   if (mightBeBrotli(data)) return 'br'
   // .gz без tar внутри (plain gzip) — тоже gzip-контейнер
@@ -108,6 +157,20 @@ export interface TarEntry {
   typeflag: number
 }
 
+/** Нормализовать имя архива так, чтобы оно не могло выйти из корня выдачи. */
+export function normalizeArchivePath(input: string): string {
+  const parts: string[] = []
+  for (const part of input.replaceAll('\\', '/').split('/')) {
+    if (!part || part === '.') continue
+    if (part === '..') {
+      parts.pop()
+      continue
+    }
+    parts.push(part)
+  }
+  return parts.join('/')
+}
+
 /** Распарсить заголовки всех записей TAR-потока (без копирования данных). */
 export function listTarEntries(data: Uint8Array): TarEntry[] {
   if (data.length < TAR_BLOCK || data.length % TAR_BLOCK !== 0)
@@ -125,7 +188,6 @@ export function listTarEntries(data: Uint8Array): TarEntry[] {
       if (header[i] !== 0) { allZero = false; break }
     }
     if (allZero) break
-
     const name = tarString(header, 0, 100)
     const size = parseOctal(header, 124, 12)
     const typeflag = header[156] ?? 0x30 // '0' = обычный файл
@@ -135,14 +197,20 @@ export function listTarEntries(data: Uint8Array): TarEntry[] {
     const fullName = prefix ? `${prefix}/${name}` : name
 
     const dataStart = offset + TAR_BLOCK
+    if (!Number.isSafeInteger(size) || dataStart + size > data.length)
+      throw new Error('errors.badTar')
     // данные + паддинг до кратности 512
     offset = dataStart + size
     if (size % TAR_BLOCK !== 0)
       offset += TAR_BLOCK - (size % TAR_BLOCK)
+    if (offset > data.length) throw new Error('errors.badTar')
 
     // в список попадают только обычные файлы (typeflag '0' и '\0') и симлинки пропускаем
     if (typeflag === 0x30 || typeflag === 0x00) {
-      if (name) entries.push({ name: fullName, size, dataOffset: dataStart, typeflag })
+      const safeName = normalizeArchivePath(fullName)
+      if (safeName) {
+        entries.push({ name: safeName, size, dataOffset: dataStart, typeflag })
+      }
     }
   }
 
@@ -181,9 +249,19 @@ export async function brotliDecompress(data: Uint8Array): Promise<Uint8Array> {
   for (const format of formatNames) {
     try {
       const ds = new DecompressionStream(format as CompressionFormat)
-      const stream = new Blob([data as BlobPart]).stream().pipeThrough(ds)
-      const buf = await new Response(stream).arrayBuffer()
-      return new Uint8Array(buf)
+      const reader = new Blob([data as BlobPart]).stream().pipeThrough(ds).getReader()
+      const chunks: Uint8Array[] = []
+      let total = 0
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+        total += value.length
+        chunks.push(value)
+      }
+      const result = new Uint8Array(total)
+      let offset = 0
+      for (const chunk of chunks) { result.set(chunk, offset); offset += chunk.length }
+      return result
     }
     catch {
       // неверное имя формата или битые данные — пробуем следующее имя
@@ -202,6 +280,16 @@ export async function decompressArchive(data: Uint8Array, format: ArchiveFormat)
       return gunzip(data)
     case 'br':
       return brotliDecompress(data)
+    case 'lzma':
+      return lzmaDecompress(data)
+    case 'bzip2':
+      return bzip2Decompress(data)
+    case 'zstd':
+      return zstdDecompress(data)
+    case 'xz':
+      return xzDecompress(data)
+    case 'compress':
+      return uncompress(data)
     default:
       return data
   }
@@ -214,22 +302,29 @@ export async function decompressArchive(data: Uint8Array, format: ArchiveFormat)
  * - GZ/Brotli — одиночный файл: имя = имя архива без суффикса, размер = распакованный
  */
 export async function listArchive(data: Uint8Array, fileName: string): Promise<{ format: ArchiveFormat, entries: ZipEntry[] }> {
-  const format = detectArchiveFormat(data)
+  const format = detectArchiveFormat(data, fileName)
   const inner = await decompressArchive(data, format)
 
   if (format === 'zip') {
     return { format, entries: listZip(data) }
   }
 
-  if (format === 'tar' || (format === 'tar.gz' && isTar(inner))) {
+  if (format === 'cab') return { format, entries: listCab(data) }
+  if (format === 'cpio') return { format, entries: listCpio(data) }
+  if (format === 'ar') return { format, entries: listAr(data) }
+  if (format === 'iso') return { format, entries: listIso(data) }
+  if (format === 'xar') return { format, entries: listXar(data) }
+  if (format === 'partition') return { format, entries: listPartitionTable(data) }
+
+  if (format === 'tar' || ((format === 'tar.gz' || format === 'lzma' || format === 'bzip2' || format === 'zstd' || format === 'xz') && isTar(inner))) {
     const entries = listTarEntries(inner).map(e => ({ name: e.name, size: e.size }))
-    return { format: format === 'tar.gz' ? 'tar.gz' : 'tar', entries }
+    return { format: format === 'tar.gz' || format === 'lzma' || format === 'bzip2' || format === 'zstd' || format === 'xz' ? format : 'tar', entries }
   }
 
   // plain gzip или brotli — одиночный файл
   const baseName = fileName
     .replace(/\.(tar\.gz|tgz)$/i, '.tar')
-    .replace(/\.(gz|br)$/i, '')
+    .replace(/\.(gz|br|lzma|lz|bz2|zst|xz|Z)$/i, '')
   return { format, entries: [{ name: baseName, size: inner.length }] }
 }
 
@@ -239,20 +334,32 @@ export async function extractArchiveEntry(
   fileName: string,
   entryName: string
 ): Promise<Uint8Array | null> {
-  const format = detectArchiveFormat(data)
+  const format = detectArchiveFormat(data, fileName)
   const inner = await decompressArchive(data, format)
 
   if (format === 'zip') {
-    const { unzip } = await import('fflate')
-    return new Promise((resolve) => {
-      unzip(data, (err, result) => {
-        if (err) return resolve(null)
-        resolve(result[entryName] ?? null)
+    try {
+      const result = unzipSync(data, {
+        filter: (file) => {
+          if (file.name !== entryName) return false
+          return true
+        }
       })
-    })
+      return result[entryName] ?? null
+    }
+    catch {
+      return null
+    }
   }
 
-  if (format === 'tar' || (format === 'tar.gz' && isTar(inner))) {
+  if (format === 'cab') return extractCabEntry(data, entryName)
+  if (format === 'cpio') return extractCpioEntry(data, entryName)
+  if (format === 'ar') return extractArEntry(data, entryName)
+  if (format === 'iso') return extractIsoEntry(data, entryName)
+  if (format === 'xar') return extractXarEntry(data, entryName)
+  if (format === 'partition') return extractPartition(data, entryName)
+
+  if (format === 'tar' || ((format === 'tar.gz' || format === 'lzma' || format === 'bzip2' || format === 'zstd' || format === 'xz') && isTar(inner))) {
     const entry = listTarEntries(inner).find(e => e.name === entryName)
     return entry ? extractTarEntry(inner, entry) : null
   }
@@ -270,7 +377,9 @@ export async function extractArchiveEntry(
  */
 export function listZip(data: Uint8Array): ZipEntry[] {
   try {
-    const result = unzipSync(data)
+    const result = unzipSync(data, {
+      filter: () => true
+    })
     const entries: ZipEntry[] = []
     for (const name of Object.keys(result)) {
       const u8 = result[name]
@@ -278,8 +387,8 @@ export function listZip(data: Uint8Array): ZipEntry[] {
     }
     return entries
   }
-  catch {
-    throw new Error('errors.badZip')
+  catch (error) {
+    throw new Error('errors.badZip', { cause: error })
   }
 }
 

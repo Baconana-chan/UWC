@@ -58,6 +58,7 @@
     "tabArchive": "Archives",
     "tabGenerator": "Generator",
     "tabQr": "QR",
+    "tabTotp": "2FA",
     "selectPlaceholder": "Choose a conversion…",
     "swap": "Reverse conversion",
     "inputLabel": "Input",
@@ -75,6 +76,11 @@
       "decodeTitle": "QR → Text",
       "textLabel": "Text for the QR code",
       "textPlaceholder": "Type anything: a link, a note…",
+      "wifiTitle": "WiFi QR builder",
+      "wifiSsid": "Network name (SSID)",
+      "wifiPassword": "Password",
+      "wifiHidden": "Hidden network",
+      "wifiBuild": "Use WiFi payload",
       "noText": "Type some text first",
       "generate": "Generate",
       "decode": "Decode",
@@ -108,7 +114,7 @@
       "drop": "Drag an image",
       "dropActive": "Release!",
       "dropOr": " or click to pick one",
-      "formatsHint": "PNG · JPEG · WebP · GIF · SVG · BMP · AVIF · HEIC · TIFF · ICO"
+      "formatsHint": "PNG · JPEG · WebP · GIF · SVG · BMP · PPM · PGM · PBM · PAM · XBM · WBMP · TGA · PCX · CUR · AVIF · HEIC · TIFF · ICO"
     },
     "audio": {
       "drop": "Drag an audio file",
@@ -118,8 +124,9 @@
     },
     "archive": {
       "drop": "Drag a ZIP archive",
-      "formatsHint": "supports .zip · .tar · .tar.gz / .tgz · .gz · .br",
-      "footer": "Archives are unpacked right in your browser: ZIP and GZIP via fflate, TAR via a built-in parser, Brotli via the native DecompressionStream (Chrome 80+, Safari 16.4+). Nothing is uploaded to the server. Click ↓ on any file to download it individually.",
+      "formatsHint": "supports .zip · .tar · .tar.gz / .tgz · .gz · .br · .lzma / .tar.lz · .bz2 / .tar.bz2 · .zst / .tar.zst · .xz / .tar.xz · .cab · .cpio · .a / .ar / .deb · .Z · .iso · .xar",
+      "localOnly": "Everything is processed locally in your browser. There is no application size or file-count limit; very large archives may use substantial browser memory.",
+      "footer": "Archives are unpacked right in your browser: ZIP and GZIP via fflate, TAR via a built-in parser, LZMA and BZIP2 via pure-JS decoders, Zstandard and XZ via WASM modules, and Brotli via the native DecompressionStream. Nothing is uploaded to the server. Click ↓ on any file to download it individually.",
       "entries": "no files | one file | {count} files",
       "colFile": "File",
       "colSize": "Size",
@@ -146,11 +153,103 @@
     "snake": { "from": "Text", "to": "snake_case", "description": "snake_case" },
     "kebab": { "from": "Text", "to": "kebab-case", "description": "kebab-case" },
     "base64-encode": { "from": "Text", "to": "Base64", "description": "Encode to Base64" },
-    "base64-decode": { "from": "Base64", "to": "Text", "description": "Decode from Base64" },
+    "base64-decode": { "from": "Base64", "to": "Text", "description": "Decode from Base64" },    "base32-encode": { "from": "Text", "to": "Base32", "description": "Encode to RFC 4648 Base32" },
+    "base32-decode": { "from": "Base32", "to": "Text", "description": "Decode from Base32" },
+    "base36-encode": { "from": "Text", "to": "Base36", "description": "Encode UTF-8 bytes as Base36" },
+    "base36-decode": { "from": "Base36", "to": "Text", "description": "Decode from Base36" },
+    "base62-encode": { "from": "Text", "to": "Base62", "description": "Encode UTF-8 bytes as Base62" },
+    "base62-decode": { "from": "Base62", "to": "Text", "description": "Decode from Base62" },
+    "ascii85-encode": { "from": "Text", "to": "Ascii85", "description": "Encode to Ascii85" },
+    "ascii85-decode": { "from": "Ascii85", "to": "Text", "description": "Decode from Ascii85" },
     "hex-encode": { "from": "Text", "to": "Hex", "description": "Encode to hexadecimal" },
     "hex-decode": { "from": "Hex", "to": "Text", "description": "Decode from hex" },
+    "ihex-decode": { "from": "Intel HEX", "to": "Base64 bytes", "description": "Decode Intel HEX records with checksum validation" },
+    "ihex-encode": { "from": "Base64 bytes", "to": "Intel HEX", "description": "Encode bytes as Intel HEX records" },
     "url-encode": { "from": "URL", "to": "URL-encoded", "description": "URL-encode (for query parameters)" },
     "url-decode": { "from": "URL-encoded", "to": "URL", "description": "URL-decode" },
+    "idn-encode": { "from": "Unicode domain", "to": "Punycode / IDN", "description": "Convert an internationalized domain to Punycode" },
+    "idn-decode": { "from": "Punycode / IDN", "to": "Unicode domain", "description": "Convert Punycode to a readable internationalized domain" },
+    "quoted-printable-encode": { "from": "Text", "to": "Quoted-Printable", "description": "Encode MIME Quoted-Printable" },
+    "quoted-printable-decode": { "from": "Quoted-Printable", "to": "Text", "description": "Decode MIME Quoted-Printable" },
+    "uuencode": { "from": "Text", "to": "Uuencode", "description": "Encode with classic uuencode" },
+    "uudecode": { "from": "Uuencode", "to": "Text", "description": "Decode classic uuencode" },
+    "morse-encode": { "from": "Text", "to": "Morse", "description": "Encode text as Morse code" },
+    "morse-decode": { "from": "Morse", "to": "Text", "description": "Decode Morse code" },
+    "rot47": { "from": "Text", "to": "ROT47", "description": "Rotate printable ASCII by 47" },
+    "atbash": { "from": "Text", "to": "Atbash", "description": "Mirror Latin and Cyrillic alphabets" },
+    "caesar-encode": { "from": "Text", "to": "Caesar +3", "description": "Shift Latin letters by three" },
+    "caesar-decode": { "from": "Caesar +3", "to": "Text", "description": "Undo a three-letter Caesar shift" },
+    "xor-encode": { "from": "Key + text", "to": "XOR hex", "description": "XOR UTF-8 text with a key; input: key, newline, text" },
+    "xor-decode": { "from": "Key + XOR hex", "to": "Text", "description": "Decode XOR hex; input: key, newline, hex" },
+    "a1z26-encode": { "from": "Text", "to": "A1Z26", "description": "Map A–Z to numbers 1–26" },
+    "a1z26-decode": { "from": "A1Z26", "to": "Text", "description": "Map numbers 1–26 back to letters" },
+    "bacon-encode": { "from": "Text", "to": "Bacon cipher", "description": "Encode letters as groups of a and b" },
+    "bacon-decode": { "from": "Bacon cipher", "to": "Text", "description": "Decode groups of a and b" },
+    "tap-code-encode": { "from": "Text", "to": "Tap code", "description": "Encode letters as row and column taps" },
+    "tap-code-decode": { "from": "Tap code", "to": "Text", "description": "Decode row and column taps" },
+    "strip-diacritics": { "from": "Text", "to": "Plain text", "description": "Remove combining diacritical marks" },
+    "unfuck-paste": { "from": "Messy paste", "to": "Clean text", "description": "Remove invisible characters and normalize typography" },
+    "unix-to-iso": { "from": "Unix timestamp", "to": "ISO 8601", "description": "Use s:/ms: and optional local: prefix; default is UTC" },
+    "iso-to-unix": { "from": "ISO 8601", "to": "Unix timestamp", "description": "Use s:/ms: and optional local: prefix; default output is seconds" },
+    "mac-to-colon": { "from": "MAC address", "to": "aa:bb:cc:dd:ee:ff", "description": "Format a MAC address with colons" },
+    "mac-to-dash": { "from": "MAC address", "to": "aa-bb-cc-dd-ee-ff", "description": "Format a MAC address with dashes" },
+    "mac-to-cisco": { "from": "MAC address", "to": "aabb.ccdd.eeff", "description": "Format a MAC address in Cisco notation" },
+    "mac-to-plain": { "from": "MAC address", "to": "aabbccddeeff", "description": "Remove separators from a MAC address" },
+    "hjson-to-json": { "from": "HJSON", "to": "JSON", "description": "Parse human-friendly JSON with comments and unquoted keys" },
+    "json-to-hjson": { "from": "JSON", "to": "HJSON", "description": "Format JSON as human-friendly configuration" },
+    "bbcode-to-html": { "from": "BBCode", "to": "HTML", "description": "Render forum BBCode as safe HTML" },
+    "csv-to-markdown": { "from": "CSV", "to": "Markdown table", "description": "Convert CSV rows into a Markdown table" },
+    "tsv-to-markdown": { "from": "TSV", "to": "Markdown table", "description": "Convert TSV rows into a Markdown table" },
+    "properties-to-json": { "from": "Java properties", "to": "JSON", "description": "Parse Java properties with comments and escapes" },
+    "json-to-properties": { "from": "JSON", "to": "Java properties", "description": "Write JSON as Java properties" },
+    "env-to-json": { "from": ".env", "to": "JSON", "description": "Parse environment variables into JSON" },
+    "json-to-env": { "from": "JSON", "to": ".env", "description": "Write JSON as an environment file" },
+    "stego-encode": { "from": "Carrier + secret", "to": "Zero-width text", "description": "Hide UTF-8 text in invisible zero-width characters; use carrier, newline, ---, secret" },
+    "stego-decode": { "from": "Zero-width text", "to": "Secret", "description": "Extract a strict UWC zero-width payload" },
+    "sort-lines": { "from": "Lines", "to": "Sorted lines", "description": "Sort lines alphabetically" },
+    "dedupe-lines": { "from": "Lines", "to": "Unique lines", "description": "Remove duplicate lines while preserving order" },
+    "shuffle-lines": { "from": "Lines", "to": "Shuffled lines", "description": "Shuffle lines with cryptographic randomness" },
+    "number-lines": { "from": "Lines", "to": "Numbered lines", "description": "Add line numbers starting at 1" },
+    "wrap-text": { "from": "Width + text", "to": "Wrapped text", "description": "Wrap words; input is column width, newline, text" },
+    "number-base-convert": { "from": "Base + number", "to": "Number", "description": "Convert bases 2–36; input is fromBase:toBase, newline, number" },
+    "iso-duration-to-seconds": { "from": "ISO 8601 duration", "to": "Seconds", "description": "Convert PT1H30M-style durations to seconds" },
+    "seconds-to-iso-duration": { "from": "Seconds", "to": "ISO 8601 duration", "description": "Convert seconds to a PT... duration" },
+    "hex-to-rgb": { "from": "HEX", "to": "RGB", "description": "Convert a hex color to CSS rgb()" },
+    "rgb-to-hex": { "from": "RGB", "to": "HEX", "description": "Convert CSS rgb() to a hex color" },
+    "rgb-to-hsl": { "from": "RGB", "to": "HSL", "description": "Convert RGB to CSS hsl()" },
+    "hsl-to-rgb": { "from": "HSL", "to": "RGB", "description": "Convert CSS hsl() to RGB" },
+    "hex-to-hsl": { "from": "HEX", "to": "HSL", "description": "Convert a hex color to CSS hsl()" },
+    "hsl-to-hex": { "from": "HSL", "to": "HEX", "description": "Convert CSS hsl() to a hex color" },
+    "roman-to-arabic": { "from": "Roman numerals", "to": "Arabic number", "description": "Convert canonical Roman numerals from I to MMMCMXCIX" },
+    "arabic-to-roman": { "from": "Arabic number", "to": "Roman numerals", "description": "Convert integers from 1 to 3999 to Roman numerals" },
+    "jwt-decode": { "from": "JWT", "to": "JSON", "description": "Decode JWT header and payload without verification" },
+    "glob-to-regex": { "from": "Glob", "to": "Regular expression", "description": "Convert *, ?, ** glob patterns to a regex" },
+    "regex-to-glob": { "from": "Regular expression", "to": "Glob", "description": "Convert basic anchored regex patterns to glob syntax" },
+    "c-escape-encode": { "from": "Text", "to": "C escapes", "description": "Escape text for C-style string literals" },
+    "c-escape-decode": { "from": "C escapes", "to": "Text", "description": "Decode C-style string escapes" },
+    "shell-quote": { "from": "Arguments", "to": "Shell command", "description": "Input: shell, newline, one argument per line" },
+    "argv-split": { "from": "Shell command", "to": "Arguments", "description": "Split a quoted command line into one argument per line" },
+    "windows-to-posix": { "from": "Windows path", "to": "POSIX path", "description": "Convert C:\\ paths to /c/ paths" },
+    "posix-to-windows": { "from": "POSIX path", "to": "Windows path", "description": "Convert /c/ paths to C:\\ paths" },
+    "json-to-typescript": { "from": "JSON", "to": "TypeScript interfaces", "description": "Generate recursive TypeScript interfaces from JSON" },
+    "zalgo-add": { "from": "Text", "to": "Zalgo", "description": "Overlay combining marks on every non-space character" },
+    "zalgo-remove": { "from": "Zalgo", "to": "Clean text", "description": "Remove all Unicode combining marks" },
+    "slugify": { "from": "Text", "to": "Slug", "description": "Transliterate, lowercase and join words with hyphens" },
+    "luhn-check": { "from": "Card number", "to": "Luhn result", "description": "Validate a number with the Luhn algorithm" },
+    "inn-check": { "from": "RU INN", "to": "INN result", "description": "Validate a Russian 10- or 12-digit taxpayer ID" },
+    "isbn-check": { "from": "ISBN", "to": "ISBN result", "description": "Validate ISBN-10 or ISBN-13" },
+    "ean-upc-check": { "from": "EAN / UPC", "to": "Barcode result", "description": "Validate EAN-13 or UPC-A" },
+    "crc32": { "from": "Text", "to": "CRC32", "description": "Calculate the CRC-32 checksum" },
+    "iban-format": { "from": "IBAN", "to": "Formatted IBAN", "description": "Normalize and group an IBAN into four-character blocks" },
+    "iban-validate": { "from": "IBAN", "to": "IBAN result", "description": "Validate IBAN country length and MOD-97 checksum" },
+    "chmod-to-symbolic": { "from": "Chmod digits", "to": "rwx permissions", "description": "Convert 755-style permissions to rwxr-xr-x" },
+    "symbolic-to-chmod": { "from": "rwx permissions", "to": "Chmod digits", "description": "Convert rwxr-xr-x permissions to 755-style digits" },
+    "ebcdic-encode": { "from": "ASCII text", "to": "EBCDIC hex", "description": "Encode as IBM CP037 EBCDIC bytes" },
+    "ebcdic-decode": { "from": "EBCDIC hex", "to": "ASCII text", "description": "Decode IBM CP037 EBCDIC bytes" },
+    "baudot-encode": { "from": "Text", "to": "Baudot / ITA2", "description": "Encode RTTY Baudot 5-bit codes" },
+    "baudot-decode": { "from": "Baudot / ITA2", "to": "Text", "description": "Decode RTTY Baudot 5-bit codes" },
+    "fullwidth-to-halfwidth": { "from": "Full-width", "to": "Half-width", "description": "Convert Japanese full-width characters to half-width" },
+    "halfwidth-to-fullwidth": { "from": "Half-width", "to": "Full-width", "description": "Convert Japanese half-width characters to full-width" },
     "html-escape": { "from": "Text", "to": "HTML-escaped", "description": "Escape HTML special characters" },
     "json-pretty": { "from": "JSON", "to": "JSON (pretty)", "description": "Format JSON with indentation" },
     "json-minify": { "from": "JSON (pretty)", "to": "JSON (min)", "description": "Minify JSON to a single line" },
@@ -230,7 +329,35 @@
   },
 
   "errors": {
+    "badJwt": "Invalid JWT: expected three JSON base64url parts",
+    "badGlob": "Unsupported or invalid glob/regex pattern",
+    "badShell": "Unclosed quote or escape in shell command",
+    "badRoman": "Invalid Roman or Arabic number; expected a value from 1 to 3999",
+    "badColor": "Invalid HEX, RGB or HSL color",
+    "badWrap": "Wrap input must be width, newline and text",
+    "badBase": "Invalid base conversion input",
+    "badDuration": "Invalid ISO 8601 duration or seconds",
+    "badStegoFormat": "Steganography input must be carrier, newline, ---, newline, secret",
+    "badStego": "No valid UWC zero-width payload found",
+    "badProperties": "Invalid Java properties input",
+    "badEnv": "Invalid .env input",
+    "badJson": "Invalid JSON input",
+    "badHjson": "Invalid HJSON input",
+    "badMac": "Invalid MAC address: expected 12 hexadecimal digits",
+    "badTimestamp": "Invalid Unix timestamp or ISO 8601 date",
+    "badEbcdic": "Invalid EBCDIC CP037 hex input or unsupported byte",
+    "badBaudot": "Invalid Baudot / ITA2 code or unsupported character",
+    "badXor": "XOR input must contain a non-empty key, a newline and the payload",
+    "badA1z26": "Invalid A1Z26 input",
+    "badBacon": "Invalid Bacon cipher input",
+    "badTapCode": "Invalid tap code input",
     "badHex": "Invalid hex string",
+    "badBase32": "Invalid Base32 string",
+    "badBase36": "Invalid Base36 string",
+    "badBase62": "Invalid Base62 string",
+    "badAscii85": "Invalid Ascii85 string",
+    "badIban": "Invalid IBAN format",
+    "badChmod": "Invalid chmod permissions; expected three octal digits or rwxrwxrwx",
     "badJsonp": "Not a valid JSONP — expected callback(data)",
     "tooLarge": "File is too large",
     "noInput": "Provide from, to and text or a file",
@@ -254,6 +381,21 @@
     "badBrotli": "Not a valid Brotli file",
     "noBrotli": "Your browser doesn't support Brotli decompression (Chrome 80+, Safari 16.4+, Firefox 147+)",
     "badArchive": "Unsupported archive format"
+    ,"badLzma": "Not a valid LZMA archive"
+    ,"badBzip2": "Not a valid BZIP2 archive"
+    ,"badZstd": "Not a valid Zstandard archive"
+    ,"badXz": "Not a valid XZ archive"
+    ,"badCab": "Not a valid CAB archive"
+    ,"unsupportedCabCompression": "This CAB uses unsupported compression (LZX or Quantum)"
+    ,"badCpio": "Not a valid CPIO archive"
+    ,"badAr": "Not a valid AR archive"
+    ,"badCompress": "Not a valid Unix compress archive"
+    ,"badIso": "Not a valid ISO9660 image"
+    ,"badXar": "Not a valid XAR archive"
+    ,"badIhex": "Not a valid Intel HEX file"
+    ,"badPartitionTable": "Not a valid GPT/MBR partition table"
+    ,"archiveTooLarge": "Archive exceeds the 500 MB unpacked-size limit"
+    ,"archiveTooManyEntries": "Archive exceeds the 10,000-file limit"
   },
 
   "cats": {
@@ -281,6 +423,26 @@
       "title": "“Useless”",
       "description": "Translit, ROT13, leet, text stats. Useless — and that's exactly why it's useful."
     }
+  },
+
+  "passwordAnalysis": {
+    "length": "Length",
+    "charset": "Estimated alphabet",
+    "entropy": "Entropy",
+    "patterns": "Patterns",
+    "none": "none",
+    "patternCommon": "common password",
+    "patternRepeat": "repeated characters",
+    "patternSequence": "sequence or keyboard pattern",
+    "verdict": "Verdict",
+    "weak": "weak",
+    "medium": "medium",
+    "strong": "strong"
+  },
+
+  "checksums": {
+    "valid": "Valid",
+    "invalid": "Invalid"
   },
 
   "formatNames": {
@@ -357,6 +519,27 @@
     "plus": "UWC+"
   },
 
+  "totp": {
+    "title": "TOTP / HOTP",
+    "subtitle": "Generate a live 2FA code and build an otpauth:// URI locally",
+    "secret": "Base32 secret",
+    "issuer": "Issuer",
+    "account": "Account",
+    "period": "Period (seconds)",
+    "counter": "Counter",
+    "code": "Current code",
+    "expiresIn": "Refreshes in {seconds}s",
+    "next": "Next code",
+    "uri": "otpauth:// URI",
+    "copy": "Copy URI",
+    "localNote": "The secret never leaves your browser.",
+    "modes": { "totp": "TOTP (time-based)", "hotp": "HOTP (counter-based)" },
+    "errors": {
+      "badSecret": "Secret must be a Base32 string using A–Z and 2–7",
+      "badCounter": "Counter must be a non-negative safe integer"
+    }
+  },
+
   "counter": {
     "one": "char",
     "few": "chars",
@@ -389,7 +572,18 @@
       "prefix": "Prefix",
       "range": "Range",
       "namespace": "Namespace",
-      "name": "Name"
+      "name": "Name",
+      "password": "Password to analyze"
+      ,"items": "Items"
+      ,"secret": "Signing secret"
+      ,"payload": "Payload JSON"
+      ,"rolls": "Rolls"
+      ,"flips": "Flips"
+      ,"choices": "Choices"
+      ,"choicesPlaceholder": "One option per line"
+      ,"input": "Snowflake ID"
+      ,"epoch": "Epoch"
+      ,"snowflakePlaceholder": "Enter a Snowflake ID"
     },
     "namespaces": {
       "dns": "DNS",
@@ -404,13 +598,28 @@
       "symbols": "!{'@'}#$%",
       "noAmbiguous": "no lookalikes (0O1lI)"
     },
+    "coin": {
+      "heads": "Heads",
+      "tails": "Tails"
+    },
+    "epochs": {
+      "twitter": "Twitter (2010)",
+      "discord": "Discord (2015)"
+    },
     "errors": {
       "noSets": "Choose at least one character set",
       "emptySets": "All sets are empty after excluding lookalikes",
       "badRange": "Invalid range",
       "nanRange": "Set the range bounds",
       "rangeTooBig": "Range must be between 1 and 4,294,967,296 values",
-      "noName": "Enter a name for a name-based UUID"
+      "noName": "Enter a name for a name-based UUID",
+      "noPassword": "Enter a password to analyze"
+      ,"noSecret": "Enter a signing secret"
+      ,"badPayload": "Payload must be valid JSON"
+      ,"noChoices": "Enter at least one choice"
+      ,"badSnowflake": "Invalid Snowflake ID"
+      ,"snowflakeTime": "Current time is outside the Snowflake timestamp range"
+      ,"ksuidTime": "Current time is outside the KSUID timestamp range"
     },
     "defs": {
       "password": {
@@ -432,6 +641,50 @@
       "apikey": {
         "label": "API key",
         "description": "Key with a prefix: uwc_… / sk-… — like GitHub or OpenAI"
+      },
+      "nanoid": {
+        "label": "NanoID",
+        "description": "Compact URL-safe random ID using the standard 64-character alphabet"
+      },
+      "password-analyze": {
+        "label": "Password analyzer",
+        "description": "Estimate entropy and detect common password patterns without exposing the password"
+      },
+      "lorem": {
+        "label": "Lorem ipsum",
+        "description": "Generate lightweight placeholder paragraphs in the interface language"
+      },
+      "fake-data": {
+        "label": "Fake names & emails",
+        "description": "Generate minimal synthetic names and example.com email addresses"
+      },
+      "jwt-sign": {
+        "label": "JWT signer HS256",
+        "description": "Sign a JSON payload with HMAC-SHA-256 in your browser"
+      },
+      "dice": {
+        "label": "Dice",
+        "description": "Roll one or more cryptographically random six-sided dice"
+      },
+      "coin": {
+        "label": "Coin flip",
+        "description": "Flip a cryptographically random coin"
+      },
+      "random-choice": {
+        "label": "Random choice",
+        "description": "Pick one item from a newline-separated list"
+      },
+      "snowflake": {
+        "label": "Snowflake ID",
+        "description": "Generate a Twitter- or Discord-compatible 64-bit ID"
+      },
+      "snowflake-decode": {
+        "label": "Snowflake decoder",
+        "description": "Decode timestamp, worker and sequence from a Snowflake ID"
+      },
+      "ksuid": {
+        "label": "KSUID",
+        "description": "Sortable 27-char ID: 32-bit timestamp since 2014-05-13 + 128 bits of randomness"
       },
       "uuid-v1": {
         "label": "UUID v1",

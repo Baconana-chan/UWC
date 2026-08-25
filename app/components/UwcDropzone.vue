@@ -47,7 +47,7 @@ function onPick(e: Event) {
     @drop.prevent="onDrop"
     @click="inputRef?.click()"
   >
-    <input ref="inputRef" type="file" class="hidden" :accept="accept ?? (kind === 'audio' ? 'audio/*' : kind === 'archive' ? '.zip,.tar,.tar.gz,.tgz,.gz,.br' : 'image/*')" @change="onPick" >
+  <input ref="inputRef" type="file" class="hidden" :accept="accept ?? (kind === 'audio' ? 'audio/*' : kind === 'archive' ? '.zip,.tar,.tar.gz,.tgz,.gz,.br,.lzma,.tar.lz,.bz2,.tar.bz2,.zst,.tar.zst,.xz,.tar.xz,.cab,.cpio,.a,.ar,.deb,.Z,.iso,.xar,.img' : 'image/*')" @change="onPick" >
 
     <div
       class="flex size-14 items-center justify-center rounded-2xl bg-primary-500/15 text-primary-400 transition-transform"

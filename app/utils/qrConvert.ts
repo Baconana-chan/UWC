@@ -10,6 +10,17 @@ const QR_SIZE = 512
 /** не даём jsQR жевать мегапиксельные скриншоты — уменьшаем до разумного */
 const MAX_DIM = 1600
 
+export type WifiSecurity = 'WPA' | 'WEP' | 'nopass'
+
+function escapeWifi(value: string): string {
+  return value.replace(/[\\;,:"]/g, (char) => `\\${char}`)
+}
+
+/** Build the de-facto WiFi QR payload understood by Android/iOS cameras. */
+export function buildWifiQr(ssid: string, password: string, security: WifiSecurity = 'WPA', hidden = false): string {
+  return `WIFI:T:${security};S:${escapeWifi(ssid)};P:${escapeWifi(password)};H:${hidden ? 'true' : 'false'};;`
+}
+
 /** Текст → PNG data URL (чёрные модули на прозрачном фоне). */
 export async function generateQrPng(text: string, size = QR_SIZE): Promise<string> {
   return QRCode.toDataURL(text, { width: size, margin: 2, errorCorrectionLevel: 'M' })

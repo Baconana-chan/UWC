@@ -7,7 +7,7 @@ import { extractArchiveEntry, formatZipSize, listArchive, type ArchiveFormat } f
 
 const { t, locale } = useI18n()
 
-type Tab = 'text' | 'image' | 'audio' | 'gen' | 'qr' | 'zip'
+type Tab = 'text' | 'image' | 'audio' | 'gen' | 'qr' | 'totp' | 'zip'
 const tab = ref<Tab>('text')
 
 const tabs = [
@@ -16,6 +16,7 @@ const tabs = [
   { labelKey: 'studio.tabAudio', value: 'audio', icon: 'i-lucide-music' },
   { labelKey: 'studio.tabGenerator', value: 'gen', icon: 'i-lucide-key-round' },
   { labelKey: 'studio.tabQr', value: 'qr', icon: 'i-lucide-qr-code' },
+  { labelKey: 'studio.tabTotp', value: 'totp', icon: 'i-lucide-shield-check' },
   { labelKey: 'studio.tabArchive', value: 'zip', icon: 'i-lucide-archive' }
 ]
 
@@ -414,9 +415,12 @@ function downloadZipEntry(name: string, file: File) {
       <!-- ТЕКСТ -->
       <div v-if="tab === 'text'" class="space-y-4 p-5 sm:p-7">
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
-          <USelect
+          <USelectMenu
             v-model="convId"
             :items="selectItems"
+            value-key="value"
+            :filter-fields="['label', 'description']"
+            :search-input="{ placeholder: t('studio.selectPlaceholder') }"
             size="lg"
             :placeholder="t('studio.selectPlaceholder')"
             class="w-full sm:flex-1"
@@ -541,6 +545,9 @@ function downloadZipEntry(name: string, file: File) {
 
       <!-- ГЕНЕРАТОР -->
       <UwcGenerator v-else-if="tab === 'gen'" />
+
+      <!-- 2FA -->
+      <UwcTotp v-else-if="tab === 'totp'" />
 
       <!-- ИЗОБРАЖЕНИЯ -->
       <div v-else-if="tab === 'image'" class="space-y-4 p-5 sm:p-7">
@@ -671,6 +678,11 @@ function downloadZipEntry(name: string, file: File) {
       <!-- АРХИВЫ -->
       <div v-else class="space-y-4 p-5 sm:p-7">
         <UwcDropzone :file="zipFile" kind="archive" @file="onZipFile" @clear="clearZip" />
+
+        <p class="flex items-start gap-2 rounded-lg border border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] px-3 py-2 text-xs leading-relaxed text-[var(--ui-text-muted)]">
+          <UIcon name="i-lucide-info" class="mt-0.5 size-4 shrink-0 text-primary-400" />
+          <span>{{ t('studio.archive.localOnly') }}</span>
+        </p>
 
         <div v-if="zipFile" class="flex items-center justify-between gap-3 rounded-xl border border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] px-4 py-3">
           <div class="flex min-w-0 items-center gap-3">

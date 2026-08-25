@@ -1,11 +1,25 @@
 import type { ImageFormatDef } from '#shared/registry/formats'
+import { decodeLegacyImage } from './legacyImageDecode'
 
 /**
  * Конвертация изображения в другой формат целиком в браузере:
  * createImageBitmap → canvas → toBlob. Сервер не участвует вообще.
- * Поддерживает источники: PNG, JPEG, WebP, GIF (первый кадр), SVG, BMP.
+ * Поддерживает источники: PNG, JPEG, WebP, GIF (первый кадр), SVG, BMP,
+ * Netpbm, XBM, WBMP, TGA, PCX и CUR.
  */
 export async function convertImageFile(file: File, target: ImageFormatDef, quality = 0.92): Promise<Blob> {
+  const legacy = await decodeLegacyImage(file)
+  if (legacy) {
+    const canvas = document.createElement('canvas')
+    canvas.width = legacy.width
+    canvas.height = legacy.height
+    const ctx = canvas.getContext('2d')
+    if (!ctx) throw new Error('Canvas 2D недоступен в этом браузере')
+    ctx.putImageData(new ImageData(legacy.pixels, legacy.width, legacy.height), 0, 0)
+    return await new Promise<Blob>((resolve, reject) => {
+      canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error(`Не удалось закодировать изображение в ${target.label}`)), target.mime, quality)
+    })
+  }
   let bitmap: ImageBitmap
   try {
     bitmap = await createImageBitmap(file)

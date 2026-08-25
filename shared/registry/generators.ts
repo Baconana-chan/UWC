@@ -13,9 +13,9 @@
  * т.к. WebCrypto асинхронный, а генератор синхронный.
  */
 
-import { md5Digest, sha1Digest } from './formats'
+import { md5Digest, passwordAnalysis, passwordAnalysisText, sha1Digest, type TranslateFn } from './formats'
 
-export type GeneratorId = 'password' | 'passphrase' | 'hex' | 'base64' | 'apikey' | 'uuid-v1' | 'uuid-v3' | 'uuid-v4' | 'uuid-v5' | 'uuid-v6' | 'uuid-v7' | 'uuid-v8' | 'ulid' | 'number'
+export type GeneratorId = 'password' | 'passphrase' | 'hex' | 'base64' | 'apikey' | 'nanoid' | 'password-analyze' | 'lorem' | 'fake-data' | 'jwt-sign' | 'dice' | 'coin' | 'random-choice' | 'snowflake' | 'snowflake-decode' | 'uuid-v1' | 'uuid-v3' | 'uuid-v4' | 'uuid-v5' | 'uuid-v6' | 'uuid-v7' | 'uuid-v8' | 'ulid' | 'ksuid' | 'number'
 
 /** Стандартные namespace RFC 4122 для name-based UUID (v3/v5). */
 export const UUID_NAMESPACES = {
@@ -49,6 +49,13 @@ export interface GeneratorOptions {
   namespace: UuidNamespace
   /** язык словаря парольной фразы */
   lang: 'en' | 'ru'
+  password: string
+  /** JWT HS256 */
+  secret: string
+  payload: string
+  choices: string
+  input: string
+  snowflakeEpoch: 'twitter' | 'discord'
 }
 
 export interface GeneratorDef {
@@ -66,8 +73,15 @@ export interface GeneratorDef {
     name?: boolean
     /** селект namespace для name-based UUID */
     namespace?: boolean
+    password?: boolean
+    secret?: boolean
+    payload?: boolean
+    choices?: boolean
+    input?: boolean
+    snowflakeEpoch?: boolean
   }
-  generate: (opts: GeneratorOptions) => string
+  generate: (opts: GeneratorOptions) => string | Promise<string>
+  generateL?: (opts: GeneratorOptions, t: TranslateFn) => string | Promise<string>
   /** энтропия в битах; null — если посчитать нельзя */
   entropyBits: (opts: GeneratorOptions, result: string) => number | null
 }
@@ -138,6 +152,92 @@ const WORDS_RU = [
   'звезда', 'комета', 'галактика', 'планета', 'орбита', 'космос', 'метеор', 'астероид'
 ]
 
+const LOREM_EN = [
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer feugiat, nibh at posuere luctus, justo sem blandit urna, vitae consequat nisl arcu vel erat.',
+  'Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Nullam id dolor id nibh ultricies vehicula ut id elit.',
+  'Curabitur blandit tempus porttitor. Aenean lacinia bibendum nulla sed consectetur. Maecenas faucibus mollis interdum, donec ullamcorper nulla non metus auctor fringilla.'
+]
+const LOREM_RU = [
+  'Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Снова взгляд, речью продолжил путь, однажды большой дом.',
+  'Разнообразный текст помогает проверить макет, переносы и длину строк. Пусть данные выглядят естественно, но не содержат настоящей личной информации.',
+  'Небольшой демонстрационный абзац для прототипов и тестовых страниц. Здесь достаточно слов, чтобы увидеть интервалы, ритм и работу типографики.'
+]
+const FAKE_NAMES_EN = ['Alice Johnson', 'Ben Carter', 'Chloe Smith', 'Daniel Brown', 'Eva Wilson', 'Frank Miller']
+const FAKE_NAMES_RU = ['Анна Иванова', 'Борис Петров', 'Вера Смирнова', 'Дмитрий Волков', 'Елена Соколова', 'Илья Кузнецов']
+const CYRILLIC_EMAIL_MAP: Record<string, string> = {
+  а: 'a', б: 'b', в: 'v', г: 'g', д: 'd', е: 'e', ё: 'e', ж: 'zh', з: 'z', и: 'i', й: 'y',
+  к: 'k', л: 'l', м: 'm', н: 'n', о: 'o', п: 'p', р: 'r', с: 's', т: 't', у: 'u', ф: 'f',
+  х: 'h', ц: 'ts', ч: 'ch', ш: 'sh', щ: 'sch', ъ: '', ы: 'y', ь: '', э: 'e', ю: 'yu', я: 'ya'
+}
+
+function fakeEmailLocalPart(name: string): string {
+  return [...name.toLowerCase()].map((char) => CYRILLIC_EMAIL_MAP[char] ?? char).join('')
+    .replace(/[^a-z0-9]+/g, '.')
+    .replace(/^\.|\.$/g, '')
+}
+
+function generateLorem(opts: GeneratorOptions): string {
+  const source = opts.lang === 'ru' ? LOREM_RU : LOREM_EN
+  return Array.from({ length: Math.max(1, Math.floor(opts.length)) }, () => pick(source)).join('\n\n')
+}
+
+function generateFakeData(opts: GeneratorOptions): string {
+  const names = opts.lang === 'ru' ? FAKE_NAMES_RU : FAKE_NAMES_EN
+  return Array.from({ length: Math.max(1, Math.floor(opts.length)) }, () => {
+    const name = pick(names)
+    const email = fakeEmailLocalPart(name)
+    return `${name} <${email}@example.com>`
+  }).join('\n')
+}
+
+function generateDice(opts: GeneratorOptions): string {
+  return Array.from({ length: Math.max(1, Math.floor(opts.length)) }, () => String(randomInt(6) + 1)).join(', ')
+}
+
+function generateCoin(opts: GeneratorOptions): string {
+  return Array.from({ length: Math.max(1, Math.floor(opts.length)) }, () => randomInt(2) === 0 ? 'heads' : 'tails').join(', ')
+}
+
+function generateRandomChoice(opts: GeneratorOptions): string {
+  const choices = opts.choices.split(/\r?\n/).map((choice) => choice.trim()).filter(Boolean)
+  if (!choices.length) throw new Error('gen.errors.noChoices')
+  return pick(choices)
+}
+
+const SNOWFLAKE_EPOCHS = {
+  twitter: 1_288_834_974_657,
+  discord: 1_420_070_400_000
+} as const
+
+function snowflakeEpoch(opts: GeneratorOptions): bigint {
+  return BigInt(SNOWFLAKE_EPOCHS[opts.snowflakeEpoch || 'twitter'])
+}
+
+function generateSnowflake(opts: GeneratorOptions): string {
+  const timestamp = BigInt(Date.now()) - snowflakeEpoch(opts)
+  if (timestamp < 0n || timestamp >= (1n << 41n)) throw new Error('gen.errors.snowflakeTime')
+  const worker = BigInt(randomInt(1024))
+  const sequence = BigInt(randomInt(4096))
+  return String((timestamp << 22n) | (worker << 12n) | sequence)
+}
+
+function decodeSnowflake(opts: GeneratorOptions): string {
+  const value = opts.input.trim()
+  if (!/^\d+$/.test(value)) throw new Error('gen.errors.badSnowflake')
+  const id = BigInt(value)
+  if (id < 0n || id >= (1n << 63n)) throw new Error('gen.errors.badSnowflake')
+  const timestamp = Number((id >> 22n) + snowflakeEpoch(opts))
+  const date = new Date(timestamp)
+  if (Number.isNaN(date.getTime())) throw new Error('gen.errors.badSnowflake')
+  return JSON.stringify({
+    id: value,
+    timestamp,
+    iso: date.toISOString(),
+    worker: Number((id >> 12n) & 0x3ffn),
+    sequence: Number(id & 0xfffn)
+  }, null, 2)
+}
+
 function base62(bytes: Uint8Array): string {
   const chars = SETS.lower + SETS.upper + SETS.digits
   let out = ''
@@ -164,6 +264,13 @@ function base62(bytes: Uint8Array): string {
 
 /** Алфавит Crockford base32 (без I, L, O, U). */
 const CROCKFORD = '0123456789ABCDEFGHJKMNPQRSTVWXYZ'
+const NANOID_ALPHABET = '_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+function generateNanoid(length: number): string {
+  let result = ''
+  while (result.length < length) result += NANOID_ALPHABET[randomInt(NANOID_ALPHABET.length)]
+  return result
+}
 
 function bytesToBigInt(bytes: Uint8Array): bigint {
   let v = 0n
@@ -203,6 +310,27 @@ function generateUlid(): string {
     ulidLastRand = bytesToBigInt(randomBytes(10))
   }
   return encodeBase32(BigInt(ulidLastTs), 10) + encodeBase32(ulidLastRand, 16)
+}
+
+const KSUID_EPOCH = 1_400_000_000
+const KSUID_BASE62 = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+
+function encodeKsuidBase62(value: bigint): string {
+  let result = ''
+  while (value > 0n) { result = KSUID_BASE62[Number(value % 62n)]! + result; value /= 62n }
+  return result.padStart(27, '0')
+}
+
+function generateKsuid(): string {
+  const bytes = new Uint8Array(20)
+  const timestamp = Math.floor(Date.now() / 1000) - KSUID_EPOCH
+  if (timestamp < 0 || timestamp > 0xffff_ffff) throw new Error('gen.errors.ksuidTime')
+  bytes[0] = (timestamp >>> 24) & 255
+  bytes[1] = (timestamp >>> 16) & 255
+  bytes[2] = (timestamp >>> 8) & 255
+  bytes[3] = timestamp & 255
+  bytes.set(randomBytes(16), 4)
+  return encodeKsuidBase62(bytesToBigInt(bytes))
 }
 
 /* ------------------------------------------------------------------ */
@@ -287,6 +415,24 @@ function uuidNameBased(opts: GeneratorOptions, version: 3 | 5): string {
   b[6] = (b[6]! & 0x0f) | (version << 4)
   b[8] = (b[8]! & 0x3f) | 0x80
   return uuidBytesToStr(b)
+}
+
+function base64Url(bytes: Uint8Array): string {
+  return bytesToBase64(bytes).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '')
+}
+
+async function generateJwtHs256(opts: GeneratorOptions): Promise<string> {
+  const secret = opts.secret.trim()
+  if (!secret) throw new Error('gen.errors.noSecret')
+  let payload: unknown
+  try { payload = JSON.parse(opts.payload || '{}') } catch { throw new Error('gen.errors.badPayload') }
+  const header = { alg: 'HS256', typ: 'JWT' }
+  const encodedHeader = base64Url(enc.encode(JSON.stringify(header)))
+  const encodedPayload = base64Url(enc.encode(JSON.stringify(payload)))
+  const signingInput = `${encodedHeader}.${encodedPayload}`
+  const key = await crypto.subtle.importKey('raw', enc.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign'])
+  const signature = new Uint8Array(await crypto.subtle.sign('HMAC', key, enc.encode(signingInput)))
+  return `${signingInput}.${base64Url(signature)}`
 }
 
 /* ------------------------------------------------------------------ */
@@ -398,6 +544,145 @@ export const GENERATORS: GeneratorDef[] = [
     }
   },
   {
+    id: 'nanoid',
+    icon: 'i-lucide-fingerprint',
+    controls: {
+      length: { labelKey: 'gen.controls.length', min: 8, max: 64 }
+    },
+    generate(opts) {
+      return generateNanoid(opts.length)
+    },
+    entropyBits(opts) {
+      return Math.round(opts.length * Math.log2(64))
+    }
+  },
+  {
+    id: 'password-analyze',
+    icon: 'i-lucide-shield-check',
+    controls: { password: true },
+    generate(opts) {
+      if (!opts.password) throw new Error('gen.errors.noPassword')
+      return passwordAnalysisText(opts.password)
+    },
+    generateL(opts, t) {
+      if (!opts.password) throw new Error('gen.errors.noPassword')
+      return passwordAnalysis(opts.password, t)
+    },
+    entropyBits() {
+      return null
+    }
+  },
+  {
+    id: 'lorem',
+    icon: 'i-lucide-align-left',
+    controls: {
+      length: { labelKey: 'gen.controls.items', min: 1, max: 10 }
+    },
+    generate(opts) {
+      return generateLorem(opts)
+    },
+    entropyBits() {
+      return null
+    }
+  },
+  {
+    id: 'fake-data',
+    icon: 'i-lucide-contact-round',
+    controls: {
+      length: { labelKey: 'gen.controls.items', min: 1, max: 20 }
+    },
+    generate(opts) {
+      return generateFakeData(opts)
+    },
+    entropyBits() {
+      return null
+    }
+  },
+  {
+    id: 'jwt-sign',
+    icon: 'i-lucide-key-round',
+    controls: {
+      secret: true,
+      payload: true
+    },
+    generate(opts) {
+      return generateJwtHs256(opts)
+    },
+    entropyBits() {
+      return null
+    }
+  },
+  {
+    id: 'dice',
+    icon: 'i-lucide-dices',
+    controls: {
+      length: { labelKey: 'gen.controls.rolls', min: 1, max: 20 }
+    },
+    generate(opts) {
+      return generateDice(opts)
+    },
+    entropyBits() {
+      return null
+    }
+  },
+  {
+    id: 'coin',
+    icon: 'i-lucide-circle-dollar-sign',
+    controls: {
+      length: { labelKey: 'gen.controls.flips', min: 1, max: 20 }
+    },
+    generate(opts) {
+      return generateCoin(opts)
+    },
+    generateL(opts, t) {
+      return generateCoin(opts).split(', ').map((side) => t(`gen.coin.${side}`)).join(', ')
+    },
+    entropyBits() {
+      return null
+    }
+  },
+  {
+    id: 'random-choice',
+    icon: 'i-lucide-list-checks',
+    controls: {
+      choices: true
+    },
+    generate(opts) {
+      return generateRandomChoice(opts)
+    },
+    entropyBits(opts) {
+      const count = opts.choices.split(/\r?\n/).map((choice) => choice.trim()).filter(Boolean).length
+      return count > 1 ? Math.log2(count) : null
+    }
+  },
+  {
+    id: 'snowflake',
+    icon: 'i-lucide-snowflake',
+    controls: {
+      snowflakeEpoch: true
+    },
+    generate(opts) {
+      return generateSnowflake(opts)
+    },
+    entropyBits() {
+      return 22
+    }
+  },
+  {
+    id: 'snowflake-decode',
+    icon: 'i-lucide-clock-3',
+    controls: {
+      input: true,
+      snowflakeEpoch: true
+    },
+    generate(opts) {
+      return decodeSnowflake(opts)
+    },
+    entropyBits() {
+      return null
+    }
+  },
+  {
     id: 'uuid-v1',
     icon: 'i-lucide-id-card',
     controls: {},
@@ -505,6 +790,17 @@ export const GENERATORS: GeneratorDef[] = [
     },
     entropyBits() {
       return 80 // 80 бит случайности (48 бит таймстампа — не энтропия)
+    }
+  },
+  {
+    id: 'ksuid',
+    icon: 'i-lucide-timer',
+    controls: {},
+    generate() {
+      return generateKsuid()
+    },
+    entropyBits() {
+      return 128
     }
   },
   {

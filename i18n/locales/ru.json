@@ -58,6 +58,7 @@
     "tabArchive": "Архивы",
     "tabGenerator": "Генератор",
     "tabQr": "QR",
+    "tabTotp": "2FA",
     "selectPlaceholder": "Выбери преобразование…",
     "swap": "Обратное преобразование",
     "inputLabel": "Вход",
@@ -75,6 +76,11 @@
       "decodeTitle": "QR → Текст",
       "textLabel": "Текст для QR-кода",
       "textPlaceholder": "Введи что угодно: ссылку, заметку…",
+      "wifiTitle": "Билдер WiFi QR",
+      "wifiSsid": "Имя сети (SSID)",
+      "wifiPassword": "Пароль",
+      "wifiHidden": "Скрытая сеть",
+      "wifiBuild": "Подставить WiFi-данные",
       "noText": "Сначала введи текст",
       "generate": "Сгенерировать",
       "decode": "Декодировать",
@@ -108,7 +114,7 @@
       "drop": "Перетащи картинку",
       "dropActive": "Отпускай!",
       "dropOr": " или нажми, чтобы выбрать",
-      "formatsHint": "PNG · JPEG · WebP · GIF · SVG · BMP · AVIF · HEIC · TIFF · ICO"
+      "formatsHint": "PNG · JPEG · WebP · GIF · SVG · BMP · PPM · PGM · PBM · PAM · XBM · WBMP · TGA · PCX · CUR · AVIF · HEIC · TIFF · ICO"
     },
     "audio": {
       "drop": "Перетащи аудиофайл",
@@ -118,8 +124,9 @@
     },
     "archive": {
       "drop": "Перетащите ZIP-архив",
-      "formatsHint": "поддерживает .zip · .tar · .tar.gz / .tgz · .gz · .br",
-      "footer": "Архивы распаковываются в браузере: ZIP и GZIP — через fflate, TAR — собственным парсером, Brotli — нативным DecompressionStream (Chrome 80+, Safari 16.4+). Ничего не загружается на сервер. Нажмите ↓ на любом файле, чтобы скачать его по отдельности.",
+      "formatsHint": "поддерживает .zip · .tar · .tar.gz / .tgz · .gz · .br · .lzma / .tar.lz · .bz2 / .tar.bz2 · .zst / .tar.zst · .xz / .tar.xz · .cab · .cpio · .a / .ar / .deb · .Z · .iso · .xar",
+      "localOnly": "Всё обрабатывается локально в браузере. Ограничений приложения по размеру и числу файлов нет, но большие архивы могут занять много памяти браузера.",
+      "footer": "Архивы распаковываются в браузере: ZIP и GZIP — через fflate, TAR — собственным парсером, LZMA и BZIP2 — чистыми JS-декодерами, Zstandard и XZ — через WASM-модули, Brotli — нативным DecompressionStream. Ничего не загружается на сервер. Нажмите ↓ на любом файле, чтобы скачать его по отдельности.",
       "entries": "нет файлов | один файл | {count} файла | {count} файлов",
       "colFile": "Файл",
       "colSize": "Размер",
@@ -146,11 +153,103 @@
     "snake": { "from": "Текст", "to": "snake_case", "description": "snake_case" },
     "kebab": { "from": "Текст", "to": "kebab-case", "description": "kebab-case" },
     "base64-encode": { "from": "Текст", "to": "Base64", "description": "Закодировать в Base64" },
-    "base64-decode": { "from": "Base64", "to": "Текст", "description": "Декодировать из Base64" },
+    "base64-decode": { "from": "Base64", "to": "Текст", "description": "Декодировать из Base64" },    "base32-encode": { "from": "Текст", "to": "Base32", "description": "Закодировать в Base32 RFC 4648" },
+    "base32-decode": { "from": "Base32", "to": "Текст", "description": "Декодировать из Base32" },
+    "base36-encode": { "from": "Текст", "to": "Base36", "description": "Закодировать UTF-8-байты в Base36" },
+    "base36-decode": { "from": "Base36", "to": "Текст", "description": "Декодировать из Base36" },
+    "base62-encode": { "from": "Текст", "to": "Base62", "description": "Закодировать UTF-8-байты в Base62" },
+    "base62-decode": { "from": "Base62", "to": "Текст", "description": "Декодировать из Base62" },
+    "ascii85-encode": { "from": "Текст", "to": "Ascii85", "description": "Закодировать в Ascii85" },
+    "ascii85-decode": { "from": "Ascii85", "to": "Текст", "description": "Декодировать из Ascii85" },
     "hex-encode": { "from": "Текст", "to": "Hex", "description": "Закодировать в шестнадцатеричный вид" },
     "hex-decode": { "from": "Hex", "to": "Текст", "description": "Декодировать из hex" },
+    "ihex-decode": { "from": "Intel HEX", "to": "байты Base64", "description": "Декодировать Intel HEX с проверкой checksum" },
+    "ihex-encode": { "from": "байты Base64", "to": "Intel HEX", "description": "Закодировать байты в записи Intel HEX" },
     "url-encode": { "from": "URL", "to": "закодированный URL", "description": "URL-encode (для query-параметров)" },
     "url-decode": { "from": "закодированный URL", "to": "URL", "description": "URL-decode" },
+    "idn-encode": { "from": "Unicode-домен", "to": "Punycode / IDN", "description": "Преобразовать интернациональный домен в Punycode" },
+    "idn-decode": { "from": "Punycode / IDN", "to": "Unicode-домен", "description": "Преобразовать Punycode в читаемый домен" },
+    "quoted-printable-encode": { "from": "Текст", "to": "Quoted-Printable", "description": "Закодировать MIME Quoted-Printable" },
+    "quoted-printable-decode": { "from": "Quoted-Printable", "to": "Текст", "description": "Декодировать MIME Quoted-Printable" },
+    "uuencode": { "from": "Текст", "to": "Uuencode", "description": "Закодировать классическим uuencode" },
+    "uudecode": { "from": "Uuencode", "to": "Текст", "description": "Декодировать классический uuencode" },
+    "morse-encode": { "from": "Текст", "to": "Морзе", "description": "Закодировать текст азбукой Морзе" },
+    "morse-decode": { "from": "Морзе", "to": "Текст", "description": "Декодировать азбуку Морзе" },
+    "rot47": { "from": "Текст", "to": "ROT47", "description": "Сдвинуть печатный ASCII на 47" },
+    "atbash": { "from": "Текст", "to": "Атбаш", "description": "Отразить латинский и кириллический алфавиты" },
+    "caesar-encode": { "from": "Текст", "to": "Цезарь +3", "description": "Сдвинуть латинские буквы на три" },
+    "caesar-decode": { "from": "Цезарь +3", "to": "Текст", "description": "Отменить сдвиг Цезаря на три буквы" },
+    "xor-encode": { "from": "Ключ + текст", "to": "XOR hex", "description": "XOR UTF-8-текста с ключом; ввод: ключ, новая строка, текст" },
+    "xor-decode": { "from": "Ключ + XOR hex", "to": "Текст", "description": "Декодировать XOR hex; ввод: ключ, новая строка, hex" },
+    "a1z26-encode": { "from": "Текст", "to": "A1Z26", "description": "Преобразовать A–Z в числа 1–26" },
+    "a1z26-decode": { "from": "A1Z26", "to": "Текст", "description": "Преобразовать числа 1–26 обратно в буквы" },
+    "bacon-encode": { "from": "Текст", "to": "Шифр Бэкона", "description": "Закодировать буквы группами a и b" },
+    "bacon-decode": { "from": "Шифр Бэкона", "to": "Текст", "description": "Декодировать группы a и b" },
+    "tap-code-encode": { "from": "Текст", "to": "Тап-код", "description": "Закодировать буквы парами строка-столбец" },
+    "tap-code-decode": { "from": "Тап-код", "to": "Текст", "description": "Декодировать пары тап-кода" },
+    "strip-diacritics": { "from": "Текст", "to": "Текст без диакритики", "description": "Удалить комбинируемые диакритические знаки" },
+    "unfuck-paste": { "from": "Грязная вставка", "to": "Чистый текст", "description": "Удалить невидимые символы и нормализовать типографику" },
+    "unix-to-iso": { "from": "Unix timestamp", "to": "ISO 8601", "description": "Используй s:/ms: и необязательный local:; по умолчанию UTC" },
+    "iso-to-unix": { "from": "ISO 8601", "to": "Unix timestamp", "description": "Используй s:/ms: и необязательный local:; по умолчанию секунды" },
+    "mac-to-colon": { "from": "MAC-адрес", "to": "aa:bb:cc:dd:ee:ff", "description": "Оформить MAC-адрес через двоеточия" },
+    "mac-to-dash": { "from": "MAC-адрес", "to": "aa-bb-cc-dd-ee-ff", "description": "Оформить MAC-адрес через дефисы" },
+    "mac-to-cisco": { "from": "MAC-адрес", "to": "aabb.ccdd.eeff", "description": "Оформить MAC-адрес в формате Cisco" },
+    "mac-to-plain": { "from": "MAC-адрес", "to": "aabbccddeeff", "description": "Убрать разделители MAC-адреса" },
+    "hjson-to-json": { "from": "HJSON", "to": "JSON", "description": "Разобрать человекочитаемый JSON с комментариями и ключами без кавычек" },
+    "json-to-hjson": { "from": "JSON", "to": "HJSON", "description": "Отформатировать JSON как человекочитаемый конфиг" },
+    "bbcode-to-html": { "from": "BBCode", "to": "HTML", "description": "Преобразовать форумный BBCode в безопасный HTML" },
+    "csv-to-markdown": { "from": "CSV", "to": "Markdown-таблица", "description": "Преобразовать строки CSV в Markdown-таблицу" },
+    "tsv-to-markdown": { "from": "TSV", "to": "Markdown-таблица", "description": "Преобразовать строки TSV в Markdown-таблицу" },
+    "properties-to-json": { "from": "Java properties", "to": "JSON", "description": "Разобрать Java properties с комментариями и escape-последовательностями" },
+    "json-to-properties": { "from": "JSON", "to": "Java properties", "description": "Записать JSON в Java properties" },
+    "env-to-json": { "from": ".env", "to": "JSON", "description": "Преобразовать переменные окружения в JSON" },
+    "json-to-env": { "from": "JSON", "to": ".env", "description": "Записать JSON в env-файл" },
+    "stego-encode": { "from": "Носитель + секрет", "to": "Текст с zero-width", "description": "Спрятать UTF-8-текст в невидимых символах; ввод: носитель, новая строка, ---, секрет" },
+    "stego-decode": { "from": "Текст с zero-width", "to": "Секрет", "description": "Извлечь строгий UWC-payload из невидимых символов" },
+    "sort-lines": { "from": "Строки", "to": "Отсортированные строки", "description": "Отсортировать строки по алфавиту" },
+    "dedupe-lines": { "from": "Строки", "to": "Уникальные строки", "description": "Удалить повторы, сохранив порядок" },
+    "shuffle-lines": { "from": "Строки", "to": "Перемешанные строки", "description": "Перемешать строки криптографической случайностью" },
+    "number-lines": { "from": "Строки", "to": "Нумерованные строки", "description": "Добавить номера строк с единицы" },
+    "wrap-text": { "from": "Ширина + текст", "to": "Переносы", "description": "Перенести слова; ввод: ширина, новая строка, текст" },
+    "number-base-convert": { "from": "Система + число", "to": "Число", "description": "Перевести системы 2–36; ввод: fromBase:toBase, новая строка, число" },
+    "iso-duration-to-seconds": { "from": "ISO 8601 duration", "to": "Секунды", "description": "Преобразовать длительность PT1H30M в секунды" },
+    "seconds-to-iso-duration": { "from": "Секунды", "to": "ISO 8601 duration", "description": "Преобразовать секунды в длительность PT..." },
+    "hex-to-rgb": { "from": "HEX", "to": "RGB", "description": "Преобразовать hex-цвет в CSS rgb()" },
+    "rgb-to-hex": { "from": "RGB", "to": "HEX", "description": "Преобразовать CSS rgb() в hex-цвет" },
+    "rgb-to-hsl": { "from": "RGB", "to": "HSL", "description": "Преобразовать RGB в CSS hsl()" },
+    "hsl-to-rgb": { "from": "HSL", "to": "RGB", "description": "Преобразовать CSS hsl() в RGB" },
+    "hex-to-hsl": { "from": "HEX", "to": "HSL", "description": "Преобразовать hex-цвет в CSS hsl()" },
+    "hsl-to-hex": { "from": "HSL", "to": "HEX", "description": "Преобразовать CSS hsl() в hex-цвет" },
+    "roman-to-arabic": { "from": "Римские числа", "to": "Арабское число", "description": "Преобразовать канонические римские числа от I до MMMCMXCIX" },
+    "arabic-to-roman": { "from": "Арабское число", "to": "Римские числа", "description": "Преобразовать целые числа от 1 до 3999 в римские" },
+    "jwt-decode": { "from": "JWT", "to": "JSON", "description": "Декодировать header и payload JWT без проверки подписи" },
+    "glob-to-regex": { "from": "Glob", "to": "Регулярное выражение", "description": "Преобразовать glob *, ?, ** в regex" },
+    "regex-to-glob": { "from": "Регулярное выражение", "to": "Glob", "description": "Преобразовать базовый regex с якорями в glob" },
+    "c-escape-encode": { "from": "Текст", "to": "C escapes", "description": "Экранировать текст для C-строки" },
+    "c-escape-decode": { "from": "C escapes", "to": "Текст", "description": "Декодировать C-style escape-последовательности" },
+    "shell-quote": { "from": "Аргументы", "to": "Shell-команда", "description": "Ввод: shell, новая строка, по одному аргументу в строке" },
+    "argv-split": { "from": "Shell-команда", "to": "Аргументы", "description": "Разбить командную строку на аргументы" },
+    "windows-to-posix": { "from": "Windows-путь", "to": "POSIX-путь", "description": "Преобразовать C:\\-пути в /c/-пути" },
+    "posix-to-windows": { "from": "POSIX-путь", "to": "Windows-путь", "description": "Преобразовать /c/-пути в C:\\-пути" },
+    "json-to-typescript": { "from": "JSON", "to": "TypeScript-интерфейсы", "description": "Сгенерировать рекурсивные TypeScript-интерфейсы из JSON" },
+    "zalgo-add": { "from": "Текст", "to": "Zalgo", "description": "Наложить combining-марки на каждый непробельный символ" },
+    "zalgo-remove": { "from": "Zalgo", "to": "Чистый текст", "description": "Удалить все Unicode combining-марки" },
+    "slugify": { "from": "Текст", "to": "Slug", "description": "Транслитерировать, привести к lowercase и соединить дефисами" },
+    "luhn-check": { "from": "Номер карты", "to": "Результат Luhn", "description": "Проверить число алгоритмом Луна" },
+    "inn-check": { "from": "ИНН РФ", "to": "Результат ИНН", "description": "Проверить 10- или 12-значный российский ИНН" },
+    "isbn-check": { "from": "ISBN", "to": "Результат ISBN", "description": "Проверить ISBN-10 или ISBN-13" },
+    "ean-upc-check": { "from": "EAN / UPC", "to": "Результат штрихкода", "description": "Проверить EAN-13 или UPC-A" },
+    "crc32": { "from": "Текст", "to": "CRC32", "description": "Посчитать контрольную сумму CRC-32" },
+    "iban-format": { "from": "IBAN", "to": "IBAN с пробелами", "description": "Нормализовать IBAN и разбить на группы по четыре символа" },
+    "iban-validate": { "from": "IBAN", "to": "Результат IBAN", "description": "Проверить длину страны и контрольную сумму MOD-97" },
+    "chmod-to-symbolic": { "from": "Цифры chmod", "to": "rwx-права", "description": "Преобразовать права 755 в rwxr-xr-x" },
+    "symbolic-to-chmod": { "from": "rwx-права", "to": "Цифры chmod", "description": "Преобразовать rwxr-xr-x в права 755" },
+    "ebcdic-encode": { "from": "ASCII-текст", "to": "EBCDIC hex", "description": "Закодировать байтами IBM CP037 EBCDIC" },
+    "ebcdic-decode": { "from": "EBCDIC hex", "to": "ASCII-текст", "description": "Декодировать байты IBM CP037 EBCDIC" },
+    "baudot-encode": { "from": "Текст", "to": "Baudot / ITA2", "description": "Закодировать 5-битными кодами RTTY Baudot" },
+    "baudot-decode": { "from": "Baudot / ITA2", "to": "Текст", "description": "Декодировать 5-битные коды RTTY Baudot" },
+    "fullwidth-to-halfwidth": { "from": "Full-width", "to": "Half-width", "description": "Преобразовать японские полноширинные символы в полуширинные" },
+    "halfwidth-to-fullwidth": { "from": "Half-width", "to": "Full-width", "description": "Преобразовать японские полуширинные символы в полноширинные" },
     "html-escape": { "from": "Текст", "to": "HTML-escape", "description": "Экранировать HTML-спецсимволы" },
     "json-pretty": { "from": "JSON", "to": "JSON (pretty)", "description": "Отформатировать JSON с отступами" },
     "json-minify": { "from": "JSON (pretty)", "to": "JSON (min)", "description": "Сжать JSON в одну строку" },
@@ -230,7 +329,35 @@
   },
 
   "errors": {
+    "badJwt": "Некорректный JWT: нужны три JSON base64url-части",
+    "badGlob": "Неподдерживаемый или некорректный glob/regex",
+    "badShell": "Незакрытая кавычка или escape в shell-команде",
+    "badRoman": "Некорректное римское или арабское число; допустим диапазон 1–3999",
+    "badColor": "Некорректный цвет HEX, RGB или HSL",
+    "badWrap": "Для переноса нужны ширина, новая строка и текст",
+    "badBase": "Некорректный ввод для перевода системы счисления",
+    "badDuration": "Некорректная ISO 8601 duration или число секунд",
+    "badStegoFormat": "Формат стеганографии: носитель, новая строка, ---, новая строка, секрет",
+    "badStego": "Корректный UWC zero-width payload не найден",
+    "badProperties": "Некорректный Java properties",
+    "badEnv": "Некорректный .env",
+    "badJson": "Некорректный JSON",
+    "badHjson": "Некорректный HJSON",
+    "badMac": "Некорректный MAC-адрес: нужны 12 hex-цифр",
+    "badTimestamp": "Некорректный Unix timestamp или дата ISO 8601",
+    "badEbcdic": "Некорректный hex EBCDIC CP037 или неподдерживаемый байт",
+    "badBaudot": "Некорректный код Baudot / ITA2 или неподдерживаемый символ",
+    "badXor": "Для XOR нужны непустой ключ, новая строка и данные",
+    "badA1z26": "Некорректный ввод A1Z26",
+    "badBacon": "Некорректный ввод шифра Бэкона",
+    "badTapCode": "Некорректный ввод тап-кода",
     "badHex": "Некорректная hex-строка",
+    "badBase32": "Некорректная Base32-строка",
+    "badBase36": "Некорректная Base36-строка",
+    "badBase62": "Некорректная Base62-строка",
+    "badAscii85": "Некорректная Ascii85-строка",
+    "badIban": "Некорректный формат IBAN",
+    "badChmod": "Некорректные права chmod: нужны три восьмеричные цифры или rwxrwxrwx",
     "badJsonp": "Некорректный JSONP — ожидается callback(data)",
     "tooLarge": "Файл слишком большой",
     "noInput": "Укажите from, to и текст или файл",
@@ -254,6 +381,21 @@
     "badBrotli": "Некорректный Brotli-файл",
     "noBrotli": "Ваш браузер не поддерживает распаковку Brotli (Chrome 80+, Safari 16.4+, Firefox 147+)",
     "badArchive": "Неподдерживаемый формат архива"
+    ,"badLzma": "Некорректный LZMA-архив"
+    ,"badBzip2": "Некорректный BZIP2-архив"
+    ,"badZstd": "Некорректный Zstandard-архив"
+    ,"badXz": "Некорректный XZ-архив"
+    ,"badCab": "Некорректный CAB-архив"
+    ,"unsupportedCabCompression": "Этот CAB использует неподдерживаемое сжатие (LZX или Quantum)"
+    ,"badCpio": "Некорректный CPIO-архив"
+    ,"badAr": "Некорректный AR-архив"
+    ,"badCompress": "Некорректный Unix compress-архив"
+    ,"badIso": "Некорректный ISO9660-образ"
+    ,"badXar": "Некорректный XAR-архив"
+    ,"badIhex": "Некорректный Intel HEX-файл"
+    ,"badPartitionTable": "Некорректная таблица разделов GPT/MBR"
+    ,"archiveTooLarge": "Архив превышает лимит 500 МБ в распакованном виде"
+    ,"archiveTooManyEntries": "Архив превышает лимит в 10 000 файлов"
   },
 
   "cats": {
@@ -281,6 +423,26 @@
       "title": "«Бесполезное»",
       "description": "Транслит, ROT13, leet, статистика текста. Бесполезно — и именно поэтому полезно."
     }
+  },
+
+  "passwordAnalysis": {
+    "length": "Длина",
+    "charset": "Оценка алфавита",
+    "entropy": "Энтропия",
+    "patterns": "Паттерны",
+    "none": "нет",
+    "patternCommon": "распространённый пароль",
+    "patternRepeat": "повторяющиеся символы",
+    "patternSequence": "последовательность или клавиатурный шаблон",
+    "verdict": "Оценка",
+    "weak": "слабый",
+    "medium": "средний",
+    "strong": "сильный"
+  },
+
+  "checksums": {
+    "valid": "Корректно",
+    "invalid": "Некорректно"
   },
 
   "formatNames": {
@@ -357,6 +519,27 @@
     "plus": "UWC+"
   },
 
+  "totp": {
+    "title": "TOTP / HOTP",
+    "subtitle": "Живой код 2FA и билдер otpauth:// — всё локально",
+    "secret": "Секрет Base32",
+    "issuer": "Сервис",
+    "account": "Аккаунт",
+    "period": "Период (секунды)",
+    "counter": "Счётчик",
+    "code": "Текущий код",
+    "expiresIn": "Обновится через {seconds} с",
+    "next": "Следующий код",
+    "uri": "URI otpauth://",
+    "copy": "Копировать URI",
+    "localNote": "Секрет не покидает браузер.",
+    "modes": { "totp": "TOTP (по времени)", "hotp": "HOTP (по счётчику)" },
+    "errors": {
+      "badSecret": "Секрет должен быть Base32: только A–Z и 2–7",
+      "badCounter": "Счётчик должен быть неотрицательным безопасным целым числом"
+    }
+  },
+
   "counter": {
     "one": "символ",
     "few": "символа",
@@ -389,7 +572,18 @@
       "prefix": "Префикс",
       "range": "Диапазон",
       "namespace": "Namespace",
-      "name": "Имя"
+      "name": "Имя",
+      "password": "Пароль для анализа"
+      ,"items": "Количество"
+      ,"secret": "Секрет подписи"
+      ,"payload": "JSON payload"
+      ,"rolls": "Бросков"
+      ,"flips": "Подбрасываний"
+      ,"choices": "Варианты"
+      ,"choicesPlaceholder": "Один вариант на строку"
+      ,"input": "Snowflake ID"
+      ,"epoch": "Эпоха"
+      ,"snowflakePlaceholder": "Введи Snowflake ID"
     },
     "namespaces": {
       "dns": "DNS",
@@ -404,13 +598,28 @@
       "symbols": "!{'@'}#$%",
       "noAmbiguous": "без похожих (0O1lI)"
     },
+    "coin": {
+      "heads": "Орёл",
+      "tails": "Решка"
+    },
+    "epochs": {
+      "twitter": "Twitter (2010)",
+      "discord": "Discord (2015)"
+    },
     "errors": {
       "noSets": "Выбери хотя бы один набор символов",
       "emptySets": "После исключения похожих символов наборы пусты",
       "badRange": "Некорректный диапазон",
       "nanRange": "Укажи границы диапазона",
       "rangeTooBig": "Диапазон должен быть от 1 до 4 294 967 296 значений",
-      "noName": "Введи имя для name-based UUID"
+      "noName": "Введи имя для name-based UUID",
+      "noPassword": "Введи пароль для анализа"
+      ,"noSecret": "Введи секрет подписи"
+      ,"badPayload": "Payload должен быть корректным JSON"
+      ,"noChoices": "Введи хотя бы один вариант"
+      ,"badSnowflake": "Некорректный Snowflake ID"
+      ,"snowflakeTime": "Текущее время вне диапазона таймстампа Snowflake"
+      ,"ksuidTime": "Текущее время вне диапазона таймстампа KSUID"
     },
     "defs": {
       "password": {
@@ -432,6 +641,50 @@
       "apikey": {
         "label": "API-ключ",
         "description": "Ключ с префиксом: uwc_… / sk-… — формат как у GitHub/OpenAI"
+      },
+      "nanoid": {
+        "label": "NanoID",
+        "description": "Компактный URL-safe случайный ID со стандартным алфавитом из 64 символов"
+      },
+      "password-analyze": {
+        "label": "Анализатор пароля",
+        "description": "Оценить энтропию и найти распространённые паттерны, не показывая пароль"
+      },
+      "lorem": {
+        "label": "Lorem ipsum",
+        "description": "Сгенерировать лёгкие тестовые абзацы на языке интерфейса"
+      },
+      "fake-data": {
+        "label": "Тестовые имена и email",
+        "description": "Сгенерировать минимальные синтетические имена и адреса example.com"
+      },
+      "jwt-sign": {
+        "label": "JWT signer HS256",
+        "description": "Подписать JSON payload через HMAC-SHA-256 прямо в браузере"
+      },
+      "dice": {
+        "label": "Кубик",
+        "description": "Бросить один или несколько криптографически случайных шестигранных кубиков"
+      },
+      "coin": {
+        "label": "Монетка",
+        "description": "Криптографически случайное подбрасывание монетки"
+      },
+      "random-choice": {
+        "label": "Случайный выбор",
+        "description": "Выбрать один пункт из списка по одному на строку"
+      },
+      "snowflake": {
+        "label": "Snowflake ID",
+        "description": "Сгенерировать 64-битный ID в формате Twitter или Discord"
+      },
+      "snowflake-decode": {
+        "label": "Декодер Snowflake",
+        "description": "Извлечь время, worker и sequence из Snowflake ID"
+      },
+      "ksuid": {
+        "label": "KSUID",
+        "description": "Сортируемый 27-символьный ID: 32-битный таймстамп с 13.05.2014 + 128 бит случайности"
       },
       "uuid-v1": {
         "label": "UUID v1",

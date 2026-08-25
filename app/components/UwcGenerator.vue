@@ -18,13 +18,24 @@ const opts = reactive<GeneratorOptions>({
   max: 1_000_000,
   name: 'uwc.example',
   namespace: 'dns',
-  lang: locale.value.startsWith('ru') ? 'ru' : 'en'
+  lang: locale.value.startsWith('ru') ? 'ru' : 'en',
+  password: '',
+  secret: 'change-me',
+  payload: '{"sub":"demo"}',
+  choices: 'Pizza\nSushi\nTacos',
+  input: '',
+  snowflakeEpoch: 'twitter'
 })
 
 const namespaceItems = (Object.keys(UUID_NAMESPACES) as (keyof typeof UUID_NAMESPACES)[]).map((key) => ({
   label: t(`gen.namespaces.${key}`),
   value: key
 }))
+
+const snowflakeEpochItems = [
+  { label: t('gen.epochs.twitter'), value: 'twitter' },
+  { label: t('gen.epochs.discord'), value: 'discord' }
+]
 
 const result = ref('')
 const genError = ref('')
@@ -53,12 +64,12 @@ const entropy = computed(() => {
   } as const
 })
 
-function regenerate() {
+async function regenerate() {
   if (!mounted.value || !gen.value)
     return
   genError.value = ''
   try {
-    result.value = gen.value.generate({ ...opts })
+    result.value = await (gen.value.generateL ? gen.value.generateL({ ...opts }, t) : gen.value.generate({ ...opts }))
   }
   catch (e) {
     result.value = ''
@@ -191,6 +202,36 @@ function downloadResult() {
         <UInputNumber v-model="opts.min" size="sm" class="w-36" />
         <span class="text-[var(--ui-text-dimmed)]">…</span>
         <UInputNumber v-model="opts.max" size="sm" class="w-36" />
+      </div>
+
+      <div v-if="gen?.controls.password" class="flex items-center gap-3">
+        <span class="w-24 shrink-0 text-xs font-medium uppercase tracking-wider text-[var(--ui-text-muted)]">{{ t('gen.controls.password') }}</span>
+        <UInput v-model="opts.password" type="password" size="sm" class="w-64" />
+      </div>
+
+      <div v-if="gen?.controls.secret" class="flex items-center gap-3">
+        <span class="w-24 shrink-0 text-xs font-medium uppercase tracking-wider text-[var(--ui-text-muted)]">{{ t('gen.controls.secret') }}</span>
+        <UInput v-model="opts.secret" type="password" size="sm" class="w-64" />
+      </div>
+
+      <div v-if="gen?.controls.payload" class="flex items-start gap-3">
+        <span class="w-24 shrink-0 pt-2 text-xs font-medium uppercase tracking-wider text-[var(--ui-text-muted)]">{{ t('gen.controls.payload') }}</span>
+        <UTextarea v-model="opts.payload" :rows="4" size="sm" class="w-full max-w-xl font-mono" />
+      </div>
+
+      <div v-if="gen?.controls.choices" class="flex items-start gap-3">
+        <span class="w-24 shrink-0 pt-2 text-xs font-medium uppercase tracking-wider text-[var(--ui-text-muted)]">{{ t('gen.controls.choices') }}</span>
+        <UTextarea v-model="opts.choices" :rows="4" :placeholder="t('gen.controls.choicesPlaceholder')" size="sm" class="w-full max-w-xl" />
+      </div>
+
+      <div v-if="gen?.controls.input" class="flex items-center gap-3">
+        <span class="w-24 shrink-0 text-xs font-medium uppercase tracking-wider text-[var(--ui-text-muted)]">{{ t('gen.controls.input') }}</span>
+        <UInput v-model="opts.input" :placeholder="t('gen.controls.snowflakePlaceholder')" size="sm" class="w-full max-w-xl font-mono" />
+      </div>
+
+      <div v-if="gen?.controls.snowflakeEpoch" class="flex items-center gap-3">
+        <span class="w-24 shrink-0 text-xs font-medium uppercase tracking-wider text-[var(--ui-text-muted)]">{{ t('gen.controls.epoch') }}</span>
+        <USelect v-model="opts.snowflakeEpoch" :items="snowflakeEpochItems" size="sm" class="w-48" />
       </div>
 
       <!-- namespace для name-based UUID -->
